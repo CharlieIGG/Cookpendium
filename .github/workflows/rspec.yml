@@ -27,17 +27,20 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2.2
+          ruby-version: 3.0.0
 
       - name: Install Dependencies
         run: |
           gem install bundler
           bundle install
 
+      - name: Wait for PostgreSQL to be ready
+        run: dockerize -wait tcp://localhost:5432 -timeout 1m
+
       - name: Set up Database
         run: |
-          bundle exec rails db:create
-          bundle exec rails db:migrate
+          RAILS_ENV=test bundle exec rails db:create
+          RAILS_ENV=test bundle exec rails db:migrate
 
       - name: Run RSpec Tests
         run: bundle exec rspec
