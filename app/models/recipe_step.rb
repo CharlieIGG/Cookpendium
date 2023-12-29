@@ -7,4 +7,6 @@ class RecipeStep < ApplicationRecord
   has_many :ingredients, through: :recipe_step_ingredients
 
   translates :instruction
+
+  validates :instruction, presence: true
 end

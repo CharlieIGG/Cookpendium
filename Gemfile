@@ -1,10 +1,11 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
+source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.2"
+ruby '3.2.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.4", ">= 7.0.4.3"
+gem 'rails', "~> 7.0.4", ">= 7.0.4.3"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -58,6 +59,14 @@ group :development, :test do
   gem "standard"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
+  gem "factory_bot_rails", "~> 6.2.0"
+  gem "rspec-rails", "~> 6.1.0"
+  gem "shoulda-matchers", "~> 6.0.0"
+end
+
+group :test do
+  gem "faker", "~> 3.2"
+  gem "rspec-watcher"
 end
 
 group :development do
