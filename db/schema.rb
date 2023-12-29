@@ -41,8 +41,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_29_184707) do
 
   create_table "recipe_steps", force: :cascade do |t|
     t.integer "step_number"
+    t.bigint "recipe_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_recipe_steps_on_recipe_id"
   end
 
   create_table "recipe_translations", force: :cascade do |t|
@@ -61,4 +63,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_29_184707) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "recipe_steps", "recipes"
 end
