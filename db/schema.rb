@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_29_165721) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_29_184348) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "ingredient_translations", force: :cascade do |t|
+    t.bigint "ingredient_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name", null: false
+    t.index ["ingredient_id"], name: "index_ingredient_translations_on_ingredient_id"
+    t.index ["locale"], name: "index_ingredient_translations_on_locale"
+  end
+
+  create_table "ingredients", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "recipe_translations", force: :cascade do |t|
     t.bigint "recipe_id", null: false
