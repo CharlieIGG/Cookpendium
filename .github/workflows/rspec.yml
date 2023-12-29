@@ -3,11 +3,22 @@ name: RSpec Tests
 on:
   pull_request:
     branches:
-      - main # Change this to your main branch name
+      - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: test_database
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
       - name: Checkout Repository
@@ -16,12 +27,17 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2.2 # Change this to your Ruby version
+          ruby-version: 3.2.2
 
       - name: Install Dependencies
         run: |
-          gem install bundler -v 2.4.22
+          gem install bundler
           bundle install
+
+      - name: Set up Database
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:migrate
 
       - name: Run RSpec Tests
         run: bundle exec rspec
