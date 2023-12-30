@@ -10,17 +10,105 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_31_202000) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_29_200707) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "recipes", force: :cascade do |t|
+  create_table "grocery_section_translations", force: :cascade do |t|
+    t.bigint "grocery_section_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "name", null: false
-    t.text "ingredients", null: false
-    t.text "instruction", null: false
-    t.string "image", default: "https://raw.githubusercontent.com/do-community/react_rails_recipe/master/app/assets/images/Sammy_Meal.jpg"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.text "description", null: false
+    t.index ["grocery_section_id"], name: "index_grocery_section_translations_on_grocery_section_id"
+    t.index ["locale"], name: "index_grocery_section_translations_on_locale"
   end
 
+  create_table "grocery_sections", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ingredient_translations", force: :cascade do |t|
+    t.bigint "ingredient_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name", null: false
+    t.index ["ingredient_id"], name: "index_ingredient_translations_on_ingredient_id"
+    t.index ["locale"], name: "index_ingredient_translations_on_locale"
+  end
+
+  create_table "ingredients", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "grocery_section_id"
+    t.index ["grocery_section_id"], name: "index_ingredients_on_grocery_section_id"
+  end
+
+  create_table "recipe_ingredients", force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.float "quantity"
+    t.bigint "ingredient_id", null: false
+    t.integer "unit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
+    t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
+    t.index ["unit"], name: "index_recipe_ingredients_on_unit"
+  end
+
+  create_table "recipe_step_ingredients", force: :cascade do |t|
+    t.bigint "recipe_step_id", null: false
+    t.float "quantity"
+    t.bigint "ingredient_id", null: false
+    t.integer "unit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ingredient_id"], name: "index_recipe_step_ingredients_on_ingredient_id"
+    t.index ["recipe_step_id"], name: "index_recipe_step_ingredients_on_recipe_step_id"
+    t.index ["unit"], name: "index_recipe_step_ingredients_on_unit"
+  end
+
+  create_table "recipe_step_translations", force: :cascade do |t|
+    t.bigint "recipe_step_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "instruction"
+    t.index ["locale"], name: "index_recipe_step_translations_on_locale"
+    t.index ["recipe_step_id"], name: "index_recipe_step_translations_on_recipe_step_id"
+  end
+
+  create_table "recipe_steps", force: :cascade do |t|
+    t.integer "step_number"
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_recipe_steps_on_recipe_id"
+  end
+
+  create_table "recipe_translations", force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title", null: false
+    t.text "description", null: false
+    t.index ["locale"], name: "index_recipe_translations_on_locale"
+    t.index ["recipe_id"], name: "index_recipe_translations_on_recipe_id"
+  end
+
+  create_table "recipes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "ingredients", "grocery_sections"
+  add_foreign_key "recipe_ingredients", "ingredients"
+  add_foreign_key "recipe_ingredients", "recipes"
+  add_foreign_key "recipe_step_ingredients", "ingredients"
+  add_foreign_key "recipe_step_ingredients", "recipe_steps"
+  add_foreign_key "recipe_steps", "recipes"
 end
