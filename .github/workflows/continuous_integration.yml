@@ -13,7 +13,7 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_DB: test_database
+          POSTGRES_DB: cookpendium_test
           POSTGRES_USER: test_user
           POSTGRES_PASSWORD: test_password
         ports:
@@ -22,25 +22,14 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.2.2
-
-      - name: Install Dependencies
-        run: |
-          gem install bundler
-          bundle install
-
-      - name: Wait for PostgreSQL to be ready
-        run: dockerize -wait tcp://localhost:5432 -timeout 1m
-
-      - name: Set up Database
-        run: |
-          RAILS_ENV=test bundle exec rails db:create
-          RAILS_ENV=test bundle exec rails db:migrate
+          bundler-cache: true
+          cache-version: 1
 
       - name: Run RSpec Tests
         run: bundle exec rspec
