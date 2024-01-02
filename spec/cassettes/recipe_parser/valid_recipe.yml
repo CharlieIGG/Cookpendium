@@ -1,0 +1,167 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-3.5-turbo-1106","response_format":{"type":"json_object"},"messages":[{"role":"system","content":"Take
+        the following text and parse it into a JSON recipe object.\nThe recipe object
+        should have the following attributes:\n- title\n- description\n- ingredients,
+        as an array of objects, each including:\n-- ingredient name (string)\n-- quantity
+        (number)\n-- unit (string), one of the following: grams, kilograms, ounces,
+        pounds, milliliters, liters, teaspoons, tablespoons, cups, pints, quarts,
+        gallons, pieces, slices, leaves, pinches, dashes\n\n- recipe_steps, as an
+        array of objects, each containing:\n-- a description (string): the detailed
+        description on how to complete the instruction (e.g. \"Preheat the oven to
+        350 degrees Fahrenheit\")\n-- an instruction (string): a short sentence thath
+        summarizes the step in 45 characters or less (e.g. \"Preheat the oven\")\n---
+        Note: the \"instruction\" is a supposed to be a shortened version of the \"description\"
+        that can be used as a title for the step.\n-- a step_number (integer), indicating
+        the order of the step\n-- a list of ingredients, as an array of objects, with
+        the same structure as the main ingredients array.\n\n\nIf a recipe step contains
+        multiple actions in any part of the original text, please split them into
+        separate recipe_steps.\nTypically this is identified by the word \"and\" or
+        a comma between two actions (verbs).\nAlso if instructions are given in a
+        paragraph separated by periods, please split them into separate recipe_steps.\n\n"},{"role":"system","content":"If
+        the provided text is not a cooking recipe, please return the following JSON
+        object:\n{\n  \"error\": \"The provided text is not a recipe. Please provide
+        a recipe.\"\n}\n"},{"role":"user","content":"BROWN BUTTER SALTED CARAMEL CHOCOLATE
+        CHUNK COOKIES\n★\n★\n★\n★\n★\n4.9 from 35 reviews\nAuthor: Erin Clarkson  Prep
+        Time: 25 minutes  Cook Time: 40 minutes  Total Time: 1 hour 5 minutes  Yield:
+        30 cookies 1x  Category: cookies  Method: baking  Cuisine: american\n PRINT
+        RECIPE\n PIN RECIPE\nDESCRIPTION\nBrown Butter Salted Caramel Chocolate Chunk
+        Cookies. Regular pantry staples are elevated to another level to give this
+        cookie a ''fancy with only a little more effort'' vibe. Brown butter is stirred
+        in with toasty muscovado sugar to form a perfect cookie dough, and then hard
+        caramel shards and chocolate chunks are folded in to give the perfect amount
+        of chocolate and caramel per bite. Finished with flaky sea salt, this is a
+        super easy yet satisfying baking recipe.\n\nINGREDIENTS\nSCALE\n1X\n2X\n3X\n225g
+        unsalted butter, straight from the fridge\n200g granulated sugar (for the
+        caramel)\n150g muscovado sugar\n60g dark brown sugar\n100g granulated sugar\n2
+        eggs, at room temperature\n1 tsp vanilla bean paste or vanilla extract\n330g
+        all-purpose flour\n¾ tsp baking powder\n¾ tsp baking soda\n1 tsp kosher salt\n255g
+        good quality dark chocolate, chopped\nFlaky Sea Salt for Finishing\nCook Mode
+        Prevent your screen from going dark\nINSTRUCTIONS\n ON OFF\nPreheat the oven
+        to 350˚f / 180˚c. Line 3-4 baking trays with parchment paper.\nMake the Brown
+        Butter. Place the butter in a medium saucepan, and place over medium heat.
+        Cook until the butter has melted, and then continue to cook, swirling the
+        pan often, until the butter foams and turns golden brown and nutty - this
+        should take 3-4 minutes. Measure out 175g of the brown butter into the bowl
+        of a stand mixer. Allow to cool slightly.\n\nMake the caramel. Place the 200g
+        granulated sugar into a medium saucepan and place over medium heat. Place
+        a silicone mat on a heat resistant surface (I use my counter) or onto a baking
+        tray, and have nearby. Place the sugar in a medium saucepan, and place over
+        medium heat. Heat the sugar, stirring occasionally with a whisk, until all
+        of the sugar has melted (the sugar will clump as you heat, but continue to
+        stir - it will soon smooth out). Continue to cook the caramel until it is
+        amber in colour and just beginning to smoke slightly. Immediately pour onto
+        the prepared silicone mat, and leave to cool while you prepare the cookie
+        dough.\n\nMake the cookie dough. Place the bowl with the brown butter onto
+        the mixer, and fit with the paddle attachment. Mix the brown butter, muscovado
+        sugar, dark brown sugar, and second measure of granulated sugar on medium
+        speed until combined. Add the eggs one at a time, followed by the vanilla,
+        then increase the mixer speed to high and beat for 2-3 minutes, until the
+        mixture has lightened in colour and thickened.\n\nAdd the Dry Ingredients.
+        In a medium bowl, sift together the flour, baking powder, baking soda, and
+        salt. With the mixer off, add to the mixing bowl, then mix on low until just
+        combined. Remove the bowl from the mixer and finish the incorporation of the
+        dry ingredients by hand if needed - scrape down the bowl and ensure that all
+        the mixture at the bottom of the bowl is fully incorporated.\n\nAdd the chocolate
+        and caramel. Add the chopped chocolate to the bowl. Carefully peel the caramel
+        sheet off the silicone mat, and place onto the chopping board. Using a sharp
+        knife, cut into chunks ½” to ¾” or smaller in size - there will be some small
+        shards, and larger pieces. Use caution as the shards will be sharp. Add the
+        caramel shards to the bowl along with the chocolate, and mix briefly to combine.\n\nScoop
+        the cookies. Using a two tablespoon scoop, place level scoop fulls of dough
+        onto the prepared baking trays - 8 per tray works well for me, but I like
+        to start with 6 just to make sure there will be enough space. Roll each into
+        a ball and arrange on the trays, leaving ample room for spreading.\n\nBake
+        the cookies. Bake the trays one at a time for 11-12 minutes, or until the
+        cookies are puffed up and set around the edges. Remember that they will continue
+        to cook a little once you remove them from the oven. If the cookies have lost
+        their round shape a little in the oven due to the caramel, you can use a round
+        cookie cutter slightly larger than the cookie to nudge it back into a circular
+        shape. Sprinkle each cookie with coarse sea salt, then cool on the tray for
+        10 minutes before transferring to a wire rack to cool completely.\n\nRepeat
+        the baking process with the remaining cookies. Store leftovers in an airtight
+        container at room temperature."}],"temperature":0.5}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <API_KEY>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Openai-Organization: "<SENSITIVE>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 02 Jan 2024 21:31:28 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-cache, must-revalidate
+      Openai-Model:
+      - gpt-3.5-turbo-1106
+      Openai-Organization:
+      - user-1c6qkvaymbx4kybcuag9ndqy
+      Openai-Processing-Ms:
+      - '30688'
+      Openai-Version:
+      - '2020-10-01'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      X-Ratelimit-Limit-Requests:
+      - '10000'
+      X-Ratelimit-Limit-Tokens:
+      - '60000'
+      X-Ratelimit-Limit-Tokens-Usage-Based:
+      - '60000'
+      X-Ratelimit-Remaining-Requests:
+      - '9999'
+      X-Ratelimit-Remaining-Tokens:
+      - '58470'
+      X-Ratelimit-Remaining-Tokens-Usage-Based:
+      - '58470'
+      X-Ratelimit-Reset-Requests:
+      - 8.64s
+      X-Ratelimit-Reset-Tokens:
+      - 1.53s
+      X-Ratelimit-Reset-Tokens-Usage-Based:
+      - 1.53s
+      X-Request-Id:
+      - 36e81fb83d334a2532e42c3c3b5bb381
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=lIwM4LJVUMdf3ZfYf_6zvvWJsFvJDDB3gPe6k3o_pkE-1704231088-1-AaDVR+LnjEJ8ARoFK5/4ZSveX9zESgWOV8IBv5pYtDrorR+nTTq4sg4goZAxC5tJkZoWZQZFh0BuURxaOATXPkA=;
+        path=/; expires=Tue, 02-Jan-24 22:01:28 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=.f9EvpFfbFOAz1Af.GenLWEmITMEvH9iaTjzXeSrgV0-1704231088518-0-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 83f61b2e2da1bf26-WAW
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        ewogICJpZCI6ICJjaGF0Y21wbC04Y2dkZDBUekZCVm5mTnJVNnkxV3hKMmhzV2hZVCIsCiAgIm9iamVjdCI6ICJjaGF0LmNvbXBsZXRpb24iLAogICJjcmVhdGVkIjogMTcwNDIzMTA1NywKICAibW9kZWwiOiAiZ3B0LTMuNS10dXJiby0xMTA2IiwKICAiY2hvaWNlcyI6IFsKICAgIHsKICAgICAgImluZGV4IjogMCwKICAgICAgIm1lc3NhZ2UiOiB7CiAgICAgICAgInJvbGUiOiAiYXNzaXN0YW50IiwKICAgICAgICAiY29udGVudCI6ICJ7XG4gIFwidGl0bGVcIjogXCJCcm93biBCdXR0ZXIgU2FsdGVkIENhcmFtZWwgQ2hvY29sYXRlIENodW5rIENvb2tpZXNcIixcbiAgXCJkZXNjcmlwdGlvblwiOiBcIlJlZ3VsYXIgcGFudHJ5IHN0YXBsZXMgYXJlIGVsZXZhdGVkIHRvIGFub3RoZXIgbGV2ZWwgdG8gZ2l2ZSB0aGlzIGNvb2tpZSBhICdmYW5jeSB3aXRoIG9ubHkgYSBsaXR0bGUgbW9yZSBlZmZvcnQnIHZpYmUuIEJyb3duIGJ1dHRlciBpcyBzdGlycmVkIGluIHdpdGggdG9hc3R5IG11c2NvdmFkbyBzdWdhciB0byBmb3JtIGEgcGVyZmVjdCBjb29raWUgZG91Z2gsIGFuZCB0aGVuIGhhcmQgY2FyYW1lbCBzaGFyZHMgYW5kIGNob2NvbGF0ZSBjaHVua3MgYXJlIGZvbGRlZCBpbiB0byBnaXZlIHRoZSBwZXJmZWN0IGFtb3VudCBvZiBjaG9jb2xhdGUgYW5kIGNhcmFtZWwgcGVyIGJpdGUuIEZpbmlzaGVkIHdpdGggZmxha3kgc2VhIHNhbHQsIHRoaXMgaXMgYSBzdXBlciBlYXN5IHlldCBzYXRpc2Z5aW5nIGJha2luZyByZWNpcGUuXCIsXG4gIFwiaW5ncmVkaWVudHNcIjogW1xuICAgIHtcImluZ3JlZGllbnRcIjogXCJ1bnNhbHRlZCBidXR0ZXJcIiwgXCJxdWFudGl0eVwiOiAyMjUsIFwidW5pdFwiOiBcImdyYW1zXCJ9LFxuICAgIHtcImluZ3JlZGllbnRcIjogXCJncmFudWxhdGVkIHN1Z2FyIChmb3IgdGhlIGNhcmFtZWwpXCIsIFwicXVhbnRpdHlcIjogMjAwLCBcInVuaXRcIjogXCJncmFtc1wifSxcbiAgICB7XCJpbmdyZWRpZW50XCI6IFwibXVzY292YWRvIHN1Z2FyXCIsIFwicXVhbnRpdHlcIjogMTUwLCBcInVuaXRcIjogXCJncmFtc1wifSxcbiAgICB7XCJpbmdyZWRpZW50XCI6IFwiZGFyayBicm93biBzdWdhclwiLCBcInF1YW50aXR5XCI6IDYwLCBcInVuaXRcIjogXCJncmFtc1wifSxcbiAgICB7XCJpbmdyZWRpZW50XCI6IFwiZ3JhbnVsYXRlZCBzdWdhclwiLCBcInF1YW50aXR5XCI6IDEwMCwgXCJ1bml0XCI6IFwiZ3JhbXNcIn0sXG4gICAge1wiaW5ncmVkaWVudFwiOiBcImVnZ3NcIiwgXCJxdWFudGl0eVwiOiAyLCBcInVuaXRcIjogXCJwaWVjZXNcIn0sXG4gICAge1wiaW5ncmVkaWVudFwiOiBcInZhbmlsbGEgYmVhbiBwYXN0ZSBvciB2YW5pbGxhIGV4dHJhY3RcIiwgXCJxdWFudGl0eVwiOiAxLCBcInVuaXRcIjogXCJ0ZWFzcG9vblwifSxcbiAgICB7XCJpbmdyZWRpZW50XCI6IFwiYWxsLXB1cnBvc2UgZmxvdXJcIiwgXCJxdWFudGl0eVwiOiAzMzAsIFwidW5pdFwiOiBcImdyYW1zXCJ9LFxuICAgIHtcImluZ3JlZGllbnRcIjogXCJiYWtpbmcgcG93ZGVyXCIsIFwicXVhbnRpdHlcIjogMC43NSwgXCJ1bml0XCI6IFwidGVhc3Bvb25cIn0sXG4gICAge1wiaW5ncmVkaWVudFwiOiBcImJha2luZyBzb2RhXCIsIFwicXVhbnRpdHlcIjogMC43NSwgXCJ1bml0XCI6IFwidGVhc3Bvb25cIn0sXG4gICAge1wiaW5ncmVkaWVudFwiOiBcImtvc2hlciBzYWx0XCIsIFwicXVhbnRpdHlcIjogMSwgXCJ1bml0XCI6IFwidGVhc3Bvb25cIn0sXG4gICAge1wiaW5ncmVkaWVudFwiOiBcImdvb2QgcXVhbGl0eSBkYXJrIGNob2NvbGF0ZVwiLCBcInF1YW50aXR5XCI6IDI1NSwgXCJ1bml0XCI6IFwiZ3JhbXNcIn0sXG4gICAge1wiaW5ncmVkaWVudFwiOiBcIkZsYWt5IFNlYSBTYWx0IGZvciBGaW5pc2hpbmdcIiwgXCJxdWFudGl0eVwiOiBudWxsLCBcInVuaXRcIjogbnVsbH1cbiAgXSxcbiAgXCJyZWNpcGVfc3RlcHNcIjogW1xuICAgIHtcbiAgICAgIFwiZGVzY3JpcHRpb25cIjogXCJQcmVoZWF0IHRoZSBvdmVuIHRvIDM1MMuaZiAvIDE4MMuaYy5cIixcbiAgICAgIFwiaW5zdHJ1Y3Rpb25cIjogXCJQcmVoZWF0IHRoZSBvdmVuXCIsXG4gICAgICBcInN0ZXBfbnVtYmVyXCI6IDEsXG4gICAgICBcImluZ3JlZGllbnRzXCI6IFtdXG4gICAgfSxcbiAgICB7XG4gICAgICBcImRlc2NyaXB0aW9uXCI6IFwiTWFrZSB0aGUgQnJvd24gQnV0dGVyLiBQbGFjZSB0aGUgYnV0dGVyIGluIGEgbWVkaXVtIHNhdWNlcGFuLCBhbmQgcGxhY2Ugb3ZlciBtZWRpdW0gaGVhdC4gQ29vayB1bnRpbCB0aGUgYnV0dGVyIGhhcyBtZWx0ZWQsIGFuZCB0aGVuIGNvbnRpbnVlIHRvIGNvb2ssIHN3aXJsaW5nIHRoZSBwYW4gb2Z0ZW4sIHVudGlsIHRoZSBidXR0ZXIgZm9hbXMgYW5kIHR1cm5zIGdvbGRlbiBicm93biBhbmQgbnV0dHkgLSB0aGlzIHNob3VsZCB0YWtlIDMtNCBtaW51dGVzLiBNZWFzdXJlIG91dCAxNzVnIG9mIHRoZSBicm93biBidXR0ZXIgaW50byB0aGUgYm93bCBvZiBhIHN0YW5kIG1peGVyLiBBbGxvdyB0byBjb29sIHNsaWdodGx5LlwiLFxuICAgICAgXCJpbnN0cnVjdGlvblwiOiBcIk1ha2UgdGhlIEJyb3duIEJ1dHRlclwiLFxuICAgICAgXCJzdGVwX251bWJlclwiOiAyLFxuICAgICAgXCJpbmdyZWRpZW50c1wiOiBbXG4gICAgICAgIHtcImluZ3JlZGllbnRcIjogXCJ1bnNhbHRlZCBidXR0ZXJcIiwgXCJxdWFudGl0eVwiOiAyMjUsIFwidW5pdFwiOiBcImdyYW1zXCJ9XG4gICAgICBdXG4gICAgfSxcbiAgICB7XG4gICAgICBcImRlc2NyaXB0aW9uXCI6IFwiTWFrZSB0aGUgY2FyYW1lbC4gUGxhY2UgdGhlIDIwMGcgZ3JhbnVsYXRlZCBzdWdhciBpbnRvIGEgbWVkaXVtIHNhdWNlcGFuIGFuZCBwbGFjZSBvdmVyIG1lZGl1bSBoZWF0LiBQbGFjZSBhIHNpbGljb25lIG1hdCBvbiBhIGhlYXQgcmVzaXN0YW50IHN1cmZhY2UgKEkgdXNlIG15IGNvdW50ZXIpIG9yIG9udG8gYSBiYWtpbmcgdHJheSwgYW5kIGhhdmUgbmVhcmJ5LiBQbGFjZSB0aGUgc3VnYXIgaW4gYSBtZWRpdW0gc2F1Y2VwYW4sIGFuZCBwbGFjZSBvdmVyIG1lZGl1bSBoZWF0LiBIZWF0IHRoZSBzdWdhciwgc3RpcnJpbmcgb2NjYXNpb25hbGx5IHdpdGggYSB3aGlzaywgdW50aWwgYWxsIG9mIHRoZSBzdWdhciBoYXMgbWVsdGVkICh0aGUgc3VnYXIgd2lsbCBjbHVtcCBhcyB5b3UgaGVhdCwgYnV0IGNvbnRpbnVlIHRvIHN0aXIgLSBpdCB3aWxsIHNvb24gc21vb3RoIG91dCkuIENvbnRpbnVlIHRvIGNvb2sgdGhlIGNhcmFtZWwgdW50aWwgaXQgaXMgYW1iZXIgaW4gY29sb3VyIGFuZCBqdXN0IGJlZ2lubmluZyB0byBzbW9rZSBzbGlnaHRseS4gSW1tZWRpYXRlbHkgcG91ciBvbnRvIHRoZSBwcmVwYXJlZCBzaWxpY29uZSBtYXQsIGFuZCBsZWF2ZSB0byBjb29sIHdoaWxlIHlvdSBwcmVwYXJlIHRoZSBjb29raWUgZG91Z2guXCIsXG4gICAgICBcImluc3RydWN0aW9uXCI6IFwiTWFrZSB0aGUgY2FyYW1lbFwiLFxuICAgICAgXCJzdGVwX251bWJlclwiOiAzLFxuICAgICAgXCJpbmdyZWRpZW50c1wiOiBbXG4gICAgICAgIHtcImluZ3JlZGllbnRcIjogXCJncmFudWxhdGVkIHN1Z2FyIChmb3IgdGhlIGNhcmFtZWwpXCIsIFwicXVhbnRpdHlcIjogMjAwLCBcInVuaXRcIjogXCJncmFtc1wifVxuICAgICAgXVxuICAgIH0sXG4gICAge1xuICAgICAgXCJkZXNjcmlwdGlvblwiOiBcIk1ha2UgdGhlIGNvb2tpZSBkb3VnaC4gUGxhY2UgdGhlIGJvd2wgd2l0aCB0aGUgYnJvd24gYnV0dGVyIG9udG8gdGhlIG1peGVyLCBhbmQgZml0IHdpdGggdGhlIHBhZGRsZSBhdHRhY2htZW50LiBNaXggdGhlIGJyb3duIGJ1dHRlciwgbXVzY292YWRvIHN1Z2FyLCBkYXJrIGJyb3duIHN1Z2FyLCBhbmQgc2Vjb25kIG1lYXN1cmUgb2YgZ3JhbnVsYXRlZCBzdWdhciBvbiBtZWRpdW0gc3BlZWQgdW50aWwgY29tYmluZWQuIEFkZCB0aGUgZWdncyBvbmUgYXQgYSB0aW1lLCBmb2xsb3dlZCBieSB0aGUgdmFuaWxsYSwgdGhlbiBpbmNyZWFzZSB0aGUgbWl4ZXIgc3BlZWQgdG8gaGlnaCBhbmQgYmVhdCBmb3IgMi0zIG1pbnV0ZXMsIHVudGlsIHRoZSBtaXh0dXJlIGhhcyBsaWdodGVuZWQgaW4gY29sb3VyIGFuZCB0aGlja2VuZWQuXCIsXG4gICAgICBcImluc3RydWN0aW9uXCI6IFwiTWFrZSB0aGUgY29va2llIGRvdWdoXCIsXG4gICAgICBcInN0ZXBfbnVtYmVyXCI6IDQsXG4gICAgICBcImluZ3JlZGllbnRzXCI6IFtcbiAgICAgICAge1wiaW5ncmVkaWVudFwiOiBcInVuc2FsdGVkIGJ1dHRlclwiLCBcInF1YW50aXR5XCI6IDIyNSwgXCJ1bml0XCI6IFwiZ3JhbXNcIn0sXG4gICAgICAgIHtcImluZ3JlZGllbnRcIjogXCJncmFudWxhdGVkIHN1Z2FyIChmb3IgdGhlIGNhcmFtZWwpXCIsIFwicXVhbnRpdHlcIjogMjAwLCBcInVuaXRcIjogXCJncmFtc1wifSxcbiAgICAgICAge1wiaW5ncmVkaWVudFwiOiBcIm11c2NvdmFkbyBzdWdhclwiLCBcInF1YW50aXR5XCI6IDE1MCwgXCJ1bml0XCI6IFwiZ3JhbXNcIn0sXG4gICAgICAgIHtcImluZ3JlZGllbnRcIjogXCJkYXJrIGJyb3duIHN1Z2FyXCIsIFwicXVhbnRpdHlcIjogNjAsIFwidW5pdFwiOiBcImdyYW1zXCJ9LFxuICAgICAgICB7XCJpbmdyZWRpZW50XCI6IFwiZ3JhbnVsYXRlZCBzdWdhclwiLCBcInF1YW50aXR5XCI6IDEwMCwgXCJ1bml0XCI6IFwiZ3JhbXNcIn0sXG4gICAgICAgIHtcImluZ3JlZGllbnRcIjogXCJlZ2dzXCIsIFwicXVhbnRpdHlcIjogMiwgXCJ1bml0XCI6IFwicGllY2VzXCJ9LFxuICAgICAgICB7XCJpbmdyZWRpZW50XCI6IFwidmFuaWxsYSBiZWFuIHBhc3RlIG9yIHZhbmlsbGEgZXh0cmFjdFwiLCBcInF1YW50aXR5XCI6IDEsIFwidW5pdFwiOiBcInRlYXNwb29uXCJ9XG4gICAgICBdXG4gICAgfSxcbiAgICB7XG4gICAgICBcImRlc2NyaXB0aW9uXCI6IFwiQWRkIHRoZSBEcnkgSW5ncmVkaWVudHMuIEluIGEgbWVkaXVtIGJvd2wsIHNpZnQgdG9nZXRoZXIgdGhlIGZsb3VyLCBiYWtpbmcgcG93ZGVyLCBiYWtpbmcgc29kYSwgYW5kIHNhbHQuIFdpdGggdGhlIG1peGVyIG9mZiwgYWRkIHRvIHRoZSBtaXhpbmcgYm93bCwgdGhlbiBtaXggb24gbG93IHVudGlsIGp1c3QgY29tYmluZWQuIFJlbW92ZSB0aGUgYm93bCBmcm9tIHRoZSBtaXhlciBhbmQgZmluaXNoIHRoZSBpbmNvcnBvcmF0aW9uIG9mIHRoZSBkcnkgaW5ncmVkaWVudHMgYnkgaGFuZCBpZiBuZWVkZWQgLSBzY3JhcGUgZG93biB0aGUgYm93bCBhbmQgZW5zdXJlIHRoYXQgYWxsIHRoZSBtaXh0dXJlIGF0IHRoZSBib3R0b20gb2YgdGhlIGJvd2wgaXMgZnVsbHkgaW5jb3Jwb3JhdGVkLlwiLFxuICAgICAgXCJpbnN0cnVjdGlvblwiOiBcIkFkZCB0aGUgRHJ5IEluZ3JlZGllbnRzXCIsXG4gICAgICBcInN0ZXBfbnVtYmVyXCI6IDUsXG4gICAgICBcImluZ3JlZGllbnRzXCI6IFtcbiAgICAgICAge1wiaW5ncmVkaWVudFwiOiBcImFsbC1wdXJwb3NlIGZsb3VyXCIsIFwicXVhbnRpdHlcIjogMzMwLCBcInVuaXRcIjogXCJncmFtc1wifSxcbiAgICAgICAge1wiaW5ncmVkaWVudFwiOiBcImJha2luZyBwb3dkZXJcIiwgXCJxdWFudGl0eVwiOiAwLjc1LCBcInVuaXRcIjogXCJ0ZWFzcG9vblwifSxcbiAgICAgICAge1wiaW5ncmVkaWVudFwiOiBcImJha2luZyBzb2RhXCIsIFwicXVhbnRpdHlcIjogMC43NSwgXCJ1bml0XCI6IFwidGVhc3Bvb25cIn0sXG4gICAgICAgIHtcImluZ3JlZGllbnRcIjogXCJrb3NoZXIgc2FsdFwiLCBcInF1YW50aXR5XCI6IDEsIFwidW5pdFwiOiBcInRlYXNwb29uXCJ9XG4gICAgICBdXG4gICAgfSxcbiAgICB7XG4gICAgICBcImRlc2NyaXB0aW9uXCI6IFwiQWRkIHRoZSBjaG9jb2xhdGUgYW5kIGNhcmFtZWwuIEFkZCB0aGUgY2hvcHBlZCBjaG9jb2xhdGUgdG8gdGhlIGJvd2wuIENhcmVmdWxseSBwZWVsIHRoZSBjYXJhbWVsIHNoZWV0IG9mZiB0aGUgc2lsaWNvbmUgbWF0LCBhbmQgcGxhY2Ugb250byB0aGUgY2hvcHBpbmcgYm9hcmQuIFVzaW5nIGEgc2hhcnAga25pZmUsIGN1dCBpbnRvIGNodW5rcyDCveKAnSB0byDCvuKAnSBvciBzbWFsbGVyIGluIHNpemUgLSB0aGVyZSB3aWxsIGJlIHNvbWUgc21hbGwgc2hhcmRzLCBhbmQgbGFyZ2VyIHBpZWNlcy4gVXNlIGNhdXRpb24gYXMgdGhlIHNoYXJkcyB3aWxsIGJlIHNoYXJwLiBBZGQgdGhlIGNhcmFtZWwgc2hhcmRzIHRvIHRoZSBib3dsIGFsb25nIHdpdGggdGhlIGNob2NvbGF0ZSwgYW5kIG1peCBicmllZmx5IHRvIGNvbWJpbmUuXCIsXG4gICAgICBcImluc3RydWN0aW9uXCI6IFwiQWRkIHRoZSBjaG9jb2xhdGUgYW5kIGNhcmFtZWxcIixcbiAgICAgIFwic3RlcF9udW1iZXJcIjogNixcbiAgICAgIFwiaW5ncmVkaWVudHNcIjogW1xuICAgICAgICB7XCJpbmdyZWRpZW50XCI6IFwiZ29vZCBxdWFsaXR5IGRhcmsgY2hvY29sYXRlXCIsIFwicXVhbnRpdHlcIjogMjU1LCBcInVuaXRcIjogXCJncmFtc1wifVxuICAgICAgXVxuICAgIH0sXG4gICAge1xuICAgICAgXCJkZXNjcmlwdGlvblwiOiBcIlNjb29wIHRoZSBjb29raWVzLiBVc2luZyBhIHR3byB0YWJsZXNwb29uIHNjb29wLCBwbGFjZSBsZXZlbCBzY29vcCBmdWxscyBvZiBkb3VnaCBvbnRvIHRoZSBwcmVwYXJlZCBiYWtpbmcgdHJheXMgLSA4IHBlciB0cmF5IHdvcmtzIHdlbGwgZm9yIG1lLCBidXQgSSBsaWtlIHRvIHN0YXJ0IHdpdGggNiBqdXN0IHRvIG1ha2Ugc3VyZSB0aGVyZSB3aWxsIGJlIGVub3VnaCBzcGFjZS4gUm9sbCBlYWNoIGludG8gYSBiYWxsIGFuZCBhcnJhbmdlIG9uIHRoZSB0cmF5cywgbGVhdmluZyBhbXBsZSByb29tIGZvciBzcHJlYWRpbmcuXCIsXG4gICAgICBcImluc3RydWN0aW9uXCI6IFwiU2Nvb3AgdGhlIGNvb2tpZXNcIixcbiAgICAgIFwic3RlcF9udW1iZXJcIjogNyxcbiAgICAgIFwiaW5ncmVkaWVudHNcIjogW11cbiAgICB9LFxuICAgIHtcbiAgICAgIFwiZGVzY3JpcHRpb25cIjogXCJCYWtlIHRoZSBjb29raWVzLiBCYWtlIHRoZSB0cmF5cyBvbmUgYXQgYSB0aW1lIGZvciAxMS0xMiBtaW51dGVzLCBvciB1bnRpbCB0aGUgY29va2llcyBhcmUgcHVmZmVkIHVwIGFuZCBzZXQgYXJvdW5kIHRoZSBlZGdlcy4gUmVtZW1iZXIgdGhhdCB0aGV5IHdpbGwgY29udGludWUgdG8gY29vayBhIGxpdHRsZSBvbmNlIHlvdSByZW1vdmUgdGhlbSBmcm9tIHRoZSBvdmVuLiBJZiB0aGUgY29va2llcyBoYXZlIGxvc3QgdGhlaXIgcm91bmQgc2hhcGUgYSBsaXR0bGUgaW4gdGhlIG92ZW4gZHVlIHRvIHRoZSBjYXJhbWVsLCB5b3UgY2FuIHVzZSBhIHJvdW5kIGNvb2tpZSBjdXR0ZXIgc2xpZ2h0bHkgbGFyZ2VyIHRoYW4gdGhlIGNvb2tpZSB0byBudWRnZSBpdCBiYWNrIGludG8gYSBjaXJjdWxhciBzaGFwZS4gU3ByaW5rbGUgZWFjaCBjb29raWUgd2l0aCBjb2Fyc2Ugc2VhIHNhbHQsIHRoZW4gY29vbCBvbiB0aGUgdHJheSBmb3IgMTAgbWludXRlcyBiZWZvcmUgdHJhbnNmZXJyaW5nIHRvIGEgd2lyZSByYWNrIHRvIGNvb2wgY29tcGxldGVseS5cIixcbiAgICAgIFwiaW5zdHJ1Y3Rpb25cIjogXCJCYWtlIHRoZSBjb29raWVzXCIsXG4gICAgICBcInN0ZXBfbnVtYmVyXCI6IDgsXG4gICAgICBcImluZ3JlZGllbnRzXCI6IFtdXG4gICAgfSxcbiAgICB7XG4gICAgICBcImRlc2NyaXB0aW9uXCI6IFwiUmVwZWF0IHRoZSBiYWtpbmcgcHJvY2VzcyB3aXRoIHRoZSByZW1haW5pbmcgY29va2llcy4gU3RvcmUgbGVmdG92ZXJzIGluIGFuIGFpcnRpZ2h0IGNvbnRhaW5lciBhdCByb29tIHRlbXBlcmF0dXJlLlwiLFxuICAgICAgXCJpbnN0cnVjdGlvblwiOiBcIlJlcGVhdCB0aGUgYmFraW5nIHByb2Nlc3NcIixcbiAgICAgIFwic3RlcF9udW1iZXJcIjogOSxcbiAgICAgIFwiaW5ncmVkaWVudHNcIjogW11cbiAgICB9XG4gIF1cbn0iCiAgICAgIH0sCiAgICAgICJsb2dwcm9icyI6IG51bGwsCiAgICAgICJmaW5pc2hfcmVhc29uIjogInN0b3AiCiAgICB9CiAgXSwKICAidXNhZ2UiOiB7CiAgICAicHJvbXB0X3Rva2VucyI6IDEzODksCiAgICAiY29tcGxldGlvbl90b2tlbnMiOiAxNzQzLAogICAgInRvdGFsX3Rva2VucyI6IDMxMzIKICB9LAogICJzeXN0ZW1fZmluZ2VycHJpbnQiOiAiZnBfNzcyZTgxMjViYiIKfQo=
+  recorded_at: Tue, 02 Jan 2024 21:31:41 GMT
+recorded_with: VCR 6.0.0
