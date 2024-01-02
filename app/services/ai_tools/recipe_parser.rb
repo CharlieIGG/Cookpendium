@@ -10,16 +10,8 @@ module AITools
     end
 
     def parse
-      recipe_object = parse_with_openai
-
-      # Create and return the recipe object
-      #   OpenStruct.new(
-      #     title:,
-      #     description: nil,
-      #     ingredients:,
-      #     recipe_steps:
-      #   )
-      puts recipe_object
+      result = parse_with_openai
+      JSON.parse(result)
     end
 
     private

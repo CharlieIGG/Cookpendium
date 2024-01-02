@@ -25,6 +25,7 @@ jobs:
       POSTGRES_USER: ${{secrets.POSTGRES_USER}}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       POSTGRES_DB: ${{secrets.POSTGRES_DB}}
+      OPENAI_API_KEY: S0M3_F4K3_4P1_K3Y
 
     steps:
       - name: Checkout Repository

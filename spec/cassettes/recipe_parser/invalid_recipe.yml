@@ -1,0 +1,148 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-3.5-turbo-1106","response_format":{"type":"json_object"},"messages":[{"role":"system","content":"Take
+        the following text and parse it into a JSON recipe object.\nThe recipe object
+        should have the following attributes:\n- title\n- description\n- ingredients,
+        as an array of objects, each including:\n-- ingredient name (string)\n-- quantity
+        (number)\n-- unit (string), one of the following: grams, kilograms, ounces,
+        pounds, milliliters, liters, teaspoons, tablespoons, cups, pints, quarts,
+        gallons, pieces, slices, leaves, pinches, dashes\n\n- recipe_steps, as an
+        array of objects, each containing:\n-- a description (string): the detailed
+        description on how to complete the instruction (e.g. \"Preheat the oven to
+        350 degrees Fahrenheit\")\n-- an instruction (string): a short sentence thath
+        summarizes the step in 45 characters or less (e.g. \"Preheat the oven\")\n---
+        Note: the \"instruction\" is a supposed to be a shortened version of the \"description\"
+        that can be used as a title for the step.\n-- a step_number (integer), indicating
+        the order of the step\n-- a list of ingredients, as an array of objects, with
+        the same structure as the main ingredients array.\n\n\nIf a recipe step contains
+        multiple actions in any part of the original text, please split them into
+        separate recipe_steps.\nTypically this is identified by the word \"and\" or
+        a comma between two actions (verbs).\nAlso if instructions are given in a
+        paragraph separated by periods, please split them into separate recipe_steps.\n\n"},{"role":"system","content":"If
+        the provided text is not a cooking recipe, please return the following JSON
+        object:\n{\n  \"error\": \"The provided text is not a recipe. Please provide
+        a recipe.\"\n}\n"},{"role":"user","content":"The Amalfi Coast is a stunning
+        stretch of coastline in southern Italy, known for its picturesque landscapes,
+        charming villages, and rich history. The story of Amalfi dates back to ancient
+        times when it was a major maritime power.\n\nAmalfi was a maritime republic
+        in the Middle Ages, gaining prominence in the 9th century. It was a key player
+        in Mediterranean trade, with a powerful navy and a prosperous economy. The
+        town of Amalfi itself was a bustling hub of commerce, known for its shipyards
+        and trading activities.\n\nOne of the most significant contributions of Amalfi
+        was the creation of the Amalfi Maritime Code, a set of maritime laws that
+        became influential in the Mediterranean trade network. These laws helped regulate
+        and standardize maritime trade practices, contributing to the region''s economic
+        success.\n\nThe decline of Amalfi''s maritime influence began in the 12th
+        century due to various factors, including Norman invasions and changes in
+        trade routes. Despite this decline, the Amalfi Coast continued to be a place
+        of cultural and artistic significance.\n\nToday, Amalfi and the surrounding
+        coastal towns, including Positano and Ravello, attract visitors from around
+        the world with their beautiful landscapes, historical sites, and delicious
+        cuisine. The region has retained its charm and allure, making it a popular
+        destination for tourists seeking a mix of history, culture, and natural beauty."}],"temperature":0.5}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <API_KEY>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Openai-Organization: "<SENSITIVE>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 02 Jan 2024 21:31:29 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-cache, must-revalidate
+      Openai-Model:
+      - gpt-3.5-turbo-1106
+      Openai-Organization:
+      - user-1c6qkvaymbx4kybcuag9ndqy
+      Openai-Processing-Ms:
+      - '646'
+      Openai-Version:
+      - '2020-10-01'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      X-Ratelimit-Limit-Requests:
+      - '10000'
+      X-Ratelimit-Limit-Tokens:
+      - '60000'
+      X-Ratelimit-Limit-Tokens-Usage-Based:
+      - '60000'
+      X-Ratelimit-Remaining-Requests:
+      - '9999'
+      X-Ratelimit-Remaining-Tokens:
+      - '59243'
+      X-Ratelimit-Remaining-Tokens-Usage-Based:
+      - '57951'
+      X-Ratelimit-Reset-Requests:
+      - 8.64s
+      X-Ratelimit-Reset-Tokens:
+      - 757ms
+      X-Ratelimit-Reset-Tokens-Usage-Based:
+      - 2.048s
+      X-Request-Id:
+      - 05ce90693d8d72b1c1c30dee93c538a2
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=x.JvsLCb6wbapy4V0l60t.poTWRlxo8I.lIpOpWm3Aw-1704231089-1-AZxYrR+oa3KxnTpKASxxHh2MNaQaY6C9lhyCmgn8NL436Yl8WWUGxpbhIPKECBTdQ4Wa2EQrz76ftTUc1aSgZfc=;
+        path=/; expires=Tue, 02-Jan-24 22:01:29 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=9vabXMks.KCmXYZcvngKmrGYjJpzFl710lMolQEvd5c-1704231089528-0-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 83f61bf0289134a4-WAW
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "id": "chatcmpl-8cge8yfmDH910ZDbn88CJTSRrEBI7",
+          "object": "chat.completion",
+          "created": 1704231088,
+          "model": "gpt-3.5-turbo-1106",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "{\n  \"error\": \"The provided text is not a recipe. Please provide a recipe.\"\n}"
+              },
+              "logprobs": null,
+              "finish_reason": "stop"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 635,
+            "completion_tokens": 20,
+            "total_tokens": 655
+          },
+          "system_fingerprint": "fp_772e8125bb"
+        }
+  recorded_at: Tue, 02 Jan 2024 21:31:42 GMT
+recorded_with: VCR 6.0.0
