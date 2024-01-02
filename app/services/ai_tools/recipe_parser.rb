@@ -29,14 +29,24 @@ module AITools
         model: 'gpt-3.5-turbo-1106',
         response_format: { type: 'json_object' },
         messages: [
-          { role: 'system', content: assistant_system_instructions },
+          { role: 'system', content: recipe_structure_instructions },
+          { role: 'system', content: sanity_filter_instructions },
           { role: 'user', content: @raw_text }
         ],
         temperature: 0.5
       }
     end
 
-    def assistant_system_instructions
+    def sanity_filter_instructions
+      <<~HEREDOC
+        If the provided text is not a cooking recipe, please return the following JSON object:
+        {
+          "error": "The provided text is not a recipe. Please provide a recipe."
+        }
+      HEREDOC
+    end
+
+    def recipe_structure_instructions
       <<~HEREDOC
         Take the following text and parse it into a JSON recipe object.
         The recipe object should have the following attributes:
