@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_29_200707) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_03_194643) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,28 +47,44 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_29_200707) do
     t.index ["grocery_section_id"], name: "index_ingredients_on_grocery_section_id"
   end
 
+  create_table "measurement_unit_translations", force: :cascade do |t|
+    t.bigint "measurement_unit_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name", null: false
+    t.string "abbreviation"
+    t.index ["locale"], name: "index_measurement_unit_translations_on_locale"
+    t.index ["measurement_unit_id"], name: "index_measurement_unit_translations_on_measurement_unit_id"
+  end
+
+  create_table "measurement_units", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "recipe_ingredients", force: :cascade do |t|
     t.bigint "recipe_id", null: false
     t.float "quantity"
     t.bigint "ingredient_id", null: false
-    t.integer "unit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "measurement_unit_id", null: false
     t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
+    t.index ["measurement_unit_id"], name: "index_recipe_ingredients_on_measurement_unit_id"
     t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
-    t.index ["unit"], name: "index_recipe_ingredients_on_unit"
   end
 
   create_table "recipe_step_ingredients", force: :cascade do |t|
     t.bigint "recipe_step_id", null: false
     t.float "quantity"
     t.bigint "ingredient_id", null: false
-    t.integer "unit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "measurement_unit_id", null: false
     t.index ["ingredient_id"], name: "index_recipe_step_ingredients_on_ingredient_id"
+    t.index ["measurement_unit_id"], name: "index_recipe_step_ingredients_on_measurement_unit_id"
     t.index ["recipe_step_id"], name: "index_recipe_step_ingredients_on_recipe_step_id"
-    t.index ["unit"], name: "index_recipe_step_ingredients_on_unit"
   end
 
   create_table "recipe_step_translations", force: :cascade do |t|
@@ -107,8 +123,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_29_200707) do
 
   add_foreign_key "ingredients", "grocery_sections"
   add_foreign_key "recipe_ingredients", "ingredients"
+  add_foreign_key "recipe_ingredients", "measurement_units"
   add_foreign_key "recipe_ingredients", "recipes"
   add_foreign_key "recipe_step_ingredients", "ingredients"
+  add_foreign_key "recipe_step_ingredients", "measurement_units"
   add_foreign_key "recipe_step_ingredients", "recipe_steps"
   add_foreign_key "recipe_steps", "recipes"
 end

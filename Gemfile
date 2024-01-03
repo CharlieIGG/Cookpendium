@@ -72,7 +72,7 @@ group :test do
   gem 'faker', '~> 3.2'
   gem 'rspec-watcher'
 
-  gem 'vcr', '~> 6.0.0'
+  gem 'vcr', github: 'vcr/vcr'
   gem 'webmock'
 end
 

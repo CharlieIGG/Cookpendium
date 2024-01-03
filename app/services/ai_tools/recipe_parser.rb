@@ -57,7 +57,7 @@ module AITools
       <<~HEREDOC
         -- ingredient name (string)
         -- quantity (number)
-        -- unit (string), one of the following: #{MeasuringUnits::UNITS.keys.join(', ')}
+        -- unit (string), as standard as possible, such as 'grams', 'cups', 'pinches', 'tablespoons', 'teaspoons', 'pounds', 'ounces', etc.
       HEREDOC
     end
 
