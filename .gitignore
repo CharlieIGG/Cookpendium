@@ -37,3 +37,4 @@
 
 .env
 .env.test.local
+.env.development.local	
