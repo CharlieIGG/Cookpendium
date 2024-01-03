@@ -70,8 +70,7 @@ end
 
 group :test do
   gem 'faker', '~> 3.2'
-  gem 'rspec-watcher'
-
+  gem 'guard-rspec', '~> 4.7', require: false
   gem 'vcr', github: 'vcr/vcr'
   gem 'webmock'
 end
