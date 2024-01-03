@@ -1,0 +1,145 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-3.5-turbo-1106","response_format":{"type":"json_object"},"messages":[{"role":"system","content":"Take
+        the following text and parse it into a JSON recipe object.\nThe recipe object
+        should have the following attributes:\n- title\n- description\n- ingredients,
+        as an array of objects, each including:\n-- ingredient name (string)\n-- quantity
+        (number)\n-- unit (string), as standard as possible, such as ''grams'', ''cups'',
+        ''pinches'', ''tablespoons'', ''teaspoons'', ''pounds'', ''ounces'', etc.\n\n-
+        recipe_steps, as an array of objects, each containing:\n-- a description (string):
+        the detailed description on how to complete the instruction (e.g. \"Preheat
+        the oven to 350 degrees Fahrenheit\")\n-- an instruction (string): a short
+        sentence thath summarizes the step in 45 characters or less (e.g. \"Preheat
+        the oven\")\n--- Note: the \"instruction\" is a supposed to be a shortened
+        version of the \"description\" that can be used as a title for the step.\n--
+        a step_number (integer), indicating the order of the step\n-- a list of ingredients,
+        as an array of objects, with the same structure as the main ingredients array.\n\n\nIf
+        a recipe step contains multiple actions in any part of the original text,
+        please split them into separate recipe_steps.\nTypically this is identified
+        by the word \"and\" or a comma between two actions (verbs).\nAlso if instructions
+        are given in a paragraph separated by periods, please split them into separate
+        recipe_steps.\n\n"},{"role":"system","content":"If the provided text is not
+        a cooking recipe, please return the following JSON object:\n{\n    \"error\":
+        \"The provided text is not a recipe. Please provide a recipe.\"\n}\n"},{"role":"system","content":"Please
+        ensure that you return the recipe in English regardless of the language the
+        recipe was written in. This means you might have to translate the recipe into
+        English.\nEnsure you translate the title, the ingredients, and the recipe
+        steps.\n"},{"role":"user","content":"Hier ist ein einfaches Rezept für \"Kartoffelsalat\":\nZutaten:\n\n1
+        kg Kartoffeln\n1 Zwiebel, fein gehackt\n200 ml Gemüsebrühe\n3 Esslöffel Weißweinessig\n4
+        Esslöffel Pflanzenöl\n1 Teelöffel Senf\nSalz und Pfeffer nach Geschmack\nGehackte
+        frische Petersilie zum Garnieren\nAnleitung:\n\nKartoffeln waschen und schälen.
+        In dünne Scheiben schneiden.\nDie Kartoffelscheiben in einem Topf mit gesalzenem
+        Wasser kochen, bis sie weich, aber noch fest sind. Abgießen und etwas abkühlen
+        lassen.\nIn einer Schüssel Zwiebel, Gemüsebrühe, Weißweinessig, Pflanzenöl
+        und Senf vermengen. Mit Salz und Pfeffer abschmecken.\nDie warmen Kartoffelscheiben
+        zur Dressingmischung hinzufügen. Vorsichtig vermengen, damit die Kartoffeln
+        gut mit dem Dressing überzogen sind.\nDen Kartoffelsalat mindestens 30 Minuten
+        ziehen lassen, damit sich die Aromen verbinden können.\nVor dem Servieren
+        mit gehackter frischer Petersilie garnieren.\nGuten Appetit mit deinem leckeren
+        Kartoffelsalat!"}],"temperature":0.5}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <API_KEY>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Openai-Organization: "<SENSITIVE>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 03 Jan 2024 23:28:14 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-cache, must-revalidate
+      Openai-Model:
+      - gpt-3.5-turbo-1106
+      Openai-Organization:
+      - user-1c6qkvaymbx4kybcuag9ndqy
+      Openai-Processing-Ms:
+      - '14350'
+      Openai-Version:
+      - '2020-10-01'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      X-Ratelimit-Limit-Requests:
+      - '10000'
+      X-Ratelimit-Limit-Tokens:
+      - '60000'
+      X-Ratelimit-Limit-Tokens-Usage-Based:
+      - '60000'
+      X-Ratelimit-Remaining-Requests:
+      - '9999'
+      X-Ratelimit-Remaining-Tokens:
+      - '59307'
+      X-Ratelimit-Remaining-Tokens-Usage-Based:
+      - '59307'
+      X-Ratelimit-Reset-Requests:
+      - 8.64s
+      X-Ratelimit-Reset-Tokens:
+      - 693ms
+      X-Ratelimit-Reset-Tokens-Usage-Based:
+      - 693ms
+      X-Request-Id:
+      - 56539e02232f78f160f74418dd2328c6
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=VESB55.jUCIp6AhVB5flCtU.Dod3ECU1IVDfBrGDzOs-1704324494-1-AUOqX+0l3i4gOPVUOTfLkQeZafV6bQsPWv3E/W72A6nhMBooKNhXBetHu4wZiWC5S1q9yEBhvB2qNtXREVYy45U=;
+        path=/; expires=Wed, 03-Jan-24 23:58:14 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=DQ2uZid7d6tJiBsPlXU_mvQ3fvy7VQM.y4FHFZ8_x8k-1704324494566-0-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 83ff040028b04534-TXL
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "id": "chatcmpl-8d4wSo3q5SR3IG0JKxI8Igoi7v6wI",
+          "object": "chat.completion",
+          "created": 1704324480,
+          "model": "gpt-3.5-turbo-1106",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "{\n  \"title\": \"Potato Salad\",\n  \"description\": \"A simple and delicious recipe for homemade potato salad.\",\n  \"ingredients\": [\n    {\"ingredient\": \"Potatoes\", \"quantity\": 1, \"unit\": \"kg\"},\n    {\"ingredient\": \"Onion\", \"quantity\": 1, \"unit\": \"piece\"},\n    {\"ingredient\": \"Vegetable broth\", \"quantity\": 200, \"unit\": \"ml\"},\n    {\"ingredient\": \"White wine vinegar\", \"quantity\": 3, \"unit\": \"tablespoons\"},\n    {\"ingredient\": \"Vegetable oil\", \"quantity\": 4, \"unit\": \"tablespoons\"},\n    {\"ingredient\": \"Mustard\", \"quantity\": 1, \"unit\": \"teaspoon\"},\n    {\"ingredient\": \"Salt\", \"quantity\": \"to taste\", \"unit\": \"\"},\n    {\"ingredient\": \"Pepper\", \"quantity\": \"to taste\", \"unit\": \"\"},\n    {\"ingredient\": \"Chopped fresh parsley\", \"quantity\": \"for garnish\", \"unit\": \"\"}\n  ],\n  \"recipe_steps\": [\n    {\n      \"description\": \"Wash and peel the potatoes. Slice them thinly.\",\n      \"instruction\": \"Prepare the potatoes\",\n      \"step_number\": 1,\n      \"ingredients\": [\n        {\"ingredient\": \"Potatoes\", \"quantity\": 1, \"unit\": \"kg\"}\n      ]\n    },\n    {\n      \"description\": \"Boil the potato slices in a pot of salted water until they are tender but still firm. Drain and let cool slightly.\",\n      \"instruction\": \"Cook the potatoes\",\n      \"step_number\": 2,\n      \"ingredients\": [\n        {\"ingredient\": \"Potatoes\", \"quantity\": 1, \"unit\": \"kg\"}\n      ]\n    },\n    {\n      \"description\": \"In a bowl, mix together the onion, vegetable broth, white wine vinegar, vegetable oil, and mustard. Season with salt and pepper.\",\n      \"instruction\": \"Prepare the dressing\",\n      \"step_number\": 3,\n      \"ingredients\": [\n        {\"ingredient\": \"Onion\", \"quantity\": 1, \"unit\": \"piece\"},\n        {\"ingredient\": \"Vegetable broth\", \"quantity\": 200, \"unit\": \"ml\"},\n        {\"ingredient\": \"White wine vinegar\", \"quantity\": 3, \"unit\": \"tablespoons\"},\n        {\"ingredient\": \"Vegetable oil\", \"quantity\": 4, \"unit\": \"tablespoons\"},\n        {\"ingredient\": \"Mustard\", \"quantity\": 1, \"unit\": \"teaspoon\"},\n        {\"ingredient\": \"Salt\", \"quantity\": \"to taste\", \"unit\": \"\"},\n        {\"ingredient\": \"Pepper\", \"quantity\": \"to taste\", \"unit\": \"\"}\n      ]\n    },\n    {\n      \"description\": \"Add the warm potato slices to the dressing mixture. Gently toss to coat the potatoes evenly with the dressing.\",\n      \"instruction\": \"Combine potatoes with dressing\",\n      \"step_number\": 4,\n      \"ingredients\": [\n        {\"ingredient\": \"Potatoes\", \"quantity\": 1, \"unit\": \"kg\"},\n        {\"ingredient\": \"Onion\", \"quantity\": 1, \"unit\": \"piece\"},\n        {\"ingredient\": \"Vegetable broth\", \"quantity\": 200, \"unit\": \"ml\"},\n        {\"ingredient\": \"White wine vinegar\", \"quantity\": 3, \"unit\": \"tablespoons\"},\n        {\"ingredient\": \"Vegetable oil\", \"quantity\": 4, \"unit\": \"tablespoons\"},\n        {\"ingredient\": \"Mustard\", \"quantity\": 1, \"unit\": \"teaspoon\"},\n        {\"ingredient\": \"Salt\", \"quantity\": \"to taste\", \"unit\": \"\"},\n        {\"ingredient\": \"Pepper\", \"quantity\": \"to taste\", \"unit\": \"\"}\n      ]\n    },\n    {\n      \"description\": \"Allow the potato salad to sit for at least 30 minutes to allow the flavors to meld together.\",\n      \"instruction\": \"Let the salad sit\",\n      \"step_number\": 5,\n      \"ingredients\": [\n        {\"ingredient\": \"Potatoes\", \"quantity\": 1, \"unit\": \"kg\"},\n        {\"ingredient\": \"Onion\", \"quantity\": 1, \"unit\": \"piece\"},\n        {\"ingredient\": \"Vegetable broth\", \"quantity\": 200, \"unit\": \"ml\"},\n        {\"ingredient\": \"White wine vinegar\", \"quantity\": 3, \"unit\": \"tablespoons\"},\n        {\"ingredient\": \"Vegetable oil\", \"quantity\": 4, \"unit\": \"tablespoons\"},\n        {\"ingredient\": \"Mustard\", \"quantity\": 1, \"unit\": \"teaspoon\"},\n        {\"ingredient\": \"Salt\", \"quantity\": \"to taste\", \"unit\": \"\"},\n        {\"ingredient\": \"Pepper\", \"quantity\": \"to taste\", \"unit\": \"\"}\n      ]\n    },\n    {\n      \"description\": \"Before serving, garnish with chopped fresh parsley.\",\n      \"instruction\": \"Garnish with parsley\",\n      \"step_number\": 6,\n      \"ingredients\": [\n        {\"ingredient\": \"Chopped fresh parsley\", \"quantity\": \"for garnish\", \"unit\": \"\"}\n      ]\n    }\n  ]\n}"
+              },
+              "logprobs": null,
+              "finish_reason": "stop"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 708,
+            "completion_tokens": 1096,
+            "total_tokens": 1804
+          },
+          "system_fingerprint": "fp_772e8125bb"
+        }
+  recorded_at: Wed, 03 Jan 2024 23:28:27 GMT
+recorded_with: VCR 6.2.0

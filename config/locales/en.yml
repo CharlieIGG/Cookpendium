@@ -31,3 +31,7 @@
 
 en:
   hello: "Hello world"
+  languages:
+    en: "English"
+    de: "German"
+    es: "Spanish"
