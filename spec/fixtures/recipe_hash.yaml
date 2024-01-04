@@ -1,0 +1,124 @@
+title: Potato Salad
+description: A simple and delicious recipe for potato salad, perfect for any occasion.
+ingredients:
+  - ingredient: Potatoes
+    quantity: 1
+    unit: kg
+  - ingredient: Onion
+    quantity: 1
+    unit: ""
+  - ingredient: Vegetable broth
+    quantity: 200
+    unit: ml
+  - ingredient: White wine vinegar
+    quantity: 3
+    unit: tablespoons
+  - ingredient: Vegetable oil
+    quantity: 4
+    unit: tablespoons
+  - ingredient: Mustard
+    quantity: 1
+    unit: teaspoon
+  - ingredient: Salt
+    quantity:
+    unit: to taste
+  - ingredient: Black pepper
+    quantity:
+    unit: to taste
+  - ingredient: Chopped fresh parsley
+    quantity:
+    unit: for garnish
+recipe_steps:
+  - description: Wash and peel the potatoes. Slice into thin rounds.
+    instruction: Prepare the potatoes
+    step_number: 1
+    ingredients:
+      - ingredient: Potatoes
+        quantity: 1
+        unit: kg
+  - description:
+      Boil the potato slices in a pot of salted water until tender but still
+      firm. Drain and let cool slightly.
+    instruction: Cook the potatoes
+    step_number: 2
+    ingredients:
+      - ingredient: Potatoes
+        quantity: 1
+        unit: kg
+  - description:
+      In a bowl, combine onion, vegetable broth, white wine vinegar, vegetable
+      oil, and mustard. Season with salt and pepper.
+    instruction: Prepare the dressing
+    step_number: 3
+    ingredients:
+      - ingredient: Onion
+        quantity: 1
+        unit: ""
+      - ingredient: Vegetable broth
+        quantity: 200
+        unit: ml
+      - ingredient: White wine vinegar
+        quantity: 3
+        unit: tablespoons
+      - ingredient: Vegetable oil
+        quantity: 4
+        unit: tablespoons
+      - ingredient: Mustard
+        quantity: 1
+        unit: teaspoon
+  - description:
+      Add the warm potato slices to the dressing mixture. Gently toss to
+      ensure the potatoes are well coated with the dressing.
+    instruction: Mix potatoes with dressing
+    step_number: 4
+    ingredients:
+      - ingredient: Potatoes
+        quantity: 1
+        unit: kg
+      - ingredient: Onion
+        quantity: 1
+        unit: ""
+      - ingredient: Vegetable broth
+        quantity: 200
+        unit: ml
+      - ingredient: White wine vinegar
+        quantity: 3
+        unit: tablespoons
+      - ingredient: Vegetable oil
+        quantity: 4
+        unit: tablespoons
+      - ingredient: Mustard
+        quantity: 1
+        unit: teaspoon
+  - description:
+      Allow the potato salad to sit for at least 30 minutes to allow the
+      flavors to meld together.
+    instruction: Let the salad rest
+    step_number: 5
+    ingredients:
+      - ingredient: Potatoes
+        quantity: 1
+        unit: kg
+      - ingredient: Onion
+        quantity: 1
+        unit: ""
+      - ingredient: Vegetable broth
+        quantity: 200
+        unit: ml
+      - ingredient: White wine vinegar
+        quantity: 3
+        unit: tablespoons
+      - ingredient: Vegetable oil
+        quantity: 4
+        unit: tablespoons
+      - ingredient: Mustard
+        quantity: 1
+        unit: teaspoon
+  - description: Garnish with chopped fresh parsley just before serving.
+    instruction: Garnish with parsley
+    step_number: 6
+    ingredients:
+      - ingredient: Chopped fresh parsley
+        quantity:
+        unit: for garnish
+locale: en

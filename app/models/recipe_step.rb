@@ -6,7 +6,7 @@ class RecipeStep < ApplicationRecord
   has_many :recipe_step_ingredients, dependent: :destroy
   has_many :ingredients, through: :recipe_step_ingredients
 
-  translates :instruction
+  translates :instruction, :description
 
   validates :instruction, presence: true
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_03_194643) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_04_221457) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -93,6 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_03_194643) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "instruction"
+    t.text "description", null: false
     t.index ["locale"], name: "index_recipe_step_translations_on_locale"
     t.index ["recipe_step_id"], name: "index_recipe_step_translations_on_recipe_step_id"
   end
