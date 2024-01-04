@@ -3,15 +3,15 @@
 module RecipeImporter
   # imports a recipe and its associated ingredients and recipe steps from a Hash
   class Importer
-    def initialize(json_data)
-      @recipe_data = JSON.parse(json_data)
+    def initialize(recipe_data)
+      @recipe_data = recipe_data
       validate_recipe_data
     end
 
     def import
       create_recipe
-      create_or_update_ingredients
-      create_recipe_steps
+      initialize_ingredients
+      initialize_recipe_steps
       save_recipe_changes
     end
 
@@ -24,12 +24,11 @@ module RecipeImporter
       raise StandardError, "Invalid recipe data: #{validator.errors.full_messages.join(', ')}"
     end
 
-    #   probably doesn't make sense to "find" a recipe by name... TBD
     def create_recipe
       @recipe = Recipe.create(@recipe_data.except('ingredients', 'recipeSteps'))
     end
 
-    def create_or_update_ingredients
+    def initialize_ingredients
       @recipe.recipe_ingredients = @recipe_data['ingredients'].map do |ingredient_data|
         ingredient = Ingredient.find_or_initialize_by(name: ingredient_data['name'])
         measurement_unit = MeasurementUnit.find_or_initialize_by(name: ingredient_data['unit'])
@@ -38,17 +37,26 @@ module RecipeImporter
       end
     end
 
-    # requires adjustments
-    def create_or_update_recipe_steps
+    def initialize_recipe_steps
       @recipe.recipe_steps = @recipe_data['recipeSteps'].map do |step_data|
-        step = RecipeStep.find_or_initialize_by(description: step_data['description'])
-        step.attributes = step_data
+        step = RecipeStep.new(description: step_data['description'], instruction: step_data['instruction'],
+                              step_number: step_data['stepNumber'])
+        assign_ingredients_to_recipe_step(step_data, step)
         step
       end
     end
 
+    def assign_ingredients_to_recipe_step(step_data, step)
+      step.recipe_step_ingredients = step_data['ingredients'].map do |ingredient_data|
+        ingredient = Ingredient.find_or_initialize_by(name: ingredient_data['name'])
+        measurement_unit = MeasurementUnit.find_or_initialize_by(name: ingredient_data['unit'])
+        RecipeStepIngredient.find_or_initialize_by(recipe_step: step, ingredient:, measurement_unit:,
+                                                   quantity: ingredient_data['quantity'])
+      end
+    end
+
     def save_recipe_changes
-      @recipe.save
+      @recipe.save!
     end
   end
 end
