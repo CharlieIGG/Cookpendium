@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: grocery_sections
+#
+#  id          :bigint           not null, primary key
+#  description :text             not null
+#  name        :string           not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
 class GrocerySection < ApplicationRecord
   translates :name, :description
 
