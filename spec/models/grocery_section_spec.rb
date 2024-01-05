@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: grocery_sections
+#
+#  id          :bigint           not null, primary key
+#  description :text             not null
+#  name        :string           not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
 # spec/models/grocery_section_spec.rb
 require "rails_helper"
 

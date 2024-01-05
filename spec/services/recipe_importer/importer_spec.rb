@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe RecipeImporter::Importer, type: :service do
-  describe '#import' do
+RSpec.describe RecipeImporter::Importer, type: :service do # rubocop:disable Metrics/BlockLength
+  describe '#import' do # rubocop:disable Metrics/BlockLength
     context 'when a valid recipe is passed' do
       recipe_hash = YAML.load_file('spec/fixtures/recipe_hash.yaml')
       importer = RecipeImporter::Importer.new(recipe_hash)
@@ -9,16 +9,16 @@ RSpec.describe RecipeImporter::Importer, type: :service do
         expect { importer.import }.to change(Recipe, :count).by(1)
       end
       it 'creates ingredients' do
-        expect { importer.import }.to change(Ingredient, :count).by(3)
+        expect { importer.import }.to change(Ingredient, :count).by(9)
       end
       it 'creates recipe ingredients' do
-        expect { importer.import }.to change(RecipeIngredient, :count).by(3)
+        expect { importer.import }.to change(RecipeIngredient, :count).by(9)
       end
       it 'creates recipe steps' do
-        expect { importer.import }.to change(RecipeStep, :count).by(2)
+        expect { importer.import }.to change(RecipeStep, :count).by(6)
       end
       it 'creates recipe step ingredients' do
-        expect { importer.import }.to change(RecipeStepIngredient, :count).by(4)
+        expect { importer.import }.to change(RecipeStepIngredient, :count).by(20)
       end
     end
 

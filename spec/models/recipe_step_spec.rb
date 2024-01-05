@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: recipe_steps
+#
+#  id          :bigint           not null, primary key
+#  description :text             not null
+#  instruction :text
+#  step_number :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  recipe_id   :bigint           not null
+#
+# Indexes
+#
+#  index_recipe_steps_on_recipe_id  (recipe_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (recipe_id => recipes.id)
+#
 # spec/models/recipe_step_spec.rb
 require 'rails_helper'
 
