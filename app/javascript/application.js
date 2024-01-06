@@ -2,4 +2,8 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 import * as bootstrap from "bootstrap"
-import "./components"
+
+document.addEventListener("turbo:load", () => {
+    alert("Hello from Turbo!")
+})
+
