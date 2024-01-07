@@ -1,0 +1,29 @@
+<div>
+  <h3 class="mx-4 mb-3 text-secondary"><em><%= RecipeStep.model_name.human(count: 2) %></em></h3>
+  <ul class="list-group">
+    <% @recipe.recipe_steps.each do |recipe_step| %>
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold mb-3">
+            <h5 class="badge bg-info-subtle text-dark border border-info mb-0 me-1"><%= recipe_step.step_number %></h5>
+            <%= recipe_step.instruction %>
+          </div>
+          <%= recipe_step.description %>
+          <div class="mt-2">
+            <% recipe_step.recipe_step_ingredients.each do |rs_ingredient| %>
+              <span class="badge rounded-pill text-dark bg-primary-subtle border border-primary">
+                <%= rs_ingredient.ingredient.name %>
+                <% if rs_ingredient.quantity %>
+                  (
+                  <%= "%g" % ("%.2f" % rs_ingredient.quantity) %>
+                  <%= rs_ingredient.measurement_unit&.abbreviation %>
+                  )
+                <% end %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
