@@ -13115,11 +13115,6 @@
   };
   enableDismissTrigger(Toast);
   defineJQueryPlugin(Toast);
-
-  // app/javascript/application.js
-  document.addEventListener("turbo:load", () => {
-    alert("Hello from Turbo!");
-  });
 })();
 /*! Bundled license information:
 
