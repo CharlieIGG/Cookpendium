@@ -4,11 +4,16 @@
 #
 # Table name: recipes
 #
-#  id          :bigint           not null, primary key
-#  description :text             not null
-#  title       :string           not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id                   :bigint           not null, primary key
+#  cooking_time_minutes :integer
+#  description          :text             not null
+#  prep_time_minutes    :integer
+#  servings             :integer
+#  title                :string           not null
+#  vegan                :boolean
+#  vegetarian           :boolean
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
 #
 class Recipe < ApplicationRecord
   translates :title, :description
