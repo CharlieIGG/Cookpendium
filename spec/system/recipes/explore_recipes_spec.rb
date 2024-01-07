@@ -54,7 +54,7 @@ RSpec.describe 'ExploreRecipes', type: :system do # rubocop:disable Metrics/Bloc
         step.recipe_step_ingredients.each do |rs_ingredient|
           expect(page).to have_content(rs_ingredient.ingredient.name)
           expect(page).to have_content(format('%g', ('%.2f' % rs_ingredient.quantity)))
-          expect(page).to have_content(rs_ingredient.measurement_unit&.name)
+          expect(page).to have_content(rs_ingredient.measurement_unit.name) if rs_ingredient.measurement_unit&.name
         end
 
         # Assert that the recipe steps are displayed
