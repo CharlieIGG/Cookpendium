@@ -1,10 +1,10 @@
 <div class="d-flex flex-row recipe__main p-5">
   <div class="recipe_details flex-grow-1">
-    <h1 class="my-5"><%= @recipe.title %></h1>
+    <h1 class="my-5 text-dark"><%= @recipe.title %></h1>
     <div class="accordion accordion-preview w-50 mb-5" id="recipeDescriptionAccordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
-          <button class="accordion-button bg-info-subtle" type="button" data-bs-toggle="collapse" data-bs-target="#recipeDescription" aria-expanded="true" aria-controls="recipeDescription">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#recipeDescription" aria-expanded="true" aria-controls="recipeDescription">
             <%= t("recipes.about") %>
           </button>
         </h2>
@@ -15,8 +15,21 @@
         </div>
       </div>
     </div>
+    <div class="p-4 shadow-lg bg-primary text-dark rounded-start recipe__ingredients_panel">
+      <h2 class="mb-5"><%= Ingredient.model_name.human(count: 2) %></h2>
+      <% @recipe.recipe_ingredients.each do |r_ingredient| %>
+        <ul>
+          <li>
+            <%= r_ingredient.ingredient.name %>
+            <% if r_ingredient.quantity %>
+              (<%= "%g" % ("%.2f" % r_ingredient.quantity) %> <%= r_ingredient.measurement_unit&.abbreviation %>)
+            <% end %>
+          </li>
+        </ul>
+      <% end %>
+    </div>
     <div>
-      <h3 class="mb-3"><%= RecipeStep.model_name.human(count: 2) %></h3>
+      <h3 class="mx-4 mb-3 text-dark"><em><%= RecipeStep.model_name.human(count: 2) %></em></h3>
       <% @recipe.recipe_steps.each do |recipe_step| %>
         <ul class="list-group">
           <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -45,21 +58,4 @@
       <% end %>
     </div>
   </div>
-</div>
-</div>
-<div class="p-4 shadow-lg bg-primary text-light rounded-start recipe__ingredients_panel">
-  <h2 class="mb-5"><%= Ingredient.model_name.human(count: 2) %></h2>
-  <% @recipe.recipe_ingredients.each do |r_ingredient| %>
-    <ul>
-      <li>
-        <%= r_ingredient.ingredient.name %>
-        <% if r_ingredient.quantity %>
-          (
-          <%= "%g" % ("%.2f" % r_ingredient.quantity) %>
-          <%= r_ingredient.measurement_unit&.abbreviation %>
-          )
-        <% end %>
-      </li>
-    </ul>
-  <% end %>
 </div>

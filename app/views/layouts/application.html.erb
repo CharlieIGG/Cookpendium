@@ -9,6 +9,29 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg bg-primary-subtle border-bottom border-body <%= 'navbar__with_ingredients_panel' if params[:controller] == 'recipes' && params[:action] == "show" %>">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <h4 class="mb-0 text-dark brand__title">Cookpendium</h4>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <%= link_to Recipe.model_name.human(count: 2), recipes_path, class: "nav-link active",
+                          "aria-current": current_page?(controller: 'recipes') %>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search for a Recipe" aria-label="Search for a Recipe
+">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
     <%= yield %>
   </body>
 </html>
