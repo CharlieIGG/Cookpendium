@@ -10,10 +10,17 @@
               <h5 class="card-title"><%= recipe.title %></h5>
               <p class="card-text"><%= truncate(recipe.description, length: 90) %></p>
             </div>
+            <div class="card-footer text-body-secondary">
+              <%= render 'recipe_extra_details', recipe: %>
+            </div>
           </div>
         <% end %>
       </div>
     <% end %>
   </div>
-  <%= link_to "Submit a new recipe", new_recipe_path, class: "btn btn-secondary text-light" %>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-4 col-sm-6 d-flex justify-content-center">
+      <%= link_to "Submit a new recipe", new_recipe_path, class: "btn btn-secondary text-light d-inline-block" %>
+    </div>
+  </div>
 </div>

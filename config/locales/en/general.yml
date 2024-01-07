@@ -5,3 +5,8 @@ en:
     es: "Spanish"
   recipes:
     about: "About this recipe"
+  time:
+    minutes: "minutes"
+    mins: "mins."
+    hours: "hours"
+    hrs: "hrs."

@@ -3,7 +3,7 @@ class RecipesController < ApplicationController
 
   # GET /recipes or /recipes.json
   def index
-    @recipes = Recipe.all
+    @recipes = Recipe.all.map { |recipe| RecipeDecorator.new(recipe) }
   end
 
   # GET /recipes/1 or /recipes/1.json
@@ -59,7 +59,7 @@ class RecipesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_recipe
-    @recipe = Recipe.find(params[:id])
+    @recipe = RecipeDecorator.new(Recipe.find(params[:id]))
   end
 
   # Only allow a list of trusted parameters through.

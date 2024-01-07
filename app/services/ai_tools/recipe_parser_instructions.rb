@@ -21,6 +21,7 @@ module AITools
         -- ingredient name (string). Do not include any units or quantities in the name.
         -- quantity (number)
         -- unit (string), as standard as possible, such as 'grams', 'cups', 'pinches', 'tablespoons', 'teaspoons', 'pounds', 'ounces', etc.
+        -- unit_short (string), the abbreviated unit, such as 'gr', 'tbsp', 'tsp', 'lb', 'oz', etc.
       HEREDOC
     end
 

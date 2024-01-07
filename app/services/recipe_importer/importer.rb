@@ -32,7 +32,8 @@ module RecipeImporter
       ingredients = @recipe_data['ingredients'].map do |ingredient_data|
         ingredient = Ingredient.find_or_create_by!(name: ingredient_data['ingredient'])
         unless ingredient_data['unit'].nil? || ingredient_data['unit'].empty?
-          measurement_unit = MeasurementUnit.find_or_create_by!(name: ingredient_data['unit'])
+          measurement_unit = MeasurementUnit.find_or_create_by!(name: ingredient_data['unit'],
+                                                                abbreviation: ingredient_data['unit_short'])
         end
         RecipeIngredient.find_or_initialize_by(recipe: @recipe, ingredient:, measurement_unit:,
                                                quantity: ingredient_data['quantity'])
@@ -54,7 +55,8 @@ module RecipeImporter
       step.recipe_step_ingredients = step_data['ingredients'].map do |ingredient_data|
         ingredient = Ingredient.find_or_create_by!(name: ingredient_data['ingredient'])
         unless ingredient_data['unit'].nil? || ingredient_data['unit'].empty?
-          measurement_unit = MeasurementUnit.find_or_create_by!(name: ingredient_data['unit'])
+          measurement_unit = MeasurementUnit.find_or_create_by!(name: ingredient_data['unit'],
+                                                                abbreviation: ingredient_data['unit_short'])
         end
         RecipeStepIngredient.find_or_initialize_by(recipe_step: step, ingredient:, measurement_unit:,
                                                    quantity: ingredient_data['quantity'])
