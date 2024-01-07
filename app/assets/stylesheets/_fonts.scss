@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;600&family=Shantell+Sans:wght@600&display=swap');
+
+* {
+    font-family: 'Noto Serif', serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Shantell Sans', sans-serif;
+}
+
+h1,
+.brand__title {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 30%;
+        left: -2.5%;
+        width: 110%;
+        height: 50%;
+        background-color: $primary;
+        opacity: 0.75;
+        z-index: -1;
+        transform: skew(-15deg, -2deg);
+        border-radius: 5px;
+    }
+}
+.ingredient_list__title {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 30%;
+        left: -2.5%;
+        width: 110%;
+        height: 50%;
+        background-color: $secondary;
+        opacity: 0.5;
+        z-index: -1;
+        transform: skew(-15deg, -2deg);
+        border-radius: 5px;
+    }
+}
+
+.ingredient_list__list {
+    font-weight: 600;
+}

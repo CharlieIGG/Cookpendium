@@ -1,0 +1,15 @@
+<div class="p-4 shadow-lg bg-primary text-dark rounded-start recipe__ingredients_panel">
+  <h2 class="mb-5 ingredient_list__title"><%= Ingredient.model_name.human(count: 2) %></h2>
+  <ol class="ingredient_list__list">
+    <% @recipe.recipe_ingredients.each do |r_ingredient| %>
+      <li class="my-3">
+        <%= r_ingredient.ingredient.name %>
+        <% if r_ingredient.quantity %>
+          <span class="badge text-dark bg-primary-subtle border border-secondary ms-1">
+            <%= "%g" % ("%.2f" % r_ingredient.quantity) %> <%= r_ingredient.measurement_unit&.abbreviation %>
+          </span>
+        <% end %>
+      </li>
+    <% end %>
+  </ol>
+</div>
