@@ -6,6 +6,7 @@
 #  cooking_time_minutes :integer
 #  description          :text             not null
 #  prep_time_minutes    :integer
+#  serving_unit         :string
 #  servings             :integer
 #  title                :string           not null
 #  vegan                :boolean

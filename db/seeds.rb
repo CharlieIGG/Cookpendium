@@ -2,6 +2,12 @@
 
 recipes_array = [
   {
+    'cooking_time_minutes' => 30,
+    'prep_time_minutes' => 15,
+    'serving_unit' => 'servings',
+    'servings' => 2,
+    'vegan' => true,
+    'vegetarian' => true,
     'title' => 'Potato Salad',
     'description' => 'A simple and delicious recipe for potato salad, perfect for any occasion.',
     'ingredients' => [
@@ -75,8 +81,13 @@ recipes_array = [
     ],
     'locale' => 'en'
   },
-
   {
+    'cooking_time_minutes' => 30,
+    'prep_time_minutes' => 15,
+    'serving_unit' => 'cookies',
+    'servings' => 30,
+    'vegan' => false,
+    'vegetarian' => true,
     'title' => 'Chocolate Chip Cookies',
     'description' => 'Classic homemade chocolate chip cookies that are soft, chewy, and full of chocolatey goodness.',
     'ingredients' => [
@@ -164,6 +175,12 @@ recipes_array = [
     'locale' => 'en'
   },
   {
+    'cooking_time_minutes' => 30,
+    'prep_time_minutes' => 15,
+    'serving_unit' => 'servings',
+    'servings' => 2,
+    'vegan' => false,
+    'vegetarian' => false,
     'title' => 'Chicken Alfredo',
     'description' => 'A creamy and flavorful pasta dish made with tender chicken and a rich Alfredo sauce.',
     'ingredients' => [
@@ -239,6 +256,12 @@ recipes_array = [
     'locale' => 'en'
   },
   {
+    'cooking_time_minutes' => 30,
+    'prep_time_minutes' => 15,
+    'serving_unit' => 'servings',
+    'servings' => 4,
+    'vegan' => false,
+    'vegetarian' => true,
     'title' => 'Caprese Salad',
     'description' => 'A refreshing and colorful salad made with ripe tomatoes, fresh mozzarella, and fragrant basil.',
     'ingredients' => [
@@ -297,6 +320,12 @@ recipes_array = [
     'locale' => 'en'
   },
   {
+    'cooking_time_minutes' => 30,
+    'prep_time_minutes' => 15,
+    'serving_unit' => 'pizza',
+    'servings' => 1,
+    'vegan' => false,
+    'vegetarian' => true,
     'title' => 'Margarita Pizza',
     'description' => 'A classic Italian pizza topped with fresh tomatoes, mozzarella cheese, and fragrant basil leaves.',
     'ingredients' => [
@@ -377,6 +406,12 @@ recipes_array = [
     'locale' => 'en'
   },
   {
+    'cooking_time_minutes' => 30,
+    'prep_time_minutes' => 15,
+    'serving_unit' => 'servings',
+    'servings' => 4,
+    'vegan' => false,
+    'vegetarian' => false,
     'title' => 'Chicken Stir-Fry',
     'description' => 'A quick and easy stir-fry recipe with tender chicken, colorful vegetables, and a flavorful sauce.',
     'ingredients' => [

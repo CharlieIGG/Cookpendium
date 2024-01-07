@@ -113,6 +113,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_07_172809) do
     t.datetime "updated_at", null: false
     t.string "title", null: false
     t.text "description", null: false
+    t.string "serving_unit"
     t.index ["locale"], name: "index_recipe_translations_on_locale"
     t.index ["recipe_id"], name: "index_recipe_translations_on_recipe_id"
   end

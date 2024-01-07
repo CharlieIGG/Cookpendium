@@ -8,6 +8,7 @@
 #  cooking_time_minutes :integer
 #  description          :text             not null
 #  prep_time_minutes    :integer
+#  serving_unit         :string
 #  servings             :integer
 #  title                :string           not null
 #  vegan                :boolean
@@ -16,7 +17,7 @@
 #  updated_at           :datetime         not null
 #
 class Recipe < ApplicationRecord
-  translates :title, :description
+  translates :title, :description, :serving_unit
 
   has_many :recipe_ingredients, dependent: :destroy
   has_many :ingredients, through: :recipe_ingredients

@@ -36,6 +36,7 @@ module AITools
         { role: SYSTEM_ROLE, content: instructions.recipe_structure_instructions },
         { role: SYSTEM_ROLE, content: instructions.sanity_filter_instructions },
         { role: SYSTEM_ROLE, content: instructions.locale_detection_instructions },
+        { role: SYSTEM_ROLE, content: instructions.additional_data_instructions },
         { role: USER_ROLE, content: @raw_text }
       ]
     end

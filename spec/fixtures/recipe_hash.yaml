@@ -1,5 +1,11 @@
 title: Potato Salad
 description: A simple and delicious recipe for potato salad, perfect for any occasion.
+cooking_time_minutes: 15
+prep_time_minutes: 10
+serving_unit: "servings"
+servings: 4
+vegan: true
+vegetarian: true
 ingredients:
   - ingredient: Potatoes
     quantity: 1
