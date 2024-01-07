@@ -1,0 +1,7 @@
+en:
+  languages:
+    en: "English"
+    de: "German"
+    es: "Spanish"
+  recipes:
+    about: "About this recipe"

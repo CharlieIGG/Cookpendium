@@ -1,2 +1,12 @@
+@import "colors.scss";
+// external libraries
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+// styles with a global-scope
+@import 'global.scss';
+@import 'accordions.scss';
+@import 'cards.scss';
+
+// domain-secific styles
+@import 'recipe_show.scss';

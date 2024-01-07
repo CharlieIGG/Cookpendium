@@ -1,0 +1,19 @@
+<div id="recipes" class="container">
+  <p style="color: green"><%= notice %></p>
+  <h1 class="text-dark mb-5">Recipes</h1>
+  <div class="row">
+    <% @recipes.each do |recipe| %>
+      <div class="col-md-4">
+        <%= link_to recipe_path(recipe) do %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title"><%= recipe.title %></h5>
+              <p class="card-text"><%= truncate(recipe.description, length: 90) %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <%= link_to "Submit a new recipe", new_recipe_path, class: "btn btn-success text-light" %>
+</div>

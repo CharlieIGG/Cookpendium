@@ -1,0 +1,7 @@
+a .card {
+    transition: transform 0.2s ease;
+    &:hover {
+        @extend .shadow;
+            transform: scale(1.05);
+        }
+}
