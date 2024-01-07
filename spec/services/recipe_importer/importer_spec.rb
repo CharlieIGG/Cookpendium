@@ -7,6 +7,14 @@ RSpec.describe RecipeImporter::Importer, type: :service do # rubocop:disable Met
       importer = RecipeImporter::Importer.new(recipe_hash)
       it 'creates a recipe' do
         expect { importer.import }.to change(Recipe, :count).by(1)
+
+        recipe = Recipe.last
+        expect(recipe.cooking_time_minutes).to eq(15)
+        expect(recipe.prep_time_minutes).to eq(10)
+        expect(recipe.serving_unit).to eq('servings')
+        expect(recipe.servings).to eq(4)
+        expect(recipe.vegan).to eq(true)
+        expect(recipe.vegetarian).to eq(true)
       end
       it 'creates ingredients' do
         expect { importer.import }.to change(Ingredient, :count).by(9)

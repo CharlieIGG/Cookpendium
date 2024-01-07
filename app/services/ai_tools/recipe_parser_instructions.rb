@@ -21,6 +21,7 @@ module AITools
         -- ingredient name (string). Do not include any units or quantities in the name.
         -- quantity (number)
         -- unit (string), as standard as possible, such as 'grams', 'cups', 'pinches', 'tablespoons', 'teaspoons', 'pounds', 'ounces', etc.
+        -- unit_short (string), the abbreviated unit, such as 'gr', 'tbsp', 'tsp', 'lb', 'oz', etc.
       HEREDOC
     end
 
@@ -64,6 +65,18 @@ module AITools
         #{recipe_step_structure_instructions}
 
         #{recipe_step_splitting_instructions}
+      HEREDOC
+    end
+
+    def additional_data_instructions
+      <<~HEREDOC
+        If the recipe contains any of the following information, please include it in the JSON object:
+          - prep_time_minutes (integer) - the time it takes to prepare the ingredients
+          - cooking_time_minutes (integer) - the time it takes to cook the recipe
+          - serving_unit (string) - the unit of the serving size (e.g. "cup", "serving", "pieces", etc.)
+          - servings (integer) - the number of servings the recipe makes
+          - vegetarian (boolean) - whether the recipe is vegetarian (i.e. "true if no ingredients derived from meat, fish, or poultry are mentioned")
+          - vegan (boolean) - whether the recipe is vegan (i.e. "true if no ingredients derived from meat, fish, poultry, eggs, dairy, or honey are mentioned")
       HEREDOC
     end
   end

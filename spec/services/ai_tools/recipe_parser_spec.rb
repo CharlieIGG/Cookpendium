@@ -38,5 +38,24 @@ RSpec.describe AITools::RecipeParser, type: :service do # rubocop:disable Metric
         end
       end
     end
+
+    context 'returns additional information about the recipe if present in the input text' do
+      it 'returns a JSON with the recipe in the locale the request was initiated from' do
+        VCR.use_cassette('recipe_parser/valid_recipe_with_additional_info') do
+          input_text = File.read(Rails.root.join('spec', 'fixtures', 'valid_raw_recipe_with_additional_info.txt'))
+          parser = AITools::RecipeParser.new(input_text)
+          result = parser.parse
+          expect(result).to be_a(Hash)
+          expect(result).to include('prep_time_minutes', 'cooking_time_minutes', 'serving_unit', 'servings', 'vegan',
+                                    'vegetarian')
+          expect(result['prep_time_minutes']).to eq(25)
+          expect(result['cooking_time_minutes']).to eq(40)
+          expect(result['serving_unit']).to eq('cookies')
+          expect(result['servings']).to eq(30)
+          expect(result['vegan']).to eq(false)
+          expect(result['vegetarian']).to eq(true)
+        end
+      end
+    end
   end
 end
