@@ -36,6 +36,10 @@ jobs:
           ruby-version: 3.2.2
           bundler-cache: true
           cache-version: 1
+      - name: Install Chrome browser
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
       - name: Download chrome driver
         uses: nanasess/setup-chromedriver@master
       - name: Launch chrome driver
