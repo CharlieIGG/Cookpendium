@@ -66,8 +66,10 @@ group :development, :test do
 end
 
 group :test do
+  gem 'capybara'
   gem 'faker', '~> 3.2'
   gem 'guard-rspec', '~> 4.7', require: false
+  gem 'selenium-webdriver', '~> 4.16'
   gem 'vcr', github: 'vcr/vcr'
   gem 'webmock'
 end

@@ -3,6 +3,7 @@
 require 'vcr'
 
 VCR.configure do |config|
+  config.ignore_hosts '127.0.0.1', 'localhost'
   config.cassette_library_dir = 'spec/cassettes'
   config.hook_into :webmock
   config.filter_sensitive_data('<API_KEY>') { ENV['OPENAI_API_KEY'] }
