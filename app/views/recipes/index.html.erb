@@ -1,6 +1,5 @@
 <div id="recipes" class="container">
-  <p style="color: green"><%= notice %></p>
-  <h1 class="text-dark mb-5">Recipes</h1>
+  <h1 class="text-dark my-5 text-capitalize"><%= "#{t('numerators.all')} #{Recipe.model_name.human(count: 2)}" %></h1>
   <div class="row">
     <% @recipes.each do |recipe| %>
       <div class="col-md-4">

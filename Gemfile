@@ -11,6 +11,7 @@ gem 'rails', '~> 7.1.2'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 
+gem 'devise', '~> 4.9'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 
@@ -61,6 +62,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw windows]
   gem 'dotenv-rails', '~> 2.8'
   gem 'factory_bot_rails', '~> 6.4'
+  gem 'letter_opener', '~> 1.8.1'
   gem 'rspec-rails', '~> 6.1.0'
   gem 'shoulda-matchers', '~> 6.0.0'
 end

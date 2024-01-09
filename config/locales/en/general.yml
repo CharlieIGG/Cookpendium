@@ -10,3 +10,5 @@ en:
     mins: "mins."
     hours: "hours"
     hrs: "hrs."
+  numerators:
+    all: "all"

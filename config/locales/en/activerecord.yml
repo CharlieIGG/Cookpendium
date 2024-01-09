@@ -51,6 +51,9 @@ en:
       recipe_ingredient:
         one: "Recipe Ingredient"
         other: "Recipe Ingredients"
+      user:
+        one: "User"
+        other: "Users"
     attributes:
       grocery_section:
         name: "Name"
@@ -93,3 +96,10 @@ en:
         measurement_unit: "Measurement Unit"
         ingredient: "Ingredient"
         recipe: "Recipe"
+      user:
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password Confirmation"
+        remember_me: "Remember Me"
+        reset_password_token: "Reset Password Token"
+        reset_password_sent_at: "Reset Password Sent At"
