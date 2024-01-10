@@ -12,3 +12,5 @@ en:
     hrs: "hrs."
   numerators:
     all: "all"
+  forms:
+    save: "Save"

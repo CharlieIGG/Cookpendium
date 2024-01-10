@@ -1,0 +1,33 @@
+<div class="container-fluid bg-primary vh-100 d-flex align-items-center">
+  <div class="row justify-content-center w-100">
+    <div class="col-lg-4 col-md-8 col-sm-10 card bg-primary-subtle d-flex align-items-center">
+      <div class="card-body w-75">
+        <div class="row text-center">
+          <div class="mb-4 devise__title-container text-center">
+            <h1 class="devise__title fs-1 mt-4"><%= t('my_profile') %></h1>
+          </div>
+          <% if @user.username.nil? %>
+            <p><%= t('set_username_cta') %></p>
+          <% end %>
+        </div>
+        <%= form_for(@user, data: {turbo: false}) do |f| %>
+          <div class="field mb-3">
+            <%= f.label :username %><br />
+            <%= f.text_field :username, value: @user.username || @suggested_username, autofocus: true, 
+                disabled: @user.username.present?, class: "form-control", "aria-describedby":"username-help" %>
+            <div id="username-help" class="form-text"><%= t('username_warning') %>
+            </div>
+          </div>
+          <div class="actions text-center d-flex flex-column mt-4">
+            <%= f.submit t('forms.save'), class: "btn btn-secondary text-light mb-3" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="my-5"></div>
+    <div class="my-5"></div>
+    <div class="my-5"></div>
+    <div class="my-5"></div>
+    <div class="my-5"></div>
+  </div>
+</div>

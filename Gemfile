@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem 'faker', '~> 3.2'
 gem 'rails', '~> 7.1.2'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
@@ -78,8 +79,8 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'faker', '~> 3.2'
   gem 'guard-rspec', '~> 4.7', require: false
+  gem 'rackup', '~> 2.1'
   gem 'selenium-webdriver', '~> 4.16'
   gem 'vcr', github: 'vcr/vcr'
   gem 'webmock'
