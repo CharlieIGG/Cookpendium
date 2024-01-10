@@ -34,7 +34,7 @@ h1,
     }
 }
 .ingredient_list__title,
-.devise__title, {
+.devise__title {
     display: inline-block;
     position: relative;
     z-index: 1;
@@ -55,4 +55,8 @@ h1,
 
 .ingredient_list__list {
     font-weight: 600;
+}
+
+label {
+    color: $dark;
 }

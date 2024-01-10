@@ -35,7 +35,16 @@ gem 'cssbundling-rails'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
 
+# Localized model attributes
 gem 'globalize', '~> 6.3'
+
+gem 'omniauth', '2.1.2'
+# Google authentication
+gem 'omniauth-google-oauth2'
+
+gem 'omniauth-rails_csrf_protection'
+
+# Static text localization
 gem 'rails-i18n'
 
 # Use Redis adapter to run Action Cable in production

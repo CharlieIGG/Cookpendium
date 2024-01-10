@@ -1,6 +1,6 @@
 <div class="container-fluid bg-primary vh-100 d-flex align-items-center">
   <div class="row justify-content-center w-100">
-    <div class="col-md-4 col-sm-6 card bg-primary-subtle d-flex align-items-center">
+    <div class="col-lg-4 col-md-8 col-sm-10 card bg-primary-subtle d-flex align-items-center">
       <div class="card-body w-75">
         <div class="row text-center">
           <div class="mb-4 devise__title-container text-center">
@@ -24,10 +24,12 @@
             </div>
           <% end %>
           <div class="actions text-center d-flex flex-column mt-4">
-            <%= f.submit t('devise.sessions.sign_in'), class: "btn btn-secondary text-light mb-4" %>
-            <%= render "devise/shared/links" %>
+            <%= f.submit t('devise.sessions.sign_in'), class: "btn btn-secondary text-light mb-3" %>
           </div>
         <% end %>
+        <div class="actions text-center d-flex flex-column">
+          <%= render "users/shared/links" %>
+        </div>
       </div>
     </div>
   </div>

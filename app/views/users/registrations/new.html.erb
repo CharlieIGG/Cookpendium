@@ -1,6 +1,6 @@
 <div class="container-fluid bg-primary vh-100 d-flex align-items-center">
   <div class="row justify-content-center w-100">
-    <div class="col-md-4 col-sm-6 card bg-primary-subtle d-flex align-items-center">
+    <div class="col-lg-4 col-md-8 col-sm-10 card bg-primary-subtle d-flex align-items-center">
       <div class="card-body w-75">
         <div class="row text-center">
           <div class="mb-4 devise__title-container text-center">
@@ -16,20 +16,23 @@
           </div>
           <div class="field my-3">
             <%= f.label :password %><br />
-            <%= f.password_field :password,autocomplete: "new-password", class: "form-control" %>
+            <%= f.password_field :password,autocomplete: "new-password", class: "form-control", "aria-describedby":"password-help" %>
             <% if @minimum_password_length %>
-              <em>(<%= @minimum_password_length %> characters minimum)</em>
-            <% end %><br />
+              <div id="password-help" class="form-text"><%= t('devise.registrations.min_password_length', count: @minimum_password_length) %>
+              </div>
+            <% end %>
           </div>
           <div class="field my-3">
             <%= f.label :password_confirmation %>
             <%= f.password_field :password_confirmation,autocomplete: "new-password", class: "form-control" %>
           </div>
           <div class="actions text-center d-flex flex-column mt-4">
-            <%= f.submit t('devise.registrations.sign_up'), class: "btn btn-secondary text-light mb-4" %>
-            <%= render "devise/shared/links" %>
+            <%= f.submit t('devise.registrations.sign_up'), class: "btn btn-secondary text-light mb-3" %>
           </div>
         <% end %>
+        <div class="actions text-center d-flex flex-column">
+          <%= render "users/shared/links" %>
+        </div>
       </div>
     </div>
   </div>

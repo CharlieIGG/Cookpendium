@@ -45,6 +45,7 @@ en:
       updated: "Your password has been changed successfully. You are now signed in."
       updated_not_active: "Your password has been changed successfully."
     registrations:
+      min_password_length: "(minimum %{count} characters are required)"
       destroyed: "Bye! Your account has been successfully cancelled. We hope to see you again soon."
       sign_up: "Sign up"
       sign_up_cta: "Create an account to be able to create new recipes, edit existing ones and rate them."
