@@ -14,3 +14,5 @@ en:
     all: "all"
   forms:
     save: "Save"
+    cancel: "Cancel"
+    back: "Go back"
