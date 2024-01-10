@@ -10,3 +10,9 @@ en:
     mins: "mins."
     hours: "hours"
     hrs: "hrs."
+  numerators:
+    all: "all"
+  forms:
+    save: "Save"
+    cancel: "Cancel"
+    back: "Go back"

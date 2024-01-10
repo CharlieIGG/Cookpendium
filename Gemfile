@@ -6,11 +6,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem 'faker', '~> 3.2'
 gem 'rails', '~> 7.1.2'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 
+gem 'devise', '~> 4.9'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 
@@ -34,7 +36,16 @@ gem 'cssbundling-rails'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
 
+# Localized model attributes
 gem 'globalize', '~> 6.3'
+
+gem 'omniauth', '2.1.2'
+# Google authentication
+gem 'omniauth-google-oauth2'
+
+gem 'omniauth-rails_csrf_protection'
+
+# Static text localization
 gem 'rails-i18n'
 
 # Use Redis adapter to run Action Cable in production
@@ -61,14 +72,15 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw windows]
   gem 'dotenv-rails', '~> 2.8'
   gem 'factory_bot_rails', '~> 6.4'
+  gem 'letter_opener', '~> 1.8.1'
   gem 'rspec-rails', '~> 6.1.0'
   gem 'shoulda-matchers', '~> 6.0.0'
 end
 
 group :test do
   gem 'capybara'
-  gem 'faker', '~> 3.2'
   gem 'guard-rspec', '~> 4.7', require: false
+  gem 'rackup', '~> 2.1'
   gem 'selenium-webdriver', '~> 4.16'
   gem 'vcr', github: 'vcr/vcr'
   gem 'webmock'

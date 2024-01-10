@@ -13115,6 +13115,16 @@
   };
   enableDismissTrigger(Toast);
   defineJQueryPlugin(Toast);
+
+  // app/javascript/toasts.js
+  document.addEventListener("turbo:load", () => {
+    initializeToasts();
+  });
+  var initializeToasts = () => {
+    const toastElList = document.querySelectorAll(".toast");
+    const toastList = [...toastElList].map((toastEl) => new Toast(toastEl));
+    toastList.forEach((toast) => toast.show());
+  };
 })();
 /*! Bundled license information:
 
