@@ -30,7 +30,6 @@ FactoryBot.define do
     confirmed_at { Time.now }
     email { Faker::Internet.email }
     password { 'password123' }
-    encrypted_password { 'password123' }
     remember_created_at { Time.now }
     reset_password_sent_at { Time.now }
     reset_password_token { Faker::Alphanumeric::ALPHANUMS.sample(10).join }
