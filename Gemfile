@@ -90,6 +90,7 @@ group :test do
   gem 'vcr', github: 'vcr/vcr'
   gem 'webmock'
 
+  gem 'simplecov', require: false
   gem 'stackprof', '~> 0.2.25', require: false
 end
 

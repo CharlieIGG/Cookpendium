@@ -4,6 +4,7 @@ require 'test_prof'
 require 'test_prof/recipes/rspec/sample'
 require 'test_prof/recipes/rspec/before_all'
 require 'test_prof/recipes/rspec/let_it_be'
+require 'test_prof/factory_prof/nate_heckler'
 
 TestProf::StackProf.configure do |config|
   config.format = 'json'

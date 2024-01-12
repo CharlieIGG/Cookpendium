@@ -15,6 +15,22 @@
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'factory_bot_rails'
 require 'devise'
+require 'simplecov'
+
+SimpleCov.start 'rails' do
+  add_filter %r{^/spec/}
+  add_filter %r{^/public/}
+  add_filter %r{^/config/}
+  add_filter %r{^/vendor/}
+  add_filter %r{^/db/}
+  add_filter %r{^/app/channels/}
+  add_filter %r{^/bin/}
+  add_filter %r{^/docs/}
+  add_filter %r{^/lib/}
+  add_filter %r{^/log/}
+  add_filter %r{^/storage/}
+  add_filter %r{^/tmp/}
+end
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
