@@ -17,6 +17,8 @@
 #  updated_at           :datetime         not null
 #
 class Recipe < ApplicationRecord
+  resourcify
+
   translates :title, :description, :serving_unit
 
   has_many :recipe_ingredients, dependent: :destroy

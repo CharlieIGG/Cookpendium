@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :ensure_user_has_username, only: %i[edit update]
   before_action :set_user, only: %i[edit update]
+  before_action :authorize_user, only: %i[edit update]
 
   def edit
     @suggested_username = generate_suggested_username if current_user.username.blank?
@@ -18,6 +19,10 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def authorize_user
+    authorize @user
   end
 
   def user_params

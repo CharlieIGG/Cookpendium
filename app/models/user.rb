@@ -24,6 +24,7 @@
 #  index_users_on_username              (username) UNIQUE
 #
 class User < ApplicationRecord
+  rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -33,11 +34,19 @@ class User < ApplicationRecord
   validates :username, uniqueness: true, allow_blank: true
   validates :email, uniqueness: true, presence: true
 
+  after_create :assign_default_role
+
   def self.from_omniauth(access_token)
     data = access_token.info
     user = User.where(email: data['email']).first
     return user if user
 
     User.create(email: data['email'], password: Devise.friendly_token[0, 20])
+  end
+
+  private
+
+  def assign_default_role
+    add_role(:basic_user) if roles.blank?
   end
 end

@@ -48,6 +48,10 @@ gem 'omniauth-rails_csrf_protection'
 # Static text localization
 gem 'rails-i18n'
 
+# Object-oriented Authorization
+gem 'pundit', '~> 2.3.1'
+gem 'rolify', '~> 6.0'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

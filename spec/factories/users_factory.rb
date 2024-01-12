@@ -26,16 +26,29 @@
 FactoryBot.define do
   factory :user do
     confirmation_sent_at { Time.now }
-    confirmation_token { 'abc123' }
+    confirmation_token { Faker::Alphanumeric::ALPHANUMS.sample(10).join }
     confirmed_at { Time.now }
     email { Faker::Internet.email }
+    password { 'password123' }
     encrypted_password { 'password123' }
     remember_created_at { Time.now }
     reset_password_sent_at { Time.now }
-    reset_password_token { 'def456' }
+    reset_password_token { Faker::Alphanumeric::ALPHANUMS.sample(10).join }
     unconfirmed_email { Faker::Internet.email }
     username { Faker::Internet.username }
     created_at { Time.now }
     updated_at { Time.now }
+
+    trait :superadmin do
+      after(:create) do |user|
+        user.add_role(:superadmin)
+      end
+    end
+
+    trait :admin do
+      after(:create) do |user|
+        user.add_role(:admin)
+      end
+    end
   end
 end
