@@ -30,6 +30,7 @@ SimpleCov.start 'rails' do
   add_filter %r{^/log/}
   add_filter %r{^/storage/}
   add_filter %r{^/tmp/}
+  add_filter %r{^/app/mailers/}
 end
 
 RSpec.configure do |config|
