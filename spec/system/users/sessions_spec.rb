@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'User Sessions', type: :system do
   describe 'Login' do
     it 'is successful with valid data' do
-      user = create(:user, password: 'password')
+      user = create(:user)
       visit new_user_session_path
 
       fill_in I18n.t('activerecord.attributes.user.email'), with: user.email
