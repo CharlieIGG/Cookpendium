@@ -86,8 +86,12 @@ group :test do
   gem 'guard-rspec', '~> 4.7', require: false
   gem 'rackup', '~> 2.1'
   gem 'selenium-webdriver', '~> 4.16'
+  gem 'test-prof', '~> 1.2'
   gem 'vcr', github: 'vcr/vcr'
   gem 'webmock'
+
+  gem 'simplecov', require: false
+  gem 'stackprof', '~> 0.2.25', require: false
 end
 
 group :development do
