@@ -82,7 +82,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', '~> 3.39'
   gem 'guard-rspec', '~> 4.7', require: false
   gem 'rackup', '~> 2.1'
   gem 'selenium-webdriver', '~> 4.16'

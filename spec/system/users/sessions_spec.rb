@@ -32,4 +32,18 @@ RSpec.describe 'User Sessions', type: :system do
       expect(page).to have_current_path(new_user_registration_path)
     end
   end
+
+  describe 'Logout' do
+    it 'is successful' do
+      user = create(:user)
+      login_as user
+
+      visit root_path
+
+      click_link user.username
+      click_link I18n.t('devise.sessions.sign_out')
+
+      expect(page).to have_text(I18n.t('devise.sessions.signed_out'))
+    end
+  end
 end
