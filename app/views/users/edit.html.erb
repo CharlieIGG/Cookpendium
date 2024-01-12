@@ -18,7 +18,7 @@
             <div id="username-help" class="form-text"><%= t('username_warning') %>
             </div>
           </div>
-          <div class="actions text-center d-flex flex-column mt-4">
+          <div class="actions text-center d-flex flex-column my-4">
             <%= f.submit t('forms.save'), disabled: @user.username.present?, class: "btn btn-secondary text-light mb-3" %>
             <%= link_to t('forms.back'), root_path, class: "btn btn-outline-secondary" %>
           </div>

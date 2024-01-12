@@ -463,7 +463,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootsnap
-  capybara
+  capybara (~> 3.39)
   cssbundling-rails
   debug
   devise (~> 4.9)
