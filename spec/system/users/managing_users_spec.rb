@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Managing Users', type: :system do # rubocop:disable Metrics/BlockLength
-  let(:superadmin) { create(:user, :superadmin) }
-  let(:admin) { create(:user, :admin) }
-  let(:user) { create(:user) }
+  let_it_be(:superadmin) { create(:user, :superadmin) }
+  let_it_be(:admin) { create(:user, :admin) }
+  let_it_be(:user) { create(:user) }
 
   context 'as a superadmin' do
     before do

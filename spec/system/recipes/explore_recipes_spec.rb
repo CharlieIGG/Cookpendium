@@ -2,9 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'ExploreRecipes', type: :system do # rubocop:disable Metrics/BlockLength
   describe 'viewing all recipes' do
-    before do
-      create_list(:recipe, 5)
-    end
+    let_it_be(:recipes) { create_list(:recipe, 5) }
+
     it 'displays recipe titles and truncated descriptions on recipes_path' do
       # Add code to create some recipes here
 
