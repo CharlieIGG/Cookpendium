@@ -20,17 +20,13 @@ class RecipesController < ApplicationController
 
   # POST /recipes or /recipes.json
   def create
-    @recipe = Recipe.new(recipe_params)
+    raw_recipe = params.dig(:recipe, :ingredients_and_instructions)
+    return create_recipe_from_raw_text(raw_recipe) if raw_recipe.present? && raw_recipe.length.positive?
 
-    respond_to do |format|
-      if @recipe.save
-        format.html { redirect_to recipe_url(@recipe), notice: 'Recipe was successfully created.' }
-        format.json { render :show, status: :created, location: @recipe }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @recipe.errors, status: :unprocessable_entity }
-      end
-    end
+    @recipe = Recipe.new(recipe_params)
+    return after_create if @recipe.save
+
+    handle_recipe_create_failure
   end
 
   # PATCH/PUT /recipes/1 or /recipes/1.json
@@ -38,10 +34,8 @@ class RecipesController < ApplicationController
     respond_to do |format|
       if @recipe.update(recipe_params)
         format.html { redirect_to recipe_url(@recipe), notice: 'Recipe was successfully updated.' }
-        format.json { render :show, status: :ok, location: @recipe }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @recipe.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -65,6 +59,58 @@ class RecipesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def recipe_params
-    params.fetch(:recipe, {})
+    params.require(:recipe).permit(:title, :description)
+  end
+
+  def create_recipe_from_raw_text(raw_recipe)
+    recipe_hash = AITools::RecipeParser.call(raw_recipe)
+    update_recipe_attributes(recipe_hash)
+    import_recipe(recipe_hash)
+  rescue StandardError => e
+    handle_recipe_import_error(e)
+  end
+
+  def update_recipe_attributes(recipe_hash)
+    update_recipe_title(recipe_hash)
+    update_recipe_description(recipe_hash)
+  end
+
+  def update_recipe_title(recipe_hash)
+    title = recipe_params[:title]
+    recipe_hash['title'] = title if title.present? && title.length.positive?
+  end
+
+  def update_recipe_description(recipe_hash)
+    description = recipe_params[:description]
+    recipe_hash['description'] = description if description.present? && description.length.positive?
+  end
+
+  def import_recipe(recipe_hash)
+    @recipe = RecipeImporter::Importer.call(recipe_hash)
+    after_create
+  end
+
+  def after_create
+    current_user.add_role(:author, @recipe)
+    redirect_to recipe_path(@recipe),
+                notice: I18n.t('helpers.created.one', model: Recipe.model_name.human), status: :see_other
+  end
+
+  def handle_recipe_import_error(error)
+    messages = {
+      RecipeImporter::Importer::ContentError => I18n.t('helpers.errors.recipes.parser_content')
+    }
+    alert = messages[error.class] || I18n.t('helpers.errors.recipes.import')
+    render turbo_stream: [
+      turbo_stream.append('toasts_container', partial: 'shared/toast', locals: { message: alert, type: :alert })
+    ]
+  end
+
+  def handle_recipe_create_failure
+    render turbo_stream: [
+      turbo_stream.append('toasts_container', partial: 'shared/toast',
+                                              locals: { message: I18n.t('helpers.errors.create', model: Recipe.model_name.human), type: :alert }),
+      turbo_stream.update('toasts_container', partial: 'form', locals: { recipe: @recipe })
+    ]
   end
 end

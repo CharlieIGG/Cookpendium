@@ -2,17 +2,17 @@
 
 module AITools
   # Service to parse a structured recipe and it's associations from a raw text
-  class RecipeParser
+  class RecipeParser < ApplicationService
     SYSTEM_ROLE = 'system'
     USER_ROLE = 'user'
 
-    def initialize(raw_text, locale: 'en', client: OpenAI::Client.new)
+    def initialize(raw_text, locale: 'en', client: OpenAI::Client.new) # rubocop:disable Lint/MissingSuper
       @raw_text = raw_text
       @client = client
       @locale = locale
     end
 
-    def parse
+    def call
       result = parse_with_openai
       JSON.parse(result).merge('locale' => @locale)
     rescue JSON::ParserError => e

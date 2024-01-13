@@ -6,8 +6,7 @@ RSpec.describe AITools::RecipeParser, type: :service do # rubocop:disable Metric
       it 'returns a valid JSON representing a recipe' do
         VCR.use_cassette('recipe_parser/valid_recipe') do
           input_text = File.read(Rails.root.join('spec', 'fixtures', 'valid_raw_recipe.txt'))
-          parser = AITools::RecipeParser.new(input_text)
-          result = parser.parse
+          result = AITools::RecipeParser.call(input_text)
           expect(result).to be_a(Hash)
           expect(result).to include('title', 'description', 'ingredients', 'recipe_steps', 'locale')
         end
@@ -18,8 +17,7 @@ RSpec.describe AITools::RecipeParser, type: :service do # rubocop:disable Metric
       it 'returns a JSON with an error message' do
         VCR.use_cassette('recipe_parser/invalid_recipe') do
           input_text = File.read(Rails.root.join('spec', 'fixtures', 'invalid_raw_recipe.txt'))
-          parser = AITools::RecipeParser.new(input_text)
-          result = parser.parse
+          result = AITools::RecipeParser.call(input_text)
           expect(result).to be_a(Hash)
           expect(result).to include('error')
         end
@@ -30,8 +28,7 @@ RSpec.describe AITools::RecipeParser, type: :service do # rubocop:disable Metric
       it 'returns a JSON with the recipe in the locale the request was initiated from' do
         VCR.use_cassette('recipe_parser/valid_recipe_in_german') do
           input_text = File.read(Rails.root.join('spec', 'fixtures', 'valid_raw_recipe_german.txt'))
-          parser = AITools::RecipeParser.new(input_text, locale: 'en')
-          result = parser.parse
+          result = AITools::RecipeParser.call(input_text, locale: 'en')
           expect(result).to be_a(Hash)
           expect(result).to include('title', 'description', 'ingredients', 'recipe_steps', 'locale')
           expect(result['title']).to eq('Potato Salad')
@@ -43,8 +40,7 @@ RSpec.describe AITools::RecipeParser, type: :service do # rubocop:disable Metric
       it 'returns a JSON with the recipe in the locale the request was initiated from' do
         VCR.use_cassette('recipe_parser/valid_recipe_with_additional_info') do
           input_text = File.read(Rails.root.join('spec', 'fixtures', 'valid_raw_recipe_with_additional_info.txt'))
-          parser = AITools::RecipeParser.new(input_text)
-          result = parser.parse
+          result = AITools::RecipeParser.call(input_text)
           expect(result).to be_a(Hash)
           expect(result).to include('prep_time_minutes', 'cooking_time_minutes', 'serving_unit', 'servings', 'vegan',
                                     'vegetarian')

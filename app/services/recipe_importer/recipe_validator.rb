@@ -2,9 +2,13 @@
 
 module RecipeImporter
   # does some superficial validation on the recipe hash before trying to import it
-  class RecipeValidator
-    def initialize(recipe)
+  class RecipeValidator < ApplicationService
+    def initialize(recipe) # rubocop:disable Lint/MissingSuper
       @recipe = recipe
+    end
+
+    def call
+      valid?
     end
 
     def valid?

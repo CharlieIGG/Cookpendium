@@ -11,7 +11,7 @@ module AITools
       <<~HEREDOC
         If the provided text is not a cooking recipe, please return the following JSON object:
         {
-            "error": "The provided text is not a recipe. Please provide a recipe."
+            "error": I18n.t('helpers.errors.recipes.parser_content')
         }
       HEREDOC
     end

@@ -2,26 +2,30 @@
 
 module RecipeImporter
   # imports a recipe and its associated ingredients and recipe steps from a Hash
-  class Importer
-    def initialize(recipe_data)
+  class Importer < ApplicationService
+    class ContentError < StandardError; end
+    class DataStructureError < StandardError; end
+
+    def initialize(recipe_data) # rubocop:disable Lint/MissingSuper
       @recipe_data = recipe_data
     end
 
-    def import
+    def call
       validate_recipe_data
       create_recipe
       initialize_ingredients
       initialize_recipe_steps
       save_recipe_changes
+      @recipe
     end
 
     private
 
     def validate_recipe_data
-      validator = RecipeValidator.new(@recipe_data)
-      return if validator.valid?
+      raise ContentError, I18n.t('helpers.errors.recipes.parser_content') if @recipe_data['error']
+      return if RecipeValidator.call(@recipe_data)
 
-      raise StandardError, 'Invalid recipe data: structure does not match expected format or data is missing'
+      raise DataStructureError, 'Invalid recipe data: structure does not match expected format or data is missing'
     end
 
     def create_recipe

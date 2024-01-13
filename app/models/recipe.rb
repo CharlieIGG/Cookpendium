@@ -25,6 +25,7 @@ class Recipe < ApplicationRecord
   has_many :ingredients, through: :recipe_ingredients
   has_many :recipe_steps, dependent: :destroy
   has_many :recipe_step_ingredients, through: :recipe_steps, source: :ingredients
+  has_many :authors, -> { distinct }, through: :roles, class_name: 'User', source: :users
 
   validates :title, presence: true
   validates :description, presence: true

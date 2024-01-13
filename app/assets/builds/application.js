@@ -7950,16 +7950,6 @@
   application.debug = false;
   window.Stimulus = application;
 
-  // app/javascript/controllers/hello_controller.js
-  var hello_controller_default = class extends Controller {
-    connect() {
-      this.element.textContent = "Hello World!";
-    }
-  };
-
-  // app/javascript/controllers/index.js
-  application.register("hello", hello_controller_default);
-
   // node_modules/@popperjs/core/lib/index.js
   var lib_exports = {};
   __export(lib_exports, {
@@ -13116,15 +13106,20 @@
   enableDismissTrigger(Toast);
   defineJQueryPlugin(Toast);
 
-  // app/javascript/toasts.js
-  document.addEventListener("turbo:load", () => {
-    initializeToasts();
-  });
-  var initializeToasts = () => {
-    const toastElList = document.querySelectorAll(".toast");
-    const toastList = [...toastElList].map((toastEl) => new Toast(toastEl));
-    toastList.forEach((toast) => toast.show());
+  // app/javascript/controllers/toasts.js
+  var ToastsController = class extends Controller {
+    static targets = ["toast"];
+    connect() {
+      this.toast = new Toast(this.toastTarget, { delay: 7e3 });
+      this.toast.show();
+    }
+    disconnect() {
+      this.toast.dispose();
+    }
   };
+
+  // app/javascript/controllers/index.js
+  application.register("toasts", ToastsController);
 })();
 /*! Bundled license information:
 
