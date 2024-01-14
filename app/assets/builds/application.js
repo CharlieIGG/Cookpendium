@@ -13141,7 +13141,9 @@
       }, 3e3);
     }
     hideLoader() {
-      this.loadingModal.hide();
+      setTimeout(() => {
+        this.loadingModal.hide();
+      }, 500);
     }
     disconnect() {
       this.element.removeEventListener("turbo:submit-start", () => this.showLoader());

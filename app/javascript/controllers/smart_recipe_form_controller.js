@@ -41,7 +41,9 @@ class SmartRecipeFormController extends Controller {
   }
 
   hideLoader() {
-    this.loadingModal.hide();
+    setTimeout(() => {
+      this.loadingModal.hide();
+    }, 500);
   }
 
   disconnect() {
