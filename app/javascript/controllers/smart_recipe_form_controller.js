@@ -2,14 +2,28 @@ import { Controller } from "@hotwired/stimulus";
 import { Modal } from "bootstrap";
 
 class SmartRecipeFormController extends Controller {
+  static targets = ["AIToolsToggle", "AIToolsInput", "nonAIFormInputs"];
+
   constructor(...args) {
     super(...args);
     this.loadingModal = window.lodmo = new Modal(document.getElementById('loadingModal'));
   }
 
   connect() {
+    this.AIToolsToggleTarget.addEventListener('change', (e) => this.toggleAITools(e.target.checked));
     this.element.addEventListener('turbo:submit-start', () => this.showLoader());
     this.element.addEventListener('turbo:submit-end', () => this.hideLoader());
+  }
+
+  toggleAITools(checked) {
+    if (checked) {
+      this.AIToolsInputTarget.classList.remove('d-none');
+      this.nonAIFormInputsTarget.classList.add('d-none');
+    } else {
+      this.AIToolsInputTarget.classList.add('d-none');
+      this.nonAIFormInputsTarget.classList.remove('d-none');
+      this.AIToolsInputTarget.value = '';
+    }
   }
 
   showLoader() {
@@ -37,7 +51,7 @@ class SmartRecipeFormController extends Controller {
       if (index === messages.length) {
         clearInterval(intervalId);
       }
-    }, 3000);
+    }, 5000);
   }
 
   hideLoader() {

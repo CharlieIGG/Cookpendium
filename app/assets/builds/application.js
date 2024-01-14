@@ -13108,13 +13108,25 @@
 
   // app/javascript/controllers/smart_recipe_form_controller.js
   var SmartRecipeFormController = class extends Controller {
+    static targets = ["AIToolsToggle", "AIToolsInput", "nonAIFormInputs"];
     constructor(...args) {
       super(...args);
       this.loadingModal = window.lodmo = new Modal(document.getElementById("loadingModal"));
     }
     connect() {
+      this.AIToolsToggleTarget.addEventListener("change", (e) => this.toggleAITools(e.target.checked));
       this.element.addEventListener("turbo:submit-start", () => this.showLoader());
       this.element.addEventListener("turbo:submit-end", () => this.hideLoader());
+    }
+    toggleAITools(checked) {
+      if (checked) {
+        this.AIToolsInputTarget.classList.remove("d-none");
+        this.nonAIFormInputsTarget.classList.add("d-none");
+      } else {
+        this.AIToolsInputTarget.classList.add("d-none");
+        this.nonAIFormInputsTarget.classList.remove("d-none");
+        this.AIToolsInputTarget.value = "";
+      }
     }
     showLoader() {
       this.loadingModal.show();
@@ -13138,7 +13150,7 @@
         if (index === messages.length) {
           clearInterval(intervalId);
         }
-      }, 3e3);
+      }, 5e3);
     }
     hideLoader() {
       setTimeout(() => {

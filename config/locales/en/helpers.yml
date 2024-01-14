@@ -16,9 +16,11 @@ en:
       one: "%{model} was successfully deleted."
       other: "%{model} were successfully deleted."
     errors:
-      header: "The following errors prohibited this %{model} from being saved:"
+      saving: "The following errors prohibited this %{model} from being saved:"
       body: "There were problems with the following fields:"
       create: "Unable to create your %{model}, please review your input."
       recipes:
         import: "There was an error importing your recipe. Please review your input and try again."
         parser_content: "The provided text does not look like a recipe. Please provide a recipe."
+    ai_tools:
+      use_ai: "Use Artificial Intelligence Tools"
