@@ -39,7 +39,10 @@ module AITools
     def recipe_step_splitting_instructions
       <<~HEREDOC
         If a recipe step contains multiple actions in any part of the original text, please split them into separate recipe_steps.
-        Typically this is identified by the word "and" or a comma between two actions (verbs).
+        An instruction is to be considered multiple actions whenever it contains any of the following:
+        - multple sentences separated by periods.
+        - multiple independent clauses.
+        - the word "then" joining two clauses.
         Also if instructions are given in a paragraph separated by periods, please split them into separate recipe_steps.
       HEREDOC
     end

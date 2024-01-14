@@ -29,4 +29,10 @@ class Recipe < ApplicationRecord
 
   validates :title, presence: true
   validates :description, presence: true
+
+  scope :with_steps_and_ingredients, lambda {
+                                       joins(:recipe_steps, :recipe_ingredients)
+                                         .group('recipes.id')
+                                         .having('COUNT(DISTINCT recipe_steps.id) > 0 AND COUNT(DISTINCT recipe_ingredients.id) > 0')
+                                     }
 end
