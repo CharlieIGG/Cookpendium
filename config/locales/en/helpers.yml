@@ -1,5 +1,7 @@
 en:
   helpers:
+    loading:
+      base: "Loading..."
     submit:
       create: "Create %{model}"
       submit: "Save %{model}"

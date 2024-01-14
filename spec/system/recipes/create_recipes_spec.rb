@@ -27,6 +27,7 @@ RSpec.describe 'Create Recipes', type: :system do # rubocop:disable Metrics/Bloc
 
         expect do
           click_button I18n.t('helpers.submit.create', model: Recipe.model_name.human)
+          expect(page).to have_content(I18n.t('helpers.loading.base'))
           expect(page).to have_content(I18n.t('helpers.created.one', model: Recipe.model_name.human))
           expect(AITools::RecipeParser).to have_received(:call).with(ingredients_and_instructions)
         end.to change(Recipe, :count).by(1)

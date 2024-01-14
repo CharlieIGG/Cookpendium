@@ -11,9 +11,9 @@
   </head>
   <body>
     <%= render partial: 'shared/navbar' %>
-    <div>
-      <%= render 'shared/toasts_container' %>
+    <div class="mt-5">
       <%= yield %>
     </div>
+    <%= render 'shared/toasts_container' %>
   </body>
 </html>

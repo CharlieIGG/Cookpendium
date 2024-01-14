@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg bg-primary-subtle border-bottom border-body <%= 'navbar__with_ingredients_panel' if params[:controller] == 'recipes' && params[:action] == "show" %>">
+<nav class="navbar fixed-top navbar-expand-lg bg-primary-subtle border-bottom border-body <%= 'navbar__with_ingredients_panel' if params[:controller] == 'recipes' && params[:action] == "show" %>">
   <div class="container-fluid">
-    <a class="navbar-brand me-5" href="/">
+    <a class="navbar-brand me-4" href="/">
       <h4 class="mb-0 text-dark brand__title">Cookpendium</h4>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <%= link_to Recipe.model_name.human(count: 2), recipes_path, class: "nav-link active",
+          <%= link_to "#{ t('numerators.all').capitalize } #{ Recipe.model_name.human(count: 2) }", recipes_path, class: "nav-link active",
                           "aria-current": params[:controller] = 'recipes' %>
         </li>
       </ul>
