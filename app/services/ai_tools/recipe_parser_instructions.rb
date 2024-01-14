@@ -18,7 +18,7 @@ module AITools
 
     def ingredient_structure_instructions
       <<~HEREDOC
-        -- ingredient name (string). Do not include any units or quantities in the name.
+        -- ingredient_name (string). Do not include any units or quantities in the name.
         -- quantity (number)
         -- unit (string), as standard as possible, such as 'grams', 'cups', 'pinches', 'tablespoons', 'teaspoons', 'pounds', 'ounces', etc.
         -- unit_short (string), the abbreviated unit, such as 'gr', 'tbsp', 'tsp', 'lb', 'oz', etc.
@@ -31,7 +31,7 @@ module AITools
         -- an instruction (string): a short sentence thath summarizes the step in 45 characters or less (e.g. "Preheat the oven")
         --- Note: the "instruction" is a supposed to be a shortened version of the "description" that can be used as a title for the step.
         -- a step_number (integer), indicating the order of the step
-        -- a list of ingredients, as an array of objects, with the same structure as the main ingredients array.
+        -- a list of "ingredients", as an array of objects, with the same structure as the main ingredients array.
         -- only list ingredients that are used in their original form (i.e. omit ingredients that have already been mixed or transformed in previous steps)
       HEREDOC
     end

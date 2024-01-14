@@ -7,31 +7,31 @@ servings: 4
 vegan: true
 vegetarian: true
 ingredients:
-  - ingredient: Potatoes
+  - ingredient_name: Potatoes
     quantity: 1
     unit: kg
-  - ingredient: Onion
+  - ingredient_name: Onion
     quantity: 1
     unit: ""
-  - ingredient: Vegetable broth
+  - ingredient_name: Vegetable broth
     quantity: 200
     unit: ml
-  - ingredient: White wine vinegar
+  - ingredient_name: White wine vinegar
     quantity: 3
     unit: tablespoons
-  - ingredient: Vegetable oil
+  - ingredient_name: Vegetable oil
     quantity: 4
     unit: tablespoons
-  - ingredient: Mustard
+  - ingredient_name: Mustard
     quantity: 1
     unit: teaspoon
-  - ingredient: Salt
+  - ingredient_name: Salt
     quantity:
     unit: to taste
-  - ingredient: Black pepper
+  - ingredient_name: Black pepper
     quantity:
     unit: to taste
-  - ingredient: Chopped fresh parsley
+  - ingredient_name: Chopped fresh parsley
     quantity:
     unit: for garnish
 recipe_steps:
@@ -39,7 +39,7 @@ recipe_steps:
     instruction: Prepare the potatoes
     step_number: 1
     ingredients:
-      - ingredient: Potatoes
+      - ingredient_name: Potatoes
         quantity: 1
         unit: kg
   - description:
@@ -48,7 +48,7 @@ recipe_steps:
     instruction: Cook the potatoes
     step_number: 2
     ingredients:
-      - ingredient: Potatoes
+      - ingredient_name: Potatoes
         quantity: 1
         unit: kg
   - description:
@@ -57,19 +57,19 @@ recipe_steps:
     instruction: Prepare the dressing
     step_number: 3
     ingredients:
-      - ingredient: Onion
+      - ingredient_name: Onion
         quantity: 1
         unit: ""
-      - ingredient: Vegetable broth
+      - ingredient_name: Vegetable broth
         quantity: 200
         unit: ml
-      - ingredient: White wine vinegar
+      - ingredient_name: White wine vinegar
         quantity: 3
         unit: tablespoons
-      - ingredient: Vegetable oil
+      - ingredient_name: Vegetable oil
         quantity: 4
         unit: tablespoons
-      - ingredient: Mustard
+      - ingredient_name: Mustard
         quantity: 1
         unit: teaspoon
   - description:
@@ -78,22 +78,22 @@ recipe_steps:
     instruction: Mix potatoes with dressing
     step_number: 4
     ingredients:
-      - ingredient: Potatoes
+      - ingredient_name: Potatoes
         quantity: 1
         unit: kg
-      - ingredient: Onion
+      - ingredient_name: Onion
         quantity: 1
         unit: ""
-      - ingredient: Vegetable broth
+      - ingredient_name: Vegetable broth
         quantity: 200
         unit: ml
-      - ingredient: White wine vinegar
+      - ingredient_name: White wine vinegar
         quantity: 3
         unit: tablespoons
-      - ingredient: Vegetable oil
+      - ingredient_name: Vegetable oil
         quantity: 4
         unit: tablespoons
-      - ingredient: Mustard
+      - ingredient_name: Mustard
         quantity: 1
         unit: teaspoon
   - description:
@@ -102,29 +102,29 @@ recipe_steps:
     instruction: Let the salad rest
     step_number: 5
     ingredients:
-      - ingredient: Potatoes
+      - ingredient_name: Potatoes
         quantity: 1
         unit: kg
-      - ingredient: Onion
+      - ingredient_name: Onion
         quantity: 1
         unit: ""
-      - ingredient: Vegetable broth
+      - ingredient_name: Vegetable broth
         quantity: 200
         unit: ml
-      - ingredient: White wine vinegar
+      - ingredient_name: White wine vinegar
         quantity: 3
         unit: tablespoons
-      - ingredient: Vegetable oil
+      - ingredient_name: Vegetable oil
         quantity: 4
         unit: tablespoons
-      - ingredient: Mustard
+      - ingredient_name: Mustard
         quantity: 1
         unit: teaspoon
   - description: Garnish with chopped fresh parsley just before serving.
     instruction: Garnish with parsley
     step_number: 6
     ingredients:
-      - ingredient: Chopped fresh parsley
+      - ingredient_name: Chopped fresh parsley
         quantity:
         unit: for garnish
 locale: en

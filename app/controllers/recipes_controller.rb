@@ -23,6 +23,7 @@ class RecipesController < ApplicationController
     raw_recipe = params.dig(:recipe, :ingredients_and_instructions)
     return create_recipe_from_raw_text(raw_recipe) if raw_recipe.present? && raw_recipe.length.positive?
 
+    logger.warn('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>No raw recipe found. Creating recipe from form data.')
     @recipe = Recipe.new(recipe_params)
     return after_create if @recipe.save
 
@@ -91,12 +92,14 @@ class RecipesController < ApplicationController
   end
 
   def after_create
+    logger.warn('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>after create.')
     current_user.add_role(:author, @recipe)
     redirect_to recipe_path(@recipe),
                 notice: I18n.t('helpers.created.one', model: Recipe.model_name.human), status: :see_other
   end
 
   def handle_recipe_import_error(error)
+    logger.warn(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>handle recipe import error: #{error.message}")
     messages = {
       RecipeImporter::Importer::ContentError => I18n.t('helpers.errors.recipes.parser_content')
     }
@@ -107,10 +110,11 @@ class RecipesController < ApplicationController
   end
 
   def handle_recipe_create_failure
+    logger.warn('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>handle recipe create failure.')
     render turbo_stream: [
       turbo_stream.append('toasts_container', partial: 'shared/toast',
                                               locals: { message: I18n.t('helpers.errors.create', model: Recipe.model_name.human), type: :alert }),
-      turbo_stream.update('toasts_container', partial: 'form', locals: { recipe: @recipe })
+      turbo_stream.update('new_recipe_form', partial: 'form', locals: { recipe: @recipe })
     ]
   end
 end
