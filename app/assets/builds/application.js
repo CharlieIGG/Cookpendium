@@ -13108,12 +13108,16 @@
 
   // app/javascript/controllers/smart_recipe_form_controller.js
   var SmartRecipeFormController = class extends Controller {
+    static values = {
+      loadingMessages: Array
+    };
     static targets = ["AIToolsToggle", "AIToolsInput", "nonAIFormInputs", "AIInputGroup"];
     constructor(...args) {
       super(...args);
       this.loadingModal = window.lodmo = new Modal(document.getElementById("loadingModal"));
     }
     connect() {
+      console.log(this.loadingMessagesValue);
       this.AIToolsToggleTarget.addEventListener("change", (e) => this.toggleAITools(e.target.checked));
       this.element.addEventListener("turbo:submit-start", () => this.showLoader());
       this.element.addEventListener("turbo:submit-end", () => this.hideLoader());
@@ -13133,14 +13137,7 @@
       this.iterate_messages();
     }
     iterate_messages() {
-      const messages = [
-        "Analyzing Recipe...",
-        "Checking Title and Description...",
-        "Identifying Ingredients...",
-        "Identifying Instructions...",
-        "Associating Ingredients and Steps...",
-        "Importing into Recipes Database..."
-      ];
+      const messages = this.loadingMessagesValue;
       const loadingModalBody = document.querySelector("#loadingModal .modal-body .modal-text");
       loadingModalBody.textContent = messages[0];
       let index = 1;

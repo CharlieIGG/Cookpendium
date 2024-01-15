@@ -1,4 +1,9 @@
-<%= form_with(model: recipe, class: "form-group", data: { controller: 'smart-recipe-form' }) do |form| %>
+<%= form_with(model: recipe, class: "form-group", 
+                             data: { 
+                              controller: 'smart-recipe-form', 
+                              "smart-recipe-form-loading-messages-value" => I18n.t('recipes.loading_messages').values 
+                              }) do |form| %>
+  <div class="d-none" data-smart-recipe-form-messages-value="messages"></div>
   <% if recipe.errors.any? %>
     <div class="alert alert-danger">
       <h2><%= t('helpers.errors.saving', model: Recipe.model_name.human) %></h2>

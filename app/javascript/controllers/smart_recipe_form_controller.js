@@ -2,6 +2,9 @@ import { Controller } from "@hotwired/stimulus";
 import { Modal } from "bootstrap";
 
 class SmartRecipeFormController extends Controller {
+  static values = {
+    loadingMessages: Array
+  }
   static targets = ["AIToolsToggle", "AIToolsInput", "nonAIFormInputs", "AIInputGroup"];
 
   constructor(...args) {
@@ -10,6 +13,7 @@ class SmartRecipeFormController extends Controller {
   }
 
   connect() {
+    console.log(this.loadingMessagesValue)
     this.AIToolsToggleTarget.addEventListener('change', (e) => this.toggleAITools(e.target.checked));
     this.element.addEventListener('turbo:submit-start', () => this.showLoader());
     this.element.addEventListener('turbo:submit-end', () => this.hideLoader());
@@ -32,15 +36,7 @@ class SmartRecipeFormController extends Controller {
   }
 
   iterate_messages() {
-    const messages = [
-      "Analyzing Recipe...",
-      "Checking Title and Description...",
-      "Identifying Ingredients...",
-      "Identifying Instructions...",
-      "Associating Ingredients and Steps...",
-      "Importing into Recipes Database...",
-    ];
-
+    const messages = this.loadingMessagesValue;
     const loadingModalBody = document.querySelector('#loadingModal .modal-body .modal-text');
     loadingModalBody.textContent = messages[0];
     let index = 1;
