@@ -1,40 +1,43 @@
-name: RSpec Tests
+test:
+  runs-on: ubuntu-latest
 
-on:
-  pull_request:
-    branches:
-      - main
+  services:
+    postgres:
+      image: postgres:latest
+      env:
+        POSTGRES_DB: ${{secrets.POSTGRES_DB}}
+        POSTGRES_USER: ${{secrets.POSTGRES_USER}}
+        POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
+      ports:
+        - 5432:5432
+      options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
+    selenium:
+      image: selenium/standalone-chrome:latest
+      ports:
+        - 4444:4444
 
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_DB: ${{secrets.POSTGRES_DB}}
-          POSTGRES_USER: ${{secrets.POSTGRES_USER}}
-          POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-    env:
-      POSTGRES_HOST: localhost
-      POSTGRES_PORT: 5432
-      POSTGRES_USER: ${{secrets.POSTGRES_USER}}
-      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-      POSTGRES_DB: ${{secrets.POSTGRES_DB}}
-      OPENAI_API_KEY: S0M3_F4K3_4P1_K3Y
+  steps:
+    - name: Check out repository code
+      uses: actions/checkout@v2
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.2.2
-          bundler-cache: true
-          cache-version: 1
-      - name: Run RSpec Tests
-        run: bundle exec rspec
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+
+    - name: Wait for Postgres to become ready
+      run: while ! pg_isready -h localhost -p 5432 > /dev/null; do sleep 1; done
+
+    - name: Run tests
+      run: bundle exec rspec
+
+  env:
+    POSTGRES_HOST: localhost
+    POSTGRES_PORT: 5432
+    POSTGRES_USER: ${{secrets.POSTGRES_USER}}
+    POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+    POSTGRES_DB: ${{secrets.POSTGRES_DB}}
+    OPENAI_API_KEY: S0M3_F4K3_4P1_K3Y
+    SELENIUM_HOST: localhost
+    SELENIUM_PORT: 4444
