@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 import { Modal } from "bootstrap";
 
 class SmartRecipeFormController extends Controller {
-  static targets = ["AIToolsToggle", "AIToolsInput", "nonAIFormInputs"];
+  static targets = ["AIToolsToggle", "AIToolsInput", "nonAIFormInputs", "AIInputGroup"];
 
   constructor(...args) {
     super(...args);
@@ -17,10 +17,10 @@ class SmartRecipeFormController extends Controller {
 
   toggleAITools(checked) {
     if (checked) {
-      this.AIToolsInputTarget.classList.remove('d-none');
+      this.AIInputGroupTarget.classList.remove('d-none');
       this.nonAIFormInputsTarget.classList.add('d-none');
     } else {
-      this.AIToolsInputTarget.classList.add('d-none');
+      this.AIInputGroupTarget.classList.add('d-none');
       this.nonAIFormInputsTarget.classList.remove('d-none');
       this.AIToolsInputTarget.value = '';
     }

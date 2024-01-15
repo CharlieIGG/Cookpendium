@@ -31,7 +31,6 @@ module RecipeImporter
 
     def ingredients_with_measurements
       @ingredients_data.map do |ingredient_data|
-        Rails.logger.warn ">>>>>>>>>>>>>>>>>>>>>>>>> INGREDIENT NAME = #{ingredient_data['ingredient_name']}"
         ingredient = Ingredient.find_or_create_by!(name: ingredient_data['ingredient_name'])
         measurement_unit = find_measurement_unit(ingredient_data)
         object_association_class.find_or_initialize_by(@object.class.name.underscore.to_sym => @object, ingredient:,
@@ -42,7 +41,6 @@ module RecipeImporter
     def find_measurement_unit(ingredient_data)
       return if ingredient_data['unit'].nil? || ingredient_data['unit'].empty?
 
-      Rails.logger.warn ">>>>>>>>>>>>>>>>>>>>>>>>> UNIT NAME = #{ingredient_data['unit']}"
       MeasurementUnit.find_or_create_by!(name: ingredient_data['unit'],
                                          abbreviation: ingredient_data['unit_short'])
     end

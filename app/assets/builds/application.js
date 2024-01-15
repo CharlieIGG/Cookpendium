@@ -13108,7 +13108,7 @@
 
   // app/javascript/controllers/smart_recipe_form_controller.js
   var SmartRecipeFormController = class extends Controller {
-    static targets = ["AIToolsToggle", "AIToolsInput", "nonAIFormInputs"];
+    static targets = ["AIToolsToggle", "AIToolsInput", "nonAIFormInputs", "AIInputGroup"];
     constructor(...args) {
       super(...args);
       this.loadingModal = window.lodmo = new Modal(document.getElementById("loadingModal"));
@@ -13120,10 +13120,10 @@
     }
     toggleAITools(checked) {
       if (checked) {
-        this.AIToolsInputTarget.classList.remove("d-none");
+        this.AIInputGroupTarget.classList.remove("d-none");
         this.nonAIFormInputsTarget.classList.add("d-none");
       } else {
-        this.AIToolsInputTarget.classList.add("d-none");
+        this.AIInputGroupTarget.classList.add("d-none");
         this.nonAIFormInputsTarget.classList.remove("d-none");
         this.AIToolsInputTarget.value = "";
       }

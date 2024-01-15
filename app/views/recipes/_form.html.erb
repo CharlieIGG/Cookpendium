@@ -22,7 +22,7 @@
     <%= form.label :description, class: "form-label" %>
     <%= form.text_area :description, class: "form-control" %>
   </div>
-  <div class="form-group">
+  <div class="form-group" data-smart-recipe-form-target="AIInputGroup">
     <%= form.label :ingredients_and_instructions, class: "form-label" %>
     <%= form.text_area :ingredients_and_instructions, class: "form-control", 
                        data: { "smart-recipe-form-target" => "AIToolsInput" } %>
