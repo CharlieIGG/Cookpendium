@@ -39,3 +39,7 @@
 !/app/assets/builds/.keep
 
 spec/examples.txt
+
+# ignore bash or zsh history
+.bash_history
+.zsh_history

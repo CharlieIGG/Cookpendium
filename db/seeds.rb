@@ -11,39 +11,39 @@ recipes_array = [
     'title' => 'Potato Salad',
     'description' => 'A simple and delicious recipe for potato salad, perfect for any occasion.',
     'ingredients' => [
-      { 'ingredient' => 'Potatoes', 'quantity' => 1, 'unit' => 'kg' },
-      { 'ingredient' => 'Onion', 'quantity' => 1, 'unit' => '' },
-      { 'ingredient' => 'Vegetable broth', 'quantity' => 200, 'unit' => 'ml' },
-      { 'ingredient' => 'White wine vinegar', 'quantity' => 3, 'unit' => 'tablespoons' },
-      { 'ingredient' => 'Vegetable oil', 'quantity' => 4, 'unit' => 'tablespoons' },
-      { 'ingredient' => 'Mustard', 'quantity' => 1, 'unit' => 'teaspoon' },
-      { 'ingredient' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
-      { 'ingredient' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' },
-      { 'ingredient' => 'Chopped fresh parsley', 'quantity' => nil, 'unit' => 'for garnish' }
+      { 'ingredient_name' => 'Potatoes', 'quantity' => 1, 'unit' => 'kg' },
+      { 'ingredient_name' => 'Onion', 'quantity' => 1, 'unit' => '' },
+      { 'ingredient_name' => 'Vegetable broth', 'quantity' => 200, 'unit' => 'ml' },
+      { 'ingredient_name' => 'White wine vinegar', 'quantity' => 3, 'unit' => 'tablespoons' },
+      { 'ingredient_name' => 'Vegetable oil', 'quantity' => 4, 'unit' => 'tablespoons' },
+      { 'ingredient_name' => 'Mustard', 'quantity' => 1, 'unit' => 'teaspoon' },
+      { 'ingredient_name' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
+      { 'ingredient_name' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' },
+      { 'ingredient_name' => 'Chopped fresh parsley', 'quantity' => nil, 'unit' => 'for garnish' }
     ],
     'recipe_steps' => [
       {
         'description' => 'Wash and peel the potatoes. Slice into thin rounds.',
         'instruction' => 'Prepare the potatoes',
         'step_number' => 1,
-        'ingredients' => [{ 'ingredient' => 'Potatoes', 'quantity' => 1, 'unit' => 'kg' }]
+        'ingredients' => [{ 'ingredient_name' => 'Potatoes', 'quantity' => 1, 'unit' => 'kg' }]
       },
       {
         'description' => 'Boil the potato slices in a pot of salted water until tender but still firm. Drain and let cool slightly.',
         'instruction' => 'Cook the potatoes',
         'step_number' => 2,
-        'ingredients' => [{ 'ingredient' => 'Potatoes', 'quantity' => 1, 'unit' => 'kg' }]
+        'ingredients' => [{ 'ingredient_name' => 'Potatoes', 'quantity' => 1, 'unit' => 'kg' }]
       },
       {
         'description' => 'In a bowl, combine onion, vegetable broth, white wine vinegar, vegetable oil, and mustard. Season with salt and pepper.',
         'instruction' => 'Prepare the dressing',
         'step_number' => 3,
         'ingredients' => [
-          { 'ingredient' => 'Onion', 'quantity' => 1, 'unit' => '' },
-          { 'ingredient' => 'Vegetable broth', 'quantity' => 200, 'unit' => 'ml' },
-          { 'ingredient' => 'White wine vinegar', 'quantity' => 3, 'unit' => 'tablespoons' },
-          { 'ingredient' => 'Vegetable oil', 'quantity' => 4, 'unit' => 'tablespoons' },
-          { 'ingredient' => 'Mustard', 'quantity' => 1, 'unit' => 'teaspoon' }
+          { 'ingredient_name' => 'Onion', 'quantity' => 1, 'unit' => '' },
+          { 'ingredient_name' => 'Vegetable broth', 'quantity' => 200, 'unit' => 'ml' },
+          { 'ingredient_name' => 'White wine vinegar', 'quantity' => 3, 'unit' => 'tablespoons' },
+          { 'ingredient_name' => 'Vegetable oil', 'quantity' => 4, 'unit' => 'tablespoons' },
+          { 'ingredient_name' => 'Mustard', 'quantity' => 1, 'unit' => 'teaspoon' }
         ]
       },
       {
@@ -51,12 +51,12 @@ recipes_array = [
         'instruction' => 'Mix potatoes with dressing',
         'step_number' => 4,
         'ingredients' => [
-          { 'ingredient' => 'Potatoes', 'quantity' => 1, 'unit' => 'kg' },
-          { 'ingredient' => 'Onion', 'quantity' => 1, 'unit' => '' },
-          { 'ingredient' => 'Vegetable broth', 'quantity' => 200, 'unit' => 'ml' },
-          { 'ingredient' => 'White wine vinegar', 'quantity' => 3, 'unit' => 'tablespoons' },
-          { 'ingredient' => 'Vegetable oil', 'quantity' => 4, 'unit' => 'tablespoons' },
-          { 'ingredient' => 'Mustard', 'quantity' => 1, 'unit' => 'teaspoon' }
+          { 'ingredient_name' => 'Potatoes', 'quantity' => 1, 'unit' => 'kg' },
+          { 'ingredient_name' => 'Onion', 'quantity' => 1, 'unit' => '' },
+          { 'ingredient_name' => 'Vegetable broth', 'quantity' => 200, 'unit' => 'ml' },
+          { 'ingredient_name' => 'White wine vinegar', 'quantity' => 3, 'unit' => 'tablespoons' },
+          { 'ingredient_name' => 'Vegetable oil', 'quantity' => 4, 'unit' => 'tablespoons' },
+          { 'ingredient_name' => 'Mustard', 'quantity' => 1, 'unit' => 'teaspoon' }
         ]
       },
       {
@@ -64,19 +64,19 @@ recipes_array = [
         'instruction' => 'Let the salad rest',
         'step_number' => 5,
         'ingredients' => [
-          { 'ingredient' => 'Potatoes', 'quantity' => 1, 'unit' => 'kg' },
-          { 'ingredient' => 'Onion', 'quantity' => 1, 'unit' => '' },
-          { 'ingredient' => 'Vegetable broth', 'quantity' => 200, 'unit' => 'ml' },
-          { 'ingredient' => 'White wine vinegar', 'quantity' => 3, 'unit' => 'tablespoons' },
-          { 'ingredient' => 'Vegetable oil', 'quantity' => 4, 'unit' => 'tablespoons' },
-          { 'ingredient' => 'Mustard', 'quantity' => 1, 'unit' => 'teaspoon' }
+          { 'ingredient_name' => 'Potatoes', 'quantity' => 1, 'unit' => 'kg' },
+          { 'ingredient_name' => 'Onion', 'quantity' => 1, 'unit' => '' },
+          { 'ingredient_name' => 'Vegetable broth', 'quantity' => 200, 'unit' => 'ml' },
+          { 'ingredient_name' => 'White wine vinegar', 'quantity' => 3, 'unit' => 'tablespoons' },
+          { 'ingredient_name' => 'Vegetable oil', 'quantity' => 4, 'unit' => 'tablespoons' },
+          { 'ingredient_name' => 'Mustard', 'quantity' => 1, 'unit' => 'teaspoon' }
         ]
       },
       {
         'description' => 'Garnish with chopped fresh parsley just before serving.',
         'instruction' => 'Garnish with parsley',
         'step_number' => 6,
-        'ingredients' => [{ 'ingredient' => 'Chopped fresh parsley', 'quantity' => nil, 'unit' => 'for garnish' }]
+        'ingredients' => [{ 'ingredient_name' => 'Chopped fresh parsley', 'quantity' => nil, 'unit' => 'for garnish' }]
       }
     ],
     'locale' => 'en'
@@ -91,15 +91,15 @@ recipes_array = [
     'title' => 'Chocolate Chip Cookies',
     'description' => 'Classic homemade chocolate chip cookies that are soft, chewy, and full of chocolatey goodness.',
     'ingredients' => [
-      { 'ingredient' => 'All-purpose flour', 'quantity' => 2.25, 'unit' => 'cups' },
-      { 'ingredient' => 'Baking soda', 'quantity' => 1, 'unit' => 'teaspoon' },
-      { 'ingredient' => 'Salt', 'quantity' => 0.5, 'unit' => 'teaspoon' },
-      { 'ingredient' => 'Unsalted butter', 'quantity' => 1, 'unit' => 'cup' },
-      { 'ingredient' => 'Granulated sugar', 'quantity' => 0.75, 'unit' => 'cup' },
-      { 'ingredient' => 'Brown sugar', 'quantity' => 0.75, 'unit' => 'cup' },
-      { 'ingredient' => 'Vanilla extract', 'quantity' => 1, 'unit' => 'teaspoon' },
-      { 'ingredient' => 'Egg', 'quantity' => 2, 'unit' => '' },
-      { 'ingredient' => 'Semi-sweet chocolate chips', 'quantity' => 2, 'unit' => 'cups' }
+      { 'ingredient_name' => 'All-purpose flour', 'quantity' => 2.25, 'unit' => 'cups' },
+      { 'ingredient_name' => 'Baking soda', 'quantity' => 1, 'unit' => 'teaspoon' },
+      { 'ingredient_name' => 'Salt', 'quantity' => 0.5, 'unit' => 'teaspoon' },
+      { 'ingredient_name' => 'Unsalted butter', 'quantity' => 1, 'unit' => 'cup' },
+      { 'ingredient_name' => 'Granulated sugar', 'quantity' => 0.75, 'unit' => 'cup' },
+      { 'ingredient_name' => 'Brown sugar', 'quantity' => 0.75, 'unit' => 'cup' },
+      { 'ingredient_name' => 'Vanilla extract', 'quantity' => 1, 'unit' => 'teaspoon' },
+      { 'ingredient_name' => 'Egg', 'quantity' => 2, 'unit' => '' },
+      { 'ingredient_name' => 'Semi-sweet chocolate chips', 'quantity' => 2, 'unit' => 'cups' }
     ],
     'recipe_steps' => [
       {
@@ -113,9 +113,9 @@ recipes_array = [
         'instruction' => 'Combine dry ingredients',
         'step_number' => 2,
         'ingredients' => [
-          { 'ingredient' => 'All-purpose flour', 'quantity' => 2.25, 'unit' => 'cups' },
-          { 'ingredient' => 'Baking soda', 'quantity' => 1, 'unit' => 'teaspoon' },
-          { 'ingredient' => 'Salt', 'quantity' => 0.5, 'unit' => 'teaspoon' }
+          { 'ingredient_name' => 'All-purpose flour', 'quantity' => 2.25, 'unit' => 'cups' },
+          { 'ingredient_name' => 'Baking soda', 'quantity' => 1, 'unit' => 'teaspoon' },
+          { 'ingredient_name' => 'Salt', 'quantity' => 0.5, 'unit' => 'teaspoon' }
         ]
       },
       {
@@ -123,9 +123,9 @@ recipes_array = [
         'instruction' => 'Cream the butter and sugars',
         'step_number' => 3,
         'ingredients' => [
-          { 'ingredient' => 'Unsalted butter', 'quantity' => 1, 'unit' => 'cup' },
-          { 'ingredient' => 'Granulated sugar', 'quantity' => 0.75, 'unit' => 'cup' },
-          { 'ingredient' => 'Brown sugar', 'quantity' => 0.75, 'unit' => 'cup' }
+          { 'ingredient_name' => 'Unsalted butter', 'quantity' => 1, 'unit' => 'cup' },
+          { 'ingredient_name' => 'Granulated sugar', 'quantity' => 0.75, 'unit' => 'cup' },
+          { 'ingredient_name' => 'Brown sugar', 'quantity' => 0.75, 'unit' => 'cup' }
         ]
       },
       {
@@ -133,8 +133,8 @@ recipes_array = [
         'instruction' => 'Add vanilla extract and eggs',
         'step_number' => 4,
         'ingredients' => [
-          { 'ingredient' => 'Vanilla extract', 'quantity' => 1, 'unit' => 'teaspoon' },
-          { 'ingredient' => 'Egg', 'quantity' => 2, 'unit' => '' }
+          { 'ingredient_name' => 'Vanilla extract', 'quantity' => 1, 'unit' => 'teaspoon' },
+          { 'ingredient_name' => 'Egg', 'quantity' => 2, 'unit' => '' }
         ]
       },
       {
@@ -142,16 +142,16 @@ recipes_array = [
         'instruction' => 'Combine wet and dry ingredients',
         'step_number' => 5,
         'ingredients' => [
-          { 'ingredient' => 'All-purpose flour', 'quantity' => 2.25, 'unit' => 'cups' },
-          { 'ingredient' => 'Baking soda', 'quantity' => 1, 'unit' => 'teaspoon' },
-          { 'ingredient' => 'Salt', 'quantity' => 0.5, 'unit' => 'teaspoon' }
+          { 'ingredient_name' => 'All-purpose flour', 'quantity' => 2.25, 'unit' => 'cups' },
+          { 'ingredient_name' => 'Baking soda', 'quantity' => 1, 'unit' => 'teaspoon' },
+          { 'ingredient_name' => 'Salt', 'quantity' => 0.5, 'unit' => 'teaspoon' }
         ]
       },
       {
         'description' => 'Stir in the chocolate chips until evenly distributed throughout the dough.',
         'instruction' => 'Add chocolate chips',
         'step_number' => 6,
-        'ingredients' => [{ 'ingredient' => 'Semi-sweet chocolate chips', 'quantity' => 2, 'unit' => 'cups' }]
+        'ingredients' => [{ 'ingredient_name' => 'Semi-sweet chocolate chips', 'quantity' => 2, 'unit' => 'cups' }]
       },
       {
         'description' => 'Drop rounded tablespoons of dough onto the prepared baking sheets, spacing them about 2 inches apart.',
@@ -184,53 +184,53 @@ recipes_array = [
     'title' => 'Chicken Alfredo',
     'description' => 'A creamy and flavorful pasta dish made with tender chicken and a rich Alfredo sauce.',
     'ingredients' => [
-      { 'ingredient' => 'Chicken breast', 'quantity' => 2, 'unit' => '' },
-      { 'ingredient' => 'Fettuccine pasta', 'quantity' => 8, 'unit' => 'oz' },
-      { 'ingredient' => 'Butter', 'quantity' => 4, 'unit' => 'tablespoons' },
-      { 'ingredient' => 'Garlic', 'quantity' => 3, 'unit' => 'cloves' },
-      { 'ingredient' => 'Heavy cream', 'quantity' => 1, 'unit' => 'cup' },
-      { 'ingredient' => 'Parmesan cheese', 'quantity' => 1, 'unit' => 'cup' },
-      { 'ingredient' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
-      { 'ingredient' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' },
-      { 'ingredient' => 'Fresh parsley', 'quantity' => nil, 'unit' => 'for garnish' }
+      { 'ingredient_name' => 'Chicken breast', 'quantity' => 2, 'unit' => '' },
+      { 'ingredient_name' => 'Fettuccine pasta', 'quantity' => 8, 'unit' => 'oz' },
+      { 'ingredient_name' => 'Butter', 'quantity' => 4, 'unit' => 'tablespoons' },
+      { 'ingredient_name' => 'Garlic', 'quantity' => 3, 'unit' => 'cloves' },
+      { 'ingredient_name' => 'Heavy cream', 'quantity' => 1, 'unit' => 'cup' },
+      { 'ingredient_name' => 'Parmesan cheese', 'quantity' => 1, 'unit' => 'cup' },
+      { 'ingredient_name' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
+      { 'ingredient_name' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' },
+      { 'ingredient_name' => 'Fresh parsley', 'quantity' => nil, 'unit' => 'for garnish' }
     ],
     'recipe_steps' => [
       {
         'description' => 'Cook the fettuccine pasta according to package instructions. Drain and set aside.',
         'instruction' => 'Cook the pasta',
         'step_number' => 1,
-        'ingredients' => [{ 'ingredient' => 'Fettuccine pasta', 'quantity' => 8, 'unit' => 'oz' }]
+        'ingredients' => [{ 'ingredient_name' => 'Fettuccine pasta', 'quantity' => 8, 'unit' => 'oz' }]
       },
       {
         'description' => 'Season the chicken breasts with salt and pepper. In a large skillet, melt the butter over medium heat.',
         'instruction' => 'Prepare the chicken',
         'step_number' => 2,
         'ingredients' => [
-          { 'ingredient' => 'Chicken breast', 'quantity' => 2, 'unit' => '' },
-          { 'ingredient' => 'Butter', 'quantity' => 4, 'unit' => 'tablespoons' },
-          { 'ingredient' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
-          { 'ingredient' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' }
+          { 'ingredient_name' => 'Chicken breast', 'quantity' => 2, 'unit' => '' },
+          { 'ingredient_name' => 'Butter', 'quantity' => 4, 'unit' => 'tablespoons' },
+          { 'ingredient_name' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
+          { 'ingredient_name' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' }
         ]
       },
       {
         'description' => 'Add the chicken breasts to the skillet and cook until browned and cooked through, about 6-8 minutes per side. Remove from the skillet and let rest for a few minutes. Slice the chicken into thin strips.',
         'instruction' => 'Cook and slice the chicken',
         'step_number' => 3,
-        'ingredients' => [{ 'ingredient' => 'Chicken breast', 'quantity' => 2, 'unit' => '' }]
+        'ingredients' => [{ 'ingredient_name' => 'Chicken breast', 'quantity' => 2, 'unit' => '' }]
       },
       {
         'description' => 'In the same skillet, add the minced garlic and cook until fragrant, about 1 minute.',
         'instruction' => 'Cook the garlic',
         'step_number' => 4,
-        'ingredients' => [{ 'ingredient' => 'Garlic', 'quantity' => 3, 'unit' => 'cloves' }]
+        'ingredients' => [{ 'ingredient_name' => 'Garlic', 'quantity' => 3, 'unit' => 'cloves' }]
       },
       {
         'description' => 'Reduce the heat to low and add the heavy cream and Parmesan cheese to the skillet. Stir until the cheese has melted and the sauce is smooth and creamy.',
         'instruction' => 'Make the Alfredo sauce',
         'step_number' => 5,
         'ingredients' => [
-          { 'ingredient' => 'Heavy cream', 'quantity' => 1, 'unit' => 'cup' },
-          { 'ingredient' => 'Parmesan cheese', 'quantity' => 1, 'unit' => 'cup' }
+          { 'ingredient_name' => 'Heavy cream', 'quantity' => 1, 'unit' => 'cup' },
+          { 'ingredient_name' => 'Parmesan cheese', 'quantity' => 1, 'unit' => 'cup' }
         ]
       },
       {
@@ -238,8 +238,8 @@ recipes_array = [
         'instruction' => 'Combine pasta, chicken, and sauce',
         'step_number' => 6,
         'ingredients' => [
-          { 'ingredient' => 'Fettuccine pasta', 'quantity' => 8, 'unit' => 'oz' },
-          { 'ingredient' => 'Chicken breast', 'quantity' => 2, 'unit' => '' }
+          { 'ingredient_name' => 'Fettuccine pasta', 'quantity' => 8, 'unit' => 'oz' },
+          { 'ingredient_name' => 'Chicken breast', 'quantity' => 2, 'unit' => '' }
         ]
       },
       {
@@ -247,9 +247,9 @@ recipes_array = [
         'instruction' => 'Season and garnish',
         'step_number' => 7,
         'ingredients' => [
-          { 'ingredient' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
-          { 'ingredient' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' },
-          { 'ingredient' => 'Fresh parsley', 'quantity' => nil, 'unit' => 'for garnish' }
+          { 'ingredient_name' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
+          { 'ingredient_name' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' },
+          { 'ingredient_name' => 'Fresh parsley', 'quantity' => nil, 'unit' => 'for garnish' }
         ]
       }
     ],
@@ -265,13 +265,13 @@ recipes_array = [
     'title' => 'Caprese Salad',
     'description' => 'A refreshing and colorful salad made with ripe tomatoes, fresh mozzarella, and fragrant basil.',
     'ingredients' => [
-      { 'ingredient' => 'Ripe tomatoes', 'quantity' => 4, 'unit' => '' },
-      { 'ingredient' => 'Fresh mozzarella', 'quantity' => 8, 'unit' => 'oz' },
-      { 'ingredient' => 'Fresh basil leaves', 'quantity' => 1, 'unit' => 'cup' },
-      { 'ingredient' => 'Extra virgin olive oil', 'quantity' => 2, 'unit' => 'tablespoons' },
-      { 'ingredient' => 'Balsamic vinegar', 'quantity' => 2, 'unit' => 'tablespoons' },
-      { 'ingredient' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
-      { 'ingredient' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' }
+      { 'ingredient_name' => 'Ripe tomatoes', 'quantity' => 4, 'unit' => '' },
+      { 'ingredient_name' => 'Fresh mozzarella', 'quantity' => 8, 'unit' => 'oz' },
+      { 'ingredient_name' => 'Fresh basil leaves', 'quantity' => 1, 'unit' => 'cup' },
+      { 'ingredient_name' => 'Extra virgin olive oil', 'quantity' => 2, 'unit' => 'tablespoons' },
+      { 'ingredient_name' => 'Balsamic vinegar', 'quantity' => 2, 'unit' => 'tablespoons' },
+      { 'ingredient_name' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
+      { 'ingredient_name' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' }
     ],
     'recipe_steps' => [
       {
@@ -279,8 +279,8 @@ recipes_array = [
         'instruction' => 'Prepare the tomatoes and mozzarella',
         'step_number' => 1,
         'ingredients' => [
-          { 'ingredient' => 'Ripe tomatoes', 'quantity' => 4, 'unit' => '' },
-          { 'ingredient' => 'Fresh mozzarella', 'quantity' => 8, 'unit' => 'oz' }
+          { 'ingredient_name' => 'Ripe tomatoes', 'quantity' => 4, 'unit' => '' },
+          { 'ingredient_name' => 'Fresh mozzarella', 'quantity' => 8, 'unit' => 'oz' }
         ]
       },
       {
@@ -288,23 +288,23 @@ recipes_array = [
         'instruction' => 'Arrange the salad',
         'step_number' => 2,
         'ingredients' => [
-          { 'ingredient' => 'Ripe tomatoes', 'quantity' => 4, 'unit' => '' },
-          { 'ingredient' => 'Fresh mozzarella', 'quantity' => 8, 'unit' => 'oz' }
+          { 'ingredient_name' => 'Ripe tomatoes', 'quantity' => 4, 'unit' => '' },
+          { 'ingredient_name' => 'Fresh mozzarella', 'quantity' => 8, 'unit' => 'oz' }
         ]
       },
       {
         'description' => 'Tuck fresh basil leaves in between the tomato and mozzarella slices.',
         'instruction' => 'Add fresh basil leaves',
         'step_number' => 3,
-        'ingredients' => [{ 'ingredient' => 'Fresh basil leaves', 'quantity' => 1, 'unit' => 'cup' }]
+        'ingredients' => [{ 'ingredient_name' => 'Fresh basil leaves', 'quantity' => 1, 'unit' => 'cup' }]
       },
       {
         'description' => 'Drizzle the salad with extra virgin olive oil and balsamic vinegar.',
         'instruction' => 'Dress the salad',
         'step_number' => 4,
         'ingredients' => [
-          { 'ingredient' => 'Extra virgin olive oil', 'quantity' => 2, 'unit' => 'tablespoons' },
-          { 'ingredient' => 'Balsamic vinegar', 'quantity' => 2, 'unit' => 'tablespoons' }
+          { 'ingredient_name' => 'Extra virgin olive oil', 'quantity' => 2, 'unit' => 'tablespoons' },
+          { 'ingredient_name' => 'Balsamic vinegar', 'quantity' => 2, 'unit' => 'tablespoons' }
         ]
       },
       {
@@ -312,8 +312,8 @@ recipes_array = [
         'instruction' => 'Season and serve',
         'step_number' => 5,
         'ingredients' => [
-          { 'ingredient' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
-          { 'ingredient' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' }
+          { 'ingredient_name' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
+          { 'ingredient_name' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' }
         ]
       }
     ],
@@ -329,13 +329,13 @@ recipes_array = [
     'title' => 'Margarita Pizza',
     'description' => 'A classic Italian pizza topped with fresh tomatoes, mozzarella cheese, and fragrant basil leaves.',
     'ingredients' => [
-      { 'ingredient' => 'Pizza dough', 'quantity' => 1, 'unit' => '' },
-      { 'ingredient' => 'Ripe tomatoes', 'quantity' => 4, 'unit' => '' },
-      { 'ingredient' => 'Fresh mozzarella', 'quantity' => 8, 'unit' => 'oz' },
-      { 'ingredient' => 'Fresh basil leaves', 'quantity' => 1, 'unit' => 'cup' },
-      { 'ingredient' => 'Extra virgin olive oil', 'quantity' => 2, 'unit' => 'tablespoons' },
-      { 'ingredient' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
-      { 'ingredient' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' }
+      { 'ingredient_name' => 'Pizza dough', 'quantity' => 1, 'unit' => '' },
+      { 'ingredient_name' => 'Ripe tomatoes', 'quantity' => 4, 'unit' => '' },
+      { 'ingredient_name' => 'Fresh mozzarella', 'quantity' => 8, 'unit' => 'oz' },
+      { 'ingredient_name' => 'Fresh basil leaves', 'quantity' => 1, 'unit' => 'cup' },
+      { 'ingredient_name' => 'Extra virgin olive oil', 'quantity' => 2, 'unit' => 'tablespoons' },
+      { 'ingredient_name' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
+      { 'ingredient_name' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' }
     ],
     'recipe_steps' => [
       {
@@ -348,7 +348,7 @@ recipes_array = [
         'description' => 'Roll out the pizza dough into a round shape on a floured surface.',
         'instruction' => 'Roll out the dough',
         'step_number' => 2,
-        'ingredients' => [{ 'ingredient' => 'Pizza dough', 'quantity' => 1, 'unit' => '' }]
+        'ingredients' => [{ 'ingredient_name' => 'Pizza dough', 'quantity' => 1, 'unit' => '' }]
       },
       {
         'description' => 'Transfer the rolled-out dough to a baking sheet or pizza stone.',
@@ -361,8 +361,8 @@ recipes_array = [
         'instruction' => 'Prepare the tomatoes and mozzarella',
         'step_number' => 4,
         'ingredients' => [
-          { 'ingredient' => 'Ripe tomatoes', 'quantity' => 4, 'unit' => '' },
-          { 'ingredient' => 'Fresh mozzarella', 'quantity' => 8, 'unit' => 'oz' }
+          { 'ingredient_name' => 'Ripe tomatoes', 'quantity' => 4, 'unit' => '' },
+          { 'ingredient_name' => 'Fresh mozzarella', 'quantity' => 8, 'unit' => 'oz' }
         ]
       },
       {
@@ -370,24 +370,24 @@ recipes_array = [
         'instruction' => 'Arrange the toppings',
         'step_number' => 5,
         'ingredients' => [
-          { 'ingredient' => 'Ripe tomatoes', 'quantity' => 4, 'unit' => '' },
-          { 'ingredient' => 'Fresh mozzarella', 'quantity' => 8, 'unit' => 'oz' }
+          { 'ingredient_name' => 'Ripe tomatoes', 'quantity' => 4, 'unit' => '' },
+          { 'ingredient_name' => 'Fresh mozzarella', 'quantity' => 8, 'unit' => 'oz' }
         ]
       },
       {
         'description' => 'Tear the fresh basil leaves into small pieces and scatter them over the tomatoes and mozzarella.',
         'instruction' => 'Add fresh basil leaves',
         'step_number' => 6,
-        'ingredients' => [{ 'ingredient' => 'Fresh basil leaves', 'quantity' => 1, 'unit' => 'cup' }]
+        'ingredients' => [{ 'ingredient_name' => 'Fresh basil leaves', 'quantity' => 1, 'unit' => 'cup' }]
       },
       {
         'description' => 'Drizzle the pizza with extra virgin olive oil. Season with salt and pepper to taste.',
         'instruction' => 'Dress the pizza',
         'step_number' => 7,
         'ingredients' => [
-          { 'ingredient' => 'Extra virgin olive oil', 'quantity' => 2, 'unit' => 'tablespoons' },
-          { 'ingredient' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
-          { 'ingredient' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' }
+          { 'ingredient_name' => 'Extra virgin olive oil', 'quantity' => 2, 'unit' => 'tablespoons' },
+          { 'ingredient_name' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
+          { 'ingredient_name' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' }
         ]
       },
       {
@@ -415,19 +415,19 @@ recipes_array = [
     'title' => 'Chicken Stir-Fry',
     'description' => 'A quick and easy stir-fry recipe with tender chicken, colorful vegetables, and a flavorful sauce.',
     'ingredients' => [
-      { 'ingredient' => 'Chicken breast', 'quantity' => 2, 'unit' => '' },
-      { 'ingredient' => 'Broccoli florets', 'quantity' => 2, 'unit' => 'cups' },
-      { 'ingredient' => 'Bell peppers', 'quantity' => 2, 'unit' => '' },
-      { 'ingredient' => 'Carrots', 'quantity' => 2, 'unit' => '' },
-      { 'ingredient' => 'Soy sauce', 'quantity' => 0.25, 'unit' => 'cup' },
-      { 'ingredient' => 'Honey', 'quantity' => 2, 'unit' => 'tablespoons' },
-      { 'ingredient' => 'Garlic', 'quantity' => 3, 'unit' => 'cloves' },
-      { 'ingredient' => 'Ginger', 'quantity' => 1, 'unit' => 'inch' },
-      { 'ingredient' => 'Cornstarch', 'quantity' => 1, 'unit' => 'tablespoon' },
-      { 'ingredient' => 'Vegetable oil', 'quantity' => 2, 'unit' => 'tablespoons' },
-      { 'ingredient' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
-      { 'ingredient' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' },
-      { 'ingredient' => 'Cooked rice', 'quantity' => nil, 'unit' => 'for serving' }
+      { 'ingredient_name' => 'Chicken breast', 'quantity' => 2, 'unit' => '' },
+      { 'ingredient_name' => 'Broccoli florets', 'quantity' => 2, 'unit' => 'cups' },
+      { 'ingredient_name' => 'Bell peppers', 'quantity' => 2, 'unit' => '' },
+      { 'ingredient_name' => 'Carrots', 'quantity' => 2, 'unit' => '' },
+      { 'ingredient_name' => 'Soy sauce', 'quantity' => 0.25, 'unit' => 'cup' },
+      { 'ingredient_name' => 'Honey', 'quantity' => 2, 'unit' => 'tablespoons' },
+      { 'ingredient_name' => 'Garlic', 'quantity' => 3, 'unit' => 'cloves' },
+      { 'ingredient_name' => 'Ginger', 'quantity' => 1, 'unit' => 'inch' },
+      { 'ingredient_name' => 'Cornstarch', 'quantity' => 1, 'unit' => 'tablespoon' },
+      { 'ingredient_name' => 'Vegetable oil', 'quantity' => 2, 'unit' => 'tablespoons' },
+      { 'ingredient_name' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
+      { 'ingredient_name' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' },
+      { 'ingredient_name' => 'Cooked rice', 'quantity' => nil, 'unit' => 'for serving' }
     ],
     'recipe_steps' => [
       {
@@ -435,12 +435,12 @@ recipes_array = [
         'instruction' => 'Prepare the chicken and sauce',
         'step_number' => 1,
         'ingredients' => [
-          { 'ingredient' => 'Chicken breast', 'quantity' => 2, 'unit' => '' },
-          { 'ingredient' => 'Soy sauce', 'quantity' => 0.25, 'unit' => 'cup' },
-          { 'ingredient' => 'Honey', 'quantity' => 2, 'unit' => 'tablespoons' },
-          { 'ingredient' => 'Garlic', 'quantity' => 3, 'unit' => 'cloves' },
-          { 'ingredient' => 'Ginger', 'quantity' => 1, 'unit' => 'inch' },
-          { 'ingredient' => 'Cornstarch', 'quantity' => 1, 'unit' => 'tablespoon' }
+          { 'ingredient_name' => 'Chicken breast', 'quantity' => 2, 'unit' => '' },
+          { 'ingredient_name' => 'Soy sauce', 'quantity' => 0.25, 'unit' => 'cup' },
+          { 'ingredient_name' => 'Honey', 'quantity' => 2, 'unit' => 'tablespoons' },
+          { 'ingredient_name' => 'Garlic', 'quantity' => 3, 'unit' => 'cloves' },
+          { 'ingredient_name' => 'Ginger', 'quantity' => 1, 'unit' => 'inch' },
+          { 'ingredient_name' => 'Cornstarch', 'quantity' => 1, 'unit' => 'tablespoon' }
         ]
       },
       {
@@ -448,8 +448,8 @@ recipes_array = [
         'instruction' => 'Cook the chicken',
         'step_number' => 2,
         'ingredients' => [
-          { 'ingredient' => 'Chicken breast', 'quantity' => 2, 'unit' => '' },
-          { 'ingredient' => 'Vegetable oil', 'quantity' => 2, 'unit' => 'tablespoons' }
+          { 'ingredient_name' => 'Chicken breast', 'quantity' => 2, 'unit' => '' },
+          { 'ingredient_name' => 'Vegetable oil', 'quantity' => 2, 'unit' => 'tablespoons' }
         ]
       },
       {
@@ -457,9 +457,9 @@ recipes_array = [
         'instruction' => 'Cook the vegetables',
         'step_number' => 3,
         'ingredients' => [
-          { 'ingredient' => 'Broccoli florets', 'quantity' => 2, 'unit' => 'cups' },
-          { 'ingredient' => 'Bell peppers', 'quantity' => 2, 'unit' => '' },
-          { 'ingredient' => 'Carrots', 'quantity' => 2, 'unit' => '' }
+          { 'ingredient_name' => 'Broccoli florets', 'quantity' => 2, 'unit' => 'cups' },
+          { 'ingredient_name' => 'Bell peppers', 'quantity' => 2, 'unit' => '' },
+          { 'ingredient_name' => 'Carrots', 'quantity' => 2, 'unit' => '' }
         ]
       },
       {
@@ -467,15 +467,15 @@ recipes_array = [
         'instruction' => 'Add the sauce',
         'step_number' => 4,
         'ingredients' => [
-          { 'ingredient' => 'Chicken breast', 'quantity' => 2, 'unit' => '' },
-          { 'ingredient' => 'Broccoli florets', 'quantity' => 2, 'unit' => 'cups' },
-          { 'ingredient' => 'Bell peppers', 'quantity' => 2, 'unit' => '' },
-          { 'ingredient' => 'Carrots', 'quantity' => 2, 'unit' => '' },
-          { 'ingredient' => 'Soy sauce', 'quantity' => 0.25, 'unit' => 'cup' },
-          { 'ingredient' => 'Honey', 'quantity' => 2, 'unit' => 'tablespoons' },
-          { 'ingredient' => 'Garlic', 'quantity' => 3, 'unit' => 'cloves' },
-          { 'ingredient' => 'Ginger', 'quantity' => 1, 'unit' => 'inch' },
-          { 'ingredient' => 'Cornstarch', 'quantity' => 1, 'unit' => 'tablespoon' }
+          { 'ingredient_name' => 'Chicken breast', 'quantity' => 2, 'unit' => '' },
+          { 'ingredient_name' => 'Broccoli florets', 'quantity' => 2, 'unit' => 'cups' },
+          { 'ingredient_name' => 'Bell peppers', 'quantity' => 2, 'unit' => '' },
+          { 'ingredient_name' => 'Carrots', 'quantity' => 2, 'unit' => '' },
+          { 'ingredient_name' => 'Soy sauce', 'quantity' => 0.25, 'unit' => 'cup' },
+          { 'ingredient_name' => 'Honey', 'quantity' => 2, 'unit' => 'tablespoons' },
+          { 'ingredient_name' => 'Garlic', 'quantity' => 3, 'unit' => 'cloves' },
+          { 'ingredient_name' => 'Ginger', 'quantity' => 1, 'unit' => 'inch' },
+          { 'ingredient_name' => 'Cornstarch', 'quantity' => 1, 'unit' => 'tablespoon' }
         ]
       },
       {
@@ -489,9 +489,9 @@ recipes_array = [
         'instruction' => 'Season and serve',
         'step_number' => 6,
         'ingredients' => [
-          { 'ingredient' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
-          { 'ingredient' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' },
-          { 'ingredient' => 'Cooked rice', 'quantity' => nil, 'unit' => 'for serving' }
+          { 'ingredient_name' => 'Salt', 'quantity' => nil, 'unit' => 'to taste' },
+          { 'ingredient_name' => 'Black pepper', 'quantity' => nil, 'unit' => 'to taste' },
+          { 'ingredient_name' => 'Cooked rice', 'quantity' => nil, 'unit' => 'for serving' }
         ]
       }
     ],
@@ -500,5 +500,5 @@ recipes_array = [
 ]
 recipes_array.each do |recipe|
   puts "importing #{recipe['title']}..."
-  RecipeImporter::Importer.new(recipe).import
+  RecipeImporter::Importer.call(recipe)
 end

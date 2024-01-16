@@ -67,11 +67,14 @@ services:
       MAILER_HOST: localhost
       MAILER_PORT: 3000
       LISTEN_USE_POLLING: ${COOKPENDIUM_LISTEN_USE_POLLING:-no}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-S0M3_F4K3_4P1_K3Y}
       # REDIS_URL: redis://redis:6379/1
 
   web:
     <<: *app
     command: rails server -p 3000 -b 0.0.0.0
+    environment:
+      <<: *app_environment
     ports:
       - ${COOKPENDIUM_WEB_PORT:-3000}:3000
     depends_on:
@@ -81,24 +84,25 @@ services:
       # - redis
       # - worker
 
-  # This container autocompiles, serves and live-reloads Webpack assets
-  # (including our ReactJS code) for our development environment. This service
-  # is proxied by the `web` container, so there is no need to publish ports for
-  # it:
+  # This container autocompiles and serves JS assets for our development environment.
+  # The assets are served on the shared context for the web container to consume. No port allocation needed.
   esbuild:
-    <<: *app
-    ports:
-      - ${COOKPENDIUM_ESBUILD_DEV_SERVER_PORT:-3035}:3035
-    command: yarn build --watch
-    environment:
-      ESBUILDER_DEV_SERVER_HOST: 0.0.0.0
-      RAILS_ENV: development
+    image: node
+    command: yarn build --watch=forever
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+      - app_node_modules:/usr/src/node_modules
 
+  # This container autocompiles and serves CSS assets for our development environment.
+  # The assets are served on the shared context for the web container to consume. No port allocation needed.
   css_watch:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: node
     command: yarn watch:css
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+      - app_node_modules:/usr/src/node_modules
 
   test:
     <<: *app
@@ -110,16 +114,15 @@ services:
       RAILS_ENV: test
       RACK_ENV: test
       FDOC: 1 #Factory Doctor activated
+      FPROF: 1 #Factory Prof activated
       RD_PROF: 1 #RSpec Dissect activated
-      OPENAI_API_KEY: ${OPENAI_API_KEY:-S0M3_F4K3_4P1_K3Y}
+      OPENAI_API_KEY: S0M3_F4K3_4P1_K3Y
     depends_on:
       - postgres
 
   # worker:
   #   <<: *app
   #   command: sidekiq -c 1
-  #   labels:
-  #     com.icalialabs.plis.group: web
   #   environment:
   #     <<: *app_environment
   #     REDIS_URL: redis://redis:6379/1

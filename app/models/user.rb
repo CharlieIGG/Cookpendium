@@ -43,7 +43,7 @@ class User < ApplicationRecord
     user = User.where(email: data['email']).first
     return user if user
 
-    User.create(email: data['email'], password: Devise.friendly_token[0, 20])
+    User.create(email: data['email'], password: Devise.friendly_token[0, 20]).tap(&:confirm)
   end
 
   private

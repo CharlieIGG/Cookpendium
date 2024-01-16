@@ -43,7 +43,7 @@ then
   # We'll use a custom script `checkdb` (inside our app's `bin` folder), instead
   # of running `rails db:version` to avoid loading the entire rails app for this
   # simple check - we'll be skipping this step on the webpack container:
-  if [ "$1" != "esbuild" ]; then
+  if [ "$1" != "yarn" ]; then
     dockerize -wait tcp://postgres:5432 -timeout 25s
     bundle exec ${APP_PATH}/bin/checkdb || rails db:setup
   fi

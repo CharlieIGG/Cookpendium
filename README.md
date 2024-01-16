@@ -13,15 +13,21 @@ This is an application meant for parsing, showing, and creating recipes... backe
   - [Table of contents](#table-of-contents)
     - [**Environments \& URLs**](#environments--urls)
   - [**Development**](#development)
-    - [Prerequisites](#prerequisites)
-    - [Installing Cookpendium](#installing-cookpendium)
-    - [Running Cookpendium](#running-cookpendium)
-    - [**Running specs**](#running-specs)
+    - [**With Docker**](#with-docker)
+      - [Prerequisites](#prerequisites)
+      - [Installing Cookpendium](#installing-cookpendium)
+      - [**Running Cookpendium**](#running-cookpendium)
+      - [**Running specs**](#running-specs)
+    - [**Without Docker**](#without-docker)
+      - [**Prerequisites**](#prerequisites-1)
+      - [**Installing Cookpendium**](#installing-cookpendium-1)
+      - [**Running Cookpendium**](#running-cookpendium-1)
+      - [**Running specs**](#running-specs-1)
     - [**Writing Specs**](#writing-specs)
     - [**Best Practices**](#best-practices)
     - [**Responsibility-separation Patterns**](#responsibility-separation-patterns)
     - [**Application Layers**](#application-layers)
-  - [**CI/CD**](#cicd)
+  - [**Continuous Integration**](#continuous-integration)
   - [**Deploying**](#deploying)
   - [**TO-DO**](#to-do)
   - [**Contributing**](#contributing)
@@ -33,7 +39,35 @@ This is an application meant for parsing, showing, and creating recipes... backe
 
 ## **Development**
 
-### Prerequisites
+### **With Docker**
+
+#### Prerequisites
+
+You just need to have [docker compose](https://docs.docker.com/compose/) installed.
+
+#### Installing Cookpendium
+
+You don't need to install anything, and can just skip to the next section. 
+Explanation: Running `docker-compose up` will build the image and install all the dependencies.
+Additionally, `bin/dev-entrypoint.sh` will be run, and if necessary, it should setup the database.
+
+Should something not work, then you can run `docker compose run web/test bash` to go inside the `web` or `test` container respectively, and then run `rails db:setup` or `rails db:create db:migrate` to ensure that you have a working database.
+
+Optionally, you can seed the database by running `rails db:seed` inside the `web` container. Note that this is not run automatically in the entrypoint script.
+
+#### **Running Cookpendium**
+
+To run Cookpendium, you can simply run `docker-compose up` and then navigate to http://localhost:3000 in your browser.
+If you want to have debugger access to the application, you can run `docker-compose run --service-ports web` instead.
+
+#### **Running specs**
+
+To run specs, you can simply run `docker compose up test` or `docker compose run test` if you want to have debugger access to the application.
+For interactive debugging, you can run `docker compose run test bash`, and then run any commands that you want from there, such as `bundle exec rspec` or `bundle exec guard` (in order to responsively run tests as you update files).
+
+### **Without Docker**
+
+#### **Prerequisites**
 
 Before you begin, ensure you have met the following requirements:
 
@@ -41,20 +75,20 @@ Before you begin, ensure you have met the following requirements:
 - You need bundler v2.4 installed.
 - You have installed the correct version of Node.js, which for this project is Node v20.
 
-### Installing Cookpendium
+#### **Installing Cookpendium**
 
 To install Cookpendium, follow these steps:
 
 1. Clone the repo.
 2. Run `bundle install`.
 
-### Running Cookpendium
+#### **Running Cookpendium**
 
 
 Start the server and the asset compilers using `foreman start -f Procfile.dev`.
 Then, navigate to http://localhost:3000 in your browser.
 
-### **Running specs**
+#### **Running specs**
 
 To run specs, you can do:
 
@@ -104,7 +138,7 @@ This application's back-office follows as [MVC Pattern](https://en.wikipedia.org
 7. **Views**: Render the GUI, typically served by the controllers based on the controller action name.
 8. **Javascript**: Augment the views with dynamic, client-side behavior and logic, from pre-compiled libraries, to our own Stimulus controllers
 
-## **CI/CD**
+## **Continuous Integration**
 
 We use [GitHub Actions](https://github.com/features/actions) as the driver to run our CI, and Heroku as the driver to our CD (see [below](#deploying)).
 Check out the [.github/workflows](.github/workflows) for the configuration of tasks that are run as part of the GitHub Actions Pipeline.
