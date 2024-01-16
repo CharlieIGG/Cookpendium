@@ -13134,7 +13134,6 @@
       this.loadingModal = window.lodmo = new Modal(document.getElementById("loadingModal"));
     }
     connect() {
-      console.log(this.loadingMessagesValue);
       this.AIToolsToggleTarget.addEventListener("change", (e) => this.toggleAITools(e.target.checked));
       this.element.addEventListener("turbo:submit-start", () => this.showLoader());
       this.element.addEventListener("turbo:submit-end", () => this.hideLoader());

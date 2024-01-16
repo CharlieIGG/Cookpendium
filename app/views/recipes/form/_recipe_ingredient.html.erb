@@ -1,0 +1,12 @@
+<div class="form-group">
+  <%= recipe_ingredient.label :ingredient_id, class: "control-label" %>
+  <%= recipe_ingredient.collection_select :ingredient_id, Ingredient.all, :id, :name, { prompt: "Select an ingredient or create a new one" }, class: "form-control" %>
+</div>
+<div class="form-group">
+  <%= recipe_ingredient.label :quantity, class: "control-label" %>
+  <%= recipe_ingredient.number_field :quantity, class: "form-control" %>
+</div>
+<div class="form-group">
+  <%= recipe_ingredient.label :measurement_unit_id, class: "control-label" %>
+  <%= recipe_ingredient.collection_select :measurement_unit_id, MeasurementUnit.all, :id, :name, { prompt: "Select a measurement unit or create a new one" }, class: "form-control" %>
+</div>

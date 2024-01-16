@@ -27,6 +27,9 @@ class Recipe < ApplicationRecord
   has_many :recipe_step_ingredients, through: :recipe_steps, source: :ingredients
   has_many :authors, -> { distinct }, through: :roles, class_name: 'User', source: :users
 
+  accepts_nested_attributes_for :recipe_ingredients, allow_destroy: true
+  accepts_nested_attributes_for :recipe_steps, allow_destroy: true
+
   validates :title, presence: true
   validates :description, presence: true
 

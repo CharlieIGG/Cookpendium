@@ -52,14 +52,17 @@ class RecipesController < ApplicationController
 
   private
 
+  # Only allow a list of trusted parameters through.
+  def recipe_params
+    params
+      .require(:recipe)
+      .permit(:title, :description,
+              recipe_ingredients_attributes: %i[id ingredient_id quantity measurement_unit_id _destroy])
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_recipe
     @recipe = RecipeDecorator.new(Recipe.find(params[:id]))
-  end
-
-  # Only allow a list of trusted parameters through.
-  def recipe_params
-    params.require(:recipe).permit(:title, :description)
   end
 
   def create_recipe_from_raw_text(raw_recipe)

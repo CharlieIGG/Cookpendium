@@ -11,7 +11,10 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
-  resources :recipes
+  resources :recipes do
+    resources :recipe_ingredients, module: 'recipes'
+  end
+
   resources :users, only: %i[edit update]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
