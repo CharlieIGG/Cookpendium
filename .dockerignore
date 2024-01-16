@@ -1,7 +1,6 @@
-# See https://docs.docker.com/engine/reference/builder/#dockerignore-file for more about ignoring files.
-
 # Ignore git directory.
 /.git/
+.gitignore
 
 # Ignore bundler config.
 /.bundle
@@ -35,3 +34,49 @@
 /app/assets/builds/*
 !/app/assets/builds/.keep
 /public/assets
+
+# Ignore version control files:
+.git/
+.gitignore
+
+# Ignore github templates:
+.github/
+
+# Ignore docker and environment files:
+*Dockerfile
+docker-compose*.yml
+**/*.env
+.dockerignore
+
+# Ignore log files:
+log/*.log
+
+# Ignore temporary files:
+tmp/
+
+# Ignore OS artifacts:
+**/.DS_Store
+
+# Ignore database dumps:
+db/dumps
+
+# 3: Ignore Development container's Home artifacts:
+# 3.1: Ignore bash / IRB / Byebug history files
+.*_hist*
+
+# 3.3: bundler stuff
+.bundle/*
+
+# 3.4: Codeclimate stuff:
+.codeclimate.yml
+.csslintrc
+.eslintignore
+.eslintrc
+coffeelint.json
+.rubocop.yml
+.rubocop-rails.yml
+.reek.yml
+.scss-lint.yml
+
+# Ignore test coverage reports:
+coverage/*

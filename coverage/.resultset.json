@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/carlos/development/Cookpendium/app/models/user.rb": {
+      "/usr/src/app/models/user.rb": {
         "lines": [
           null,
           null,
@@ -59,60 +59,33 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/models/application_record.rb": {
+      "/usr/src/app/models/application_record.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/helpers/application_helper.rb": {
+      "/usr/src/app/helpers/application_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/helpers/homepage_helper.rb": {
+      "/usr/src/app/helpers/homepage_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/helpers/recipes_helper.rb": {
+      "/usr/src/app/helpers/recipes_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/models/grocery_section.rb": {
+      "/usr/src/app/models/grocery_section.rb": {
         "lines": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          1,
-          null,
-          1,
-          null
-        ]
-      },
-      "/Users/carlos/development/Cookpendium/app/models/ingredient.rb": {
-        "lines": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
           null,
           null,
           null,
@@ -130,28 +103,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/models/measurement_unit.rb": {
-        "lines": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          1,
-          null,
-          1,
-          null
-        ]
-      },
-      "/Users/carlos/development/Cookpendium/app/models/recipe_ingredient.rb": {
+      "/usr/src/app/models/ingredient.rb": {
         "lines": [
           null,
           null,
@@ -171,6 +123,54 @@
           null,
           null,
           null,
+          1,
+          1,
+          null,
+          1,
+          null
+        ]
+      },
+      "/usr/src/app/models/measurement_unit.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null
+        ]
+      },
+      "/usr/src/app/models/recipe_ingredient.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           null,
           null,
@@ -188,7 +188,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/models/recipe.rb": {
+      "/usr/src/app/models/recipe.rb": {
         "lines": [
           null,
           null,
@@ -230,7 +230,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/models/recipe_step_ingredient.rb": {
+      "/usr/src/app/models/recipe_step_ingredient.rb": {
         "lines": [
           null,
           null,
@@ -267,7 +267,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/models/recipe_step.rb": {
+      "/usr/src/app/models/recipe_step.rb": {
         "lines": [
           null,
           null,
@@ -304,7 +304,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/controllers/recipes_controller.rb": {
+      "/usr/src/app/controllers/recipes_controller.rb": {
         "lines": [
           1,
           1,
@@ -424,7 +424,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/controllers/application_controller.rb": {
+      "/usr/src/app/controllers/application_controller.rb": {
         "lines": [
           1,
           1,
@@ -450,7 +450,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/services/ai_tools/recipe_parser.rb": {
+      "/usr/src/app/services/ai_tools/recipe_parser.rb": {
         "lines": [
           null,
           null,
@@ -510,7 +510,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/services/application_service.rb": {
+      "/usr/src/app/services/application_service.rb": {
         "lines": [
           null,
           null,
@@ -530,7 +530,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/services/recipe_importer/importer.rb": {
+      "/usr/src/app/services/recipe_importer/importer.rb": {
         "lines": [
           null,
           null,
@@ -595,7 +595,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/services/recipe_importer/recipe_validator.rb": {
+      "/usr/src/app/services/recipe_importer/recipe_validator.rb": {
         "lines": [
           null,
           null,
@@ -637,7 +637,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/models/role.rb": {
+      "/usr/src/app/models/role.rb": {
         "lines": [
           null,
           null,
@@ -671,7 +671,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/services/ai_tools/recipe_parser_instructions.rb": {
+      "/usr/src/app/services/ai_tools/recipe_parser_instructions.rb": {
         "lines": [
           null,
           null,
@@ -761,7 +761,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/services/recipe_importer/model_ingredient_assigner.rb": {
+      "/usr/src/app/services/recipe_importer/model_ingredient_assigner.rb": {
         "lines": [
           null,
           null,
@@ -813,7 +813,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/controllers/users/sessions_controller.rb": {
+      "/usr/src/app/controllers/users/sessions_controller.rb": {
         "lines": [
           null,
           null,
@@ -844,7 +844,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/decorators/recipe_decorator.rb": {
+      "/usr/src/app/decorators/recipe_decorator.rb": {
         "lines": [
           null,
           null,
@@ -898,7 +898,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/decorators/base_decorator.rb": {
+      "/usr/src/app/decorators/base_decorator.rb": {
         "lines": [
           null,
           null,
@@ -906,7 +906,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/controllers/users_controller.rb": {
+      "/usr/src/app/controllers/users_controller.rb": {
         "lines": [
           1,
           1,
@@ -945,7 +945,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/policies/user_policy.rb": {
+      "/usr/src/app/policies/user_policy.rb": {
         "lines": [
           1,
           1,
@@ -970,7 +970,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/policies/application_policy.rb": {
+      "/usr/src/app/policies/application_policy.rb": {
         "lines": [
           null,
           null,
@@ -1027,7 +1027,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/controllers/users/passwords_controller.rb": {
+      "/usr/src/app/controllers/users/passwords_controller.rb": {
         "lines": [
           null,
           null,
@@ -1067,7 +1067,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/controllers/users/registrations_controller.rb": {
+      "/usr/src/app/controllers/users/registrations_controller.rb": {
         "lines": [
           null,
           null,
@@ -1133,7 +1133,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/controllers/users/confirmations_controller.rb": {
+      "/usr/src/app/controllers/users/confirmations_controller.rb": {
         "lines": [
           null,
           null,
@@ -1167,7 +1167,7 @@
           null
         ]
       },
-      "/Users/carlos/development/Cookpendium/app/controllers/users/omniauth_callbacks_controller.rb": {
+      "/usr/src/app/controllers/users/omniauth_callbacks_controller.rb": {
         "lines": [
           null,
           null,
@@ -1222,7 +1222,7 @@
         "branches": {
         }
       },
-      "/Users/carlos/development/Cookpendium/app/jobs/application_job.rb": {
+      "/usr/src/app/jobs/application_job.rb": {
         "lines": [
           0,
           null,
@@ -1236,6 +1236,6 @@
         }
       }
     },
-    "timestamp": 1705351228
+    "timestamp": 1705395233
   }
 }

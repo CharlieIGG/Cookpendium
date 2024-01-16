@@ -8,44 +8,12 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_DB: ${{secrets.POSTGRES_DB}}
-          POSTGRES_USER: ${{secrets.POSTGRES_USER}}
-          POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
-      selenium:
-        image: selenium/standalone-chrome:latest
-        ports:
-          - 4444:4444
-
+    if: "! contains(github.event.head_commit.message, '[skip specs]')"
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.2.2
-
-      - name: Wait for Postgres to become ready
-        run: while ! pg_isready -h localhost -p 5432 > /dev/null; do sleep 1; done
-
-      - name: Run tests
-        run: bundle exec rspec
-
-    env:
-      POSTGRES_HOST: localhost
-      POSTGRES_PORT: 5432
-      POSTGRES_USER: ${{secrets.POSTGRES_USER}}
-      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-      POSTGRES_DB: ${{secrets.POSTGRES_DB}}
-      OPENAI_API_KEY: S0M3_F4K3_4P1_K3Y
-      SELENIUM_HOST: localhost
-      SELENIUM_PORT: 4444
+      - uses: actions/checkout@v5
+      - name: BUILD TEST
+        run: docker-compose build test
+      - name: MIGRATE TEST
+        run: docker-compose run test rails db:create db:migrate
+      - name: RUN RSPEC
+        run: docker-compose run test rspec
