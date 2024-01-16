@@ -111,6 +111,7 @@ services:
       RACK_ENV: test
       FDOC: 1 #Factory Doctor activated
       RD_PROF: 1 #RSpec Dissect activated
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-S0M3_F4K3_4P1_K3Y}
     depends_on:
       - postgres
 

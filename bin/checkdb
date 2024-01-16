@@ -38,5 +38,5 @@ rescue PG::ConnectionBad
 rescue ActiveRecord::NoDatabaseError
   exit 3
 ensure
-  ActiveRecord::Base.clear_all_connections!
+  ActiveRecord::Base.connection_handler.clear_all_connections!
 end
