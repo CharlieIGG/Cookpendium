@@ -25,7 +25,14 @@ class Recipe < ApplicationRecord
   has_many :ingredients, through: :recipe_ingredients
   has_many :recipe_steps, dependent: :destroy
   has_many :recipe_step_ingredients, through: :recipe_steps, source: :ingredients
+  has_many :authors, -> { distinct }, through: :roles, class_name: 'User', source: :users
 
   validates :title, presence: true
   validates :description, presence: true
+
+  scope :with_steps_and_ingredients, lambda {
+                                       joins(:recipe_steps, :recipe_ingredients)
+                                         .group('recipes.id')
+                                         .having('COUNT(DISTINCT recipe_steps.id) > 0 AND COUNT(DISTINCT recipe_ingredients.id) > 0')
+                                     }
 end

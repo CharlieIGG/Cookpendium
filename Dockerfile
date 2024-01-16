@@ -1,75 +1,188 @@
-# syntax = docker/dockerfile:1
+# I: Runtime Stage: ============================================================
+# This is the stage where we build the runtime base image, which is used as the
+# common ancestor by the rest of the stages, and contains the minimal runtime
+# dependencies required for the application to run:
 
-# Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
-ARG RUBY_VERSION=3.2.2
-FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
+# Step 1: Use the official Ruby 3.2.2 alpine image as base:
+FROM ruby:3.2.2-slim AS runtime
 
-# Rails app lives here
-WORKDIR /rails
+# Step 2: We'll set the MALLOC_ARENA_MAX for optimization purposes & prevent memory bloat
+# https://www.speedshop.co/2017/12/04/malloc-doubles-ruby-memory.html
+ENV MALLOC_ARENA_MAX="2"
 
-# Set production environment
-ENV RAILS_ENV="production" \
-    BUNDLE_DEPLOYMENT="1" \
-    BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development"
+# Step 3: We'll set the LANG encoding to be UTF-8 for special characters support
+ENV LANG C.UTF-8
 
+# Step 4: We'll set '/usr/src' path as the working directory:
+# NOTE: This is a Linux "standard" practice - see:
+# - http://www.pathname.com/fhs/2.2/
+# - http://www.pathname.com/fhs/2.2/fhs-4.1.html
+# - http://www.pathname.com/fhs/2.2/fhs-4.12.html
+WORKDIR /usr/src
 
-# Throw-away build stage to reduce size of final image
-FROM base as build
+# Step 5: We'll set the working dir as HOME and add the app's binaries path to
+# $PATH:
+ENV HOME=/usr/src PATH=/usr/src/bin:$PATH
 
-# Install packages needed to build gems and node modules
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential curl git libpq-dev libvips node-gyp pkg-config python-is-python3
+# Step 6: We'll install curl for later dependencies installations
+RUN apt-get update && \
+  apt-get install -y --no-install-recommends \
+  curl
 
-# Install JavaScript dependencies
-ARG NODE_VERSION=16.13.1
-ARG YARN_VERSION=1.22.19
-ENV PATH=/usr/local/node/bin:$PATH
-RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
-    /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
-    npm install -g yarn@$YARN_VERSION && \
-    rm -rf /tmp/node-build-master
+# Step 7: Add nodejs source
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 
-# Install application gems
-COPY Gemfile Gemfile.lock ./
-RUN bundle install && \
-    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
-    bundle exec bootsnap precompile --gemfile
+# Step 8: Add yarn packages repository
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-# Install node modules
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+# Step 9: Install the common runtime dependencies:
+RUN apt-get update && \
+  apt-get install -y --no-install-recommends \
+  apt-transport-https software-properties-common \
+  ca-certificates \
+  libpq5 \
+  openssl \
+  nodejs \
+  tzdata \
+  yarn && \
+  rm -rf /var/lib/apt/lists/*
 
-# Copy application code
-COPY . .
+# Step 10: Add Dockerize image
+RUN export DOCKERIZE_VERSION=v0.6.1 && curl -L \
+  https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+  | tar -C /usr/local/bin -xz
 
-# Precompile bootsnap code for faster boot times
-RUN bundle exec bootsnap precompile app/ lib/
+# II: Development Stage: =======================================================
+# In this stage we'll build the image used for development, including compilers,
+# and development libraries. This is also a first step for building a releasable
+# Docker image:
 
-# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+# Step 11: Start off from the "runtime" stage:
+FROM runtime AS development
 
+# Step 12: Install the development dependency packages with alpine package
+# manager:
+RUN apt-get update && \
+  apt-get install -y --no-install-recommends \
+  build-essential \
+  chromium \
+  chromium-driver \
+  git \
+  graphviz \
+  libpq-dev && \
+  rm -rf /var/lib/apt/lists/*
 
-# Final stage for app image
-FROM base
+# Step 13: install npm
+# - see https://github.com/npm/uid-number/issues/7
+RUN apt-get update && \
+  apt-get install -y --no-install-recommends \
+  npm
 
-# Install packages needed for deployment
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libvips postgresql-client && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+# Step 14: Install the 'check-dependencies' node package:
+RUN npm install -g check-dependencies
 
-# Copy built artifacts: gems, application
-COPY --from=build /usr/local/bundle /usr/local/bundle
-COPY --from=build /rails /rails
+# Step 15: Copy the project's Gemfile + lock:
+ADD Gemfile* /usr/src/
 
-# Run and own only the runtime files as a non-root user for security
-RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
-USER rails:rails
+# Step 16: Install the current project gems - they can be safely changed later
+# during development via `bundle install` or `bundle update`:
+RUN bundle install --jobs=4 --retry=3
 
-# Entrypoint prepares the database.
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+# Step 17: Set the default command:
+CMD [ "rails", "server", "-b", "0.0.0.0" ]
 
-# Start the server by default, this can be overwritten at runtime
-EXPOSE 3000
-CMD ["./bin/rails", "server"]
+# III: Testing stage: ==========================================================
+# In this stage we'll add the current code from the project's source, so we can
+# run tests with the code.
+# Step 18: Start off from the development stage image:
+FROM development AS testing
+
+# Step 19: Copy the rest of the application code
+ADD . /usr/src
+
+# Step 20: Install Yarn packages:
+RUN yarn install
+
+# IV: Builder stage: ===========================================================
+# In this stage we'll compile assets coming from the project's source, do some
+# tests and cleanup. If the CI/CD that builds this image allows it, we should
+# also run the app test suites here:
+
+# Step 21: Start off from the development stage image:
+FROM testing AS builder
+
+# Step 22: Precompile assets:
+RUN export DATABASE_URL=postgres://postgres@example.com:5432/fakedb \
+  SECRET_KEY_BASE=10167c7f7654ed02b3557b05b88ece \
+  RAILS_ENV=production && \
+  rails assets:precompile && \
+  yarn build:css:compile && \
+  rails secret > /dev/null
+
+# Step 23: Remove installed gems that belong to the development & test groups -
+# we'll copy the remaining system gems into the deployable image on the next
+# stage:
+RUN bundle config without development:test && bundle clean
+
+# Step 24: Remove files not used on release image:
+RUN rm -rf \
+  .rspec \
+  Guardfile \
+  bin/rspec \
+  bin/checkdb \
+  bin/dumpdb \
+  bin/restoredb \
+  bin/setup \
+  bin/spring \
+  bin/update \
+  bin/dev-entrypoint.sh \
+  config/spring.rb \
+  node_modules \
+  spec \
+  config/initializers/listen_patch.rb \
+  tmp/*
+
+# V: Release stage: ============================================================
+# In this stage, we build the final, deployable Docker image, which will be
+# smaller than the images generated on previous stages:
+
+# Step 25: Start off from the runtime stage image:
+FROM runtime AS release
+
+# Step 26: Copy the remaining installed gems from the "builder" stage:
+COPY --from=builder /usr/local/bundle /usr/local/bundle
+
+# Step 27: Copy from app code from the "builder" stage, which at this point
+# should have the assets from the asset pipeline already compiled:
+COPY --from=builder /usr/src /usr/src
+
+# Step 28: Set the RAILS/RACK_ENV and PORT default values:
+ENV RAILS_ENV=production RACK_ENV=production PORT=3000
+
+# Step 29: Generate the temporary directories in case they don't already exist:
+RUN mkdir -p /usr/src/tmp/cache && \
+  mkdir -p /usr/src/tmp/pids && \
+  mkdir -p /usr/src/tmp/sockets && \
+  chown -R nobody /usr/src
+
+# Step 30: Set the container user to 'nobody':
+USER nobody
+
+# Step 31: Set the default command:
+CMD [ "puma" ]
+
+# Step 32 thru 35: Add label-schema.org labels to identify the build info:
+ARG SOURCE_BRANCH="master"
+ARG SOURCE_COMMIT="000000"
+ARG BUILD_DATE="2017-09-26T16:13:26Z"
+ARG IMAGE_NAME="cookpendium:latest"
+
+LABEL org.label-schema.build-date=$BUILD_DATE \
+  org.label-schema.name="Cookpendium" \
+  org.label-schema.description="cookpendium" \
+  org.label-schema.vcs-url="https://github.com/charlieigg/cookpendium.git" \
+  org.label-schema.vcs-ref=$SOURCE_COMMIT \
+  org.label-schema.schema-version="1.0.0-rc1" \
+  build-target="release" \
+  build-branch=$SOURCE_BRANCH

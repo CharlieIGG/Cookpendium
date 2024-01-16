@@ -1,0 +1,49 @@
+<nav class="navbar fixed-top navbar-expand-lg bg-primary-subtle border-bottom border-body <%= 'navbar__with_ingredients_panel' if params[:controller] == 'recipes' && params[:action] == "show" %>">
+  <div class="container-fluid">
+    <a class="navbar-brand me-4" href="/">
+      <h4 class="mb-0 text-dark brand__title">Cookpendium</h4>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to "#{ t('numerators.all').capitalize } #{ Recipe.model_name.human(count: 2) }", recipes_path, class: "nav-link active",
+                          "aria-current": params[:controller] = 'recipes' %>
+        </li>
+      </ul>
+      <div class="d-flex">
+        <form class="d-flex me-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search for a Recipe" aria-label="Search for a Recipe">
+          <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </form>
+        <% if current_user && current_user.username %>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <%= current_user.username %>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <li class="dropdown-item">
+                  <%= link_to t('my_profile'), edit_user_path(current_user), class: "dropdown-item" %>
+                </li>
+                <li class="dropdown-item">
+                  <%= link_to t('devise.sessions.sign_out'), destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        <% else %>
+          <% unless current_user %>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <%= link_to t('devise.sessions.sign_in'), new_user_session_path, class: "nav-link active" %>
+              </li>
+            </ul>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

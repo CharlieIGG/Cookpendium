@@ -54,8 +54,7 @@ FactoryBot.define do # rubocop:disable Metrics/BlockLength
 
       after(:create) do |recipe, evaluator|
         create_list(:ingredient, evaluator.ingredients_count).each do |ingredient|
-          create_list(:recipe_step_ingredient, evaluator.ingredients_count,
-                      recipe_step: recipe.recipe_steps.first, ingredient:)
+          create_list(:recipe_ingredient, evaluator.ingredients_count, ingredient:, recipe:)
         end
       end
     end

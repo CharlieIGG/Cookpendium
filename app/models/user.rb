@@ -34,6 +34,8 @@ class User < ApplicationRecord
   validates :username, uniqueness: true, allow_blank: true
   validates :email, uniqueness: true, presence: true
 
+  has_many :recipes, through: :roles, source: :resource, source_type: :Recipe
+
   after_create :assign_default_role
 
   def self.from_omniauth(access_token)
@@ -41,7 +43,7 @@ class User < ApplicationRecord
     user = User.where(email: data['email']).first
     return user if user
 
-    User.create(email: data['email'], password: Devise.friendly_token[0, 20])
+    User.create(email: data['email'], password: Devise.friendly_token[0, 20]).tap(&:confirm)
   end
 
   private

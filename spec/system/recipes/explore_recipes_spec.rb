@@ -2,18 +2,14 @@ require 'rails_helper'
 
 RSpec.describe 'ExploreRecipes', type: :system do # rubocop:disable Metrics/BlockLength
   describe 'viewing all recipes' do
-    let_it_be(:recipes) { create_list(:recipe, 5) }
+    let_it_be(:recipes) { create_list(:recipe, 5, :with_ingredients, :with_steps) }
 
     it 'displays recipe titles and truncated descriptions on recipes_path' do
-      # Add code to create some recipes here
-
       visit recipes_path
 
-      # Assert that recipe titles are displayed
-      Recipe.all.each do |recipe|
+      recipes.each do |recipe|
         expect(page).to have_content(recipe.title)
 
-        # Assert that truncated recipe descriptions are displayed
         expect(page).to have_content(recipe.description.truncate(90))
       end
     end
@@ -21,7 +17,7 @@ RSpec.describe 'ExploreRecipes', type: :system do # rubocop:disable Metrics/Bloc
     it 'navigates to recipe_path when clicking on a recipe' do
       # Add code to create a recipe here
 
-      recipe = Recipe.first
+      recipe = recipes.first
 
       visit recipes_path
 
@@ -30,6 +26,18 @@ RSpec.describe 'ExploreRecipes', type: :system do # rubocop:disable Metrics/Bloc
 
       # Assert that the current path is the recipe_path of the clicked recipe
       expect(page).to have_current_path(recipe_path(recipe))
+    end
+
+    it 'only shows recipes that have both ingredients and steps' do
+      recipe_without_ingredients_or_steps = create(:recipe)
+      recipe_without_ingredients = create(:recipe, :with_steps)
+      recipe_without_steps = create(:recipe, :with_ingredients)
+
+      visit recipes_path
+
+      [recipe_without_ingredients_or_steps, recipe_without_ingredients, recipe_without_steps].each do |recipe|
+        expect(page).not_to have_content(recipe.title)
+      end
     end
   end
 

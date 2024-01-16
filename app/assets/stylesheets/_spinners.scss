@@ -1,0 +1,13 @@
+.modal-spinners {
+    .spinner-grow {
+        &:nth-child(1) {
+            animation-delay: 0s;
+        }
+        &:nth-child(2) {
+            animation-delay: 0.333s;
+        }
+        &:nth-child(3) {
+            animation-delay: 0.666s;
+        }
+    }
+}

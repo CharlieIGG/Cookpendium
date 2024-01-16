@@ -1,0 +1,23 @@
+<div class="modal fade" id="loadingModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header d-flex justify-content-center">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel"><%= t('helpers.loading.base') %></h1>
+      </div>
+      <div class="modal-body">
+        <div class="modal-spinners text-center my-4">
+          <div class="spinner-grow text-primary spinner-grow-sm mx-2" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-secondary spinner-grow-sm mx-2" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-info spinner-grow-sm mx-2" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        <div class="modal-text text-center"></div>
+      </div>
+    </div>
+  </div>
+</div>

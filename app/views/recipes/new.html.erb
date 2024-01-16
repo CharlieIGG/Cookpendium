@@ -1,9 +1,9 @@
 <h1>New recipe</h1>
-
-<%= render "form", recipe: @recipe %>
-
+<%= turbo_frame_tag "new_recipe_form", target: :_top do %>
+  <%= render "form", recipe: @recipe %>
+<% end %>
 <br>
-
 <div>
   <%= link_to "Back to recipes", recipes_path %>
 </div>
+<%= render 'shared/loading_modal' %>

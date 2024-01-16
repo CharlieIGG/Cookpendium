@@ -11,14 +11,14 @@ module AITools
       <<~HEREDOC
         If the provided text is not a cooking recipe, please return the following JSON object:
         {
-            "error": "The provided text is not a recipe. Please provide a recipe."
+            "error": I18n.t('helpers.errors.recipes.parser_content')
         }
       HEREDOC
     end
 
     def ingredient_structure_instructions
       <<~HEREDOC
-        -- ingredient name (string). Do not include any units or quantities in the name.
+        -- ingredient_name (string). Do not include any units or quantities in the name.
         -- quantity (number)
         -- unit (string), as standard as possible, such as 'grams', 'cups', 'pinches', 'tablespoons', 'teaspoons', 'pounds', 'ounces', etc.
         -- unit_short (string), the abbreviated unit, such as 'gr', 'tbsp', 'tsp', 'lb', 'oz', etc.
@@ -31,7 +31,7 @@ module AITools
         -- an instruction (string): a short sentence thath summarizes the step in 45 characters or less (e.g. "Preheat the oven")
         --- Note: the "instruction" is a supposed to be a shortened version of the "description" that can be used as a title for the step.
         -- a step_number (integer), indicating the order of the step
-        -- a list of ingredients, as an array of objects, with the same structure as the main ingredients array.
+        -- a list of "ingredients", as an array of objects, with the same structure as the main ingredients array.
         -- only list ingredients that are used in their original form (i.e. omit ingredients that have already been mixed or transformed in previous steps)
       HEREDOC
     end
@@ -39,7 +39,10 @@ module AITools
     def recipe_step_splitting_instructions
       <<~HEREDOC
         If a recipe step contains multiple actions in any part of the original text, please split them into separate recipe_steps.
-        Typically this is identified by the word "and" or a comma between two actions (verbs).
+        An instruction is to be considered multiple actions whenever it contains any of the following:
+        - multple sentences separated by periods.
+        - multiple independent clauses.
+        - the word "then" joining two clauses.
         Also if instructions are given in a paragraph separated by periods, please split them into separate recipe_steps.
       HEREDOC
     end

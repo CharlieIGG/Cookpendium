@@ -1,4 +1,5 @@
 @import "colors.scss";
+@import "bootstrap_overrides.scss";
 // external libraries
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
@@ -9,6 +10,7 @@
 @import 'cards.scss';
 @import 'fonts.scss';
 @import 'buttons.scss';
+@import 'spinners.scss';
 
 // domain-secific styles
 @import 'recipe_show.scss';

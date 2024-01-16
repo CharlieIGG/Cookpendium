@@ -1,0 +1,8 @@
+<%= turbo_frame_tag 'toasts_container', class:"toast-container position-fixed bottom-0 end-0 p-3" do %>
+  <% if flash[:notice].present? %>
+    <%= render 'shared/toast', message: flash[:notice], type: :notice %>
+  <% end %>
+  <% if flash[:alert].present? %>
+    <%= render 'shared/toast', message: flash[:alert], type: :alert %>
+  <% end %>
+<% end %>

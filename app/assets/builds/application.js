@@ -162,7 +162,8 @@
         "disconnect_reasons": {
           "unauthorized": "unauthorized",
           "invalid_request": "invalid_request",
-          "server_restart": "server_restart"
+          "server_restart": "server_restart",
+          "remote": "remote"
         },
         "default_mount_path": "/cable",
         "protocols": [
@@ -205,11 +206,12 @@
             logger_default.log(`Attempted to open WebSocket, but existing socket is ${this.getState()}`);
             return false;
           } else {
-            logger_default.log(`Opening WebSocket, current state is ${this.getState()}, subprotocols: ${protocols}`);
+            const socketProtocols = [...protocols, ...this.consumer.subprotocols || []];
+            logger_default.log(`Opening WebSocket, current state is ${this.getState()}, subprotocols: ${socketProtocols}`);
             if (this.webSocket) {
               this.uninstallEventHandlers();
             }
-            this.webSocket = new adapters_default.WebSocket(this.consumer.url, protocols);
+            this.webSocket = new adapters_default.WebSocket(this.consumer.url, socketProtocols);
             this.installEventHandlers();
             this.monitor.start();
             return true;
@@ -248,6 +250,9 @@
         }
         isActive() {
           return this.isState("open", "connecting");
+        }
+        triedToReconnect() {
+          return this.monitor.reconnectAttempts > 0;
         }
         // Private
         isProtocolSupported() {
@@ -288,6 +293,9 @@
           const { identifier, message, reason, reconnect, type } = JSON.parse(event.data);
           switch (type) {
             case message_types.welcome:
+              if (this.triedToReconnect()) {
+                this.reconnectAttempted = true;
+              }
               this.monitor.recordConnect();
               return this.subscriptions.reload();
             case message_types.disconnect:
@@ -297,7 +305,12 @@
               return this.monitor.recordPing();
             case message_types.confirmation:
               this.subscriptions.confirmSubscription(identifier);
-              return this.subscriptions.notify(identifier, "connected");
+              if (this.reconnectAttempted) {
+                this.reconnectAttempted = false;
+                return this.subscriptions.notify(identifier, "connected", { reconnected: true });
+              } else {
+                return this.subscriptions.notify(identifier, "connected", { reconnected: false });
+              }
             case message_types.rejection:
               return this.subscriptions.reject(identifier);
             default:
@@ -517,6 +530,7 @@
           this._url = url;
           this.subscriptions = new Subscriptions(this);
           this.connection = new connection_default(this);
+          this.subprotocols = [];
         }
         get url() {
           return createWebSocketURL(this._url);
@@ -534,6 +548,9 @@
           if (!this.connection.isActive()) {
             return this.connection.open();
           }
+        }
+        addSubProtocol(subprotocol) {
+          this.subprotocols = [...this.subprotocols, subprotocol];
         }
       };
     }
@@ -7950,16 +7967,6 @@
   application.debug = false;
   window.Stimulus = application;
 
-  // app/javascript/controllers/hello_controller.js
-  var hello_controller_default = class extends Controller {
-    connect() {
-      this.element.textContent = "Hello World!";
-    }
-  };
-
-  // app/javascript/controllers/index.js
-  application.register("hello", hello_controller_default);
-
   // node_modules/@popperjs/core/lib/index.js
   var lib_exports = {};
   __export(lib_exports, {
@@ -13116,15 +13123,75 @@
   enableDismissTrigger(Toast);
   defineJQueryPlugin(Toast);
 
-  // app/javascript/toasts.js
-  document.addEventListener("turbo:load", () => {
-    initializeToasts();
-  });
-  var initializeToasts = () => {
-    const toastElList = document.querySelectorAll(".toast");
-    const toastList = [...toastElList].map((toastEl) => new Toast(toastEl));
-    toastList.forEach((toast) => toast.show());
+  // app/javascript/controllers/smart_recipe_form_controller.js
+  var SmartRecipeFormController = class extends Controller {
+    static values = {
+      loadingMessages: Array
+    };
+    static targets = ["AIToolsToggle", "AIToolsInput", "nonAIFormInputs", "AIInputGroup"];
+    constructor(...args) {
+      super(...args);
+      this.loadingModal = window.lodmo = new Modal(document.getElementById("loadingModal"));
+    }
+    connect() {
+      console.log(this.loadingMessagesValue);
+      this.AIToolsToggleTarget.addEventListener("change", (e) => this.toggleAITools(e.target.checked));
+      this.element.addEventListener("turbo:submit-start", () => this.showLoader());
+      this.element.addEventListener("turbo:submit-end", () => this.hideLoader());
+    }
+    toggleAITools(checked) {
+      if (checked) {
+        this.AIInputGroupTarget.classList.remove("d-none");
+        this.nonAIFormInputsTarget.classList.add("d-none");
+      } else {
+        this.AIInputGroupTarget.classList.add("d-none");
+        this.nonAIFormInputsTarget.classList.remove("d-none");
+        this.AIToolsInputTarget.value = "";
+      }
+    }
+    showLoader() {
+      this.loadingModal.show();
+      this.iterate_messages();
+    }
+    iterate_messages() {
+      const messages = this.loadingMessagesValue;
+      const loadingModalBody = document.querySelector("#loadingModal .modal-body .modal-text");
+      loadingModalBody.textContent = messages[0];
+      let index = 1;
+      const intervalId = setInterval(() => {
+        loadingModalBody.textContent = messages[index];
+        index++;
+        if (index === messages.length) {
+          clearInterval(intervalId);
+        }
+      }, 5e3);
+    }
+    hideLoader() {
+      setTimeout(() => {
+        this.loadingModal.hide();
+      }, 500);
+    }
+    disconnect() {
+      this.element.removeEventListener("turbo:submit-start", () => this.showLoader());
+      this.element.removeEventListener("turbo:submit-end", () => this.hideLoader());
+    }
   };
+
+  // app/javascript/controllers/toasts.js
+  var ToastsController = class extends Controller {
+    static targets = ["toast"];
+    connect() {
+      this.toast = new Toast(this.toastTarget, { delay: 7e3 });
+      this.toast.show();
+    }
+    disconnect() {
+      this.toast.dispose();
+    }
+  };
+
+  // app/javascript/controllers/index.js
+  application.register("smart-recipe-form", SmartRecipeFormController);
+  application.register("toasts", ToastsController);
 })();
 /*! Bundled license information:
 
