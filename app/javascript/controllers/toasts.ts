@@ -3,6 +3,8 @@ import { Toast } from 'bootstrap';
 
 class ToastsController extends Controller {
     static targets = ["toast"];
+    declare toast: Toast;
+    declare toastTarget: Element;
 
     connect() {
         this.toast = new Toast(this.toastTarget, { delay: 7000 });

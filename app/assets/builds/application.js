@@ -1,3 +1,4 @@
+"use strict";
 (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -7962,10 +7963,35 @@
   Controller.outlets = [];
   Controller.values = {};
 
-  // app/javascript/controllers/application.js
+  // app/javascript/controllers/application.ts
   var application = Application.start();
   application.debug = false;
-  window.Stimulus = application;
+
+  // app/javascript/controllers/recipes/nested_ingredients.ts
+  var NestedIngredientsController = class extends Controller {
+    static {
+      this.targets = ["container", "template"];
+    }
+    add(e) {
+      e.preventDefault();
+      const content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, (/* @__PURE__ */ new Date()).getTime().toString());
+      this.containerTarget.insertAdjacentHTML("beforeend", content);
+    }
+    remove(e) {
+      e.preventDefault();
+      const target = e.target;
+      const wrapper = target.closest(this.wrapperSelectorValue);
+      if (wrapper) {
+        if (wrapper.dataset.newRecord === "true") {
+          wrapper.remove();
+        } else {
+          wrapper.style.display = "none";
+          const input = wrapper.querySelector("input[name*='_destroy']");
+          input.value = "1";
+        }
+      }
+    }
+  };
 
   // node_modules/@popperjs/core/lib/index.js
   var lib_exports = {};
@@ -13123,15 +13149,22 @@
   enableDismissTrigger(Toast);
   defineJQueryPlugin(Toast);
 
-  // app/javascript/controllers/smart_recipe_form_controller.js
+  // app/javascript/controllers/smart_recipe_form_controller.ts
   var SmartRecipeFormController = class extends Controller {
-    static values = {
-      loadingMessages: Array
-    };
-    static targets = ["AIToolsToggle", "AIToolsInput", "nonAIFormInputs", "AIInputGroup"];
-    constructor(...args) {
-      super(...args);
-      this.loadingModal = window.lodmo = new Modal(document.getElementById("loadingModal"));
+    static {
+      this.values = {
+        loadingMessages: Array
+      };
+    }
+    static {
+      this.targets = ["AIToolsToggle", "AIToolsInput", "nonAIFormInputs", "AIInputGroup"];
+    }
+    constructor(context) {
+      super(context);
+      const loadingModalElement = document.getElementById("loadingModal");
+      if (loadingModalElement) {
+        this.loadingModal = new Modal(loadingModalElement);
+      }
     }
     connect() {
       this.AIToolsToggleTarget.addEventListener("change", (e) => this.toggleAITools(e.target.checked));
@@ -13155,6 +13188,8 @@
     iterate_messages() {
       const messages = this.loadingMessagesValue;
       const loadingModalBody = document.querySelector("#loadingModal .modal-body .modal-text");
+      if (!loadingModalBody)
+        return;
       loadingModalBody.textContent = messages[0];
       let index = 1;
       const intervalId = setInterval(() => {
@@ -13176,9 +13211,11 @@
     }
   };
 
-  // app/javascript/controllers/toasts.js
+  // app/javascript/controllers/toasts.ts
   var ToastsController = class extends Controller {
-    static targets = ["toast"];
+    static {
+      this.targets = ["toast"];
+    }
     connect() {
       this.toast = new Toast(this.toastTarget, { delay: 7e3 });
       this.toast.show();
@@ -13188,9 +13225,10 @@
     }
   };
 
-  // app/javascript/controllers/index.js
+  // app/javascript/controllers/index.ts
   application.register("smart-recipe-form", SmartRecipeFormController);
   application.register("toasts", ToastsController);
+  application.register("nested-ingredients", NestedIngredientsController);
 })();
 /*! Bundled license information:
 

@@ -1,10 +1,10 @@
 module Recipes
   class RecipeIngredientsController < ApplicationController
     def new
-      @recipe = Recipe.find(params[:recipe_id])
+      @recipe = params[:recipe_id] ? Recipe.find(params[:recipe_id]) : Recipe.new
       @recipe_ingredient = @recipe.recipe_ingredients.build
-      render turbo_stream: turbo_stream.append(:recipe_ingredient, partial: 'recipes/form/recipe_ingredient',
-                                                                   locals: { recipe_ingredient: @recipe_ingredient })
+      render turbo_stream: turbo_stream.append(:recipe_ingredients, partial: 'recipes/form/recipe_ingredient',
+                                                                    locals: { recipe_ingredient: @recipe_ingredient })
     end
 
     def destroy
@@ -17,8 +17,8 @@ module Recipes
       @recipe = Recipe.find(params[:recipe_id])
       @recipe_ingredient = @recipe.recipe_ingredients.build(recipe_ingredient_params)
       if @recipe_ingredient.save
-        render turbo_stream: turbo_stream.update(:recipe_ingredient, partial: 'recipes/form/recipe_ingredient',
-                                                                     locals: { recipe_ingredient: @recipe_ingredient })
+        render turbo_stream: turbo_stream.update(:recipe_ingredients, partial: 'recipes/form/recipe_ingredient',
+                                                                      locals: { recipe_ingredient: @recipe_ingredient })
       else
         # Handle validation errors
       end

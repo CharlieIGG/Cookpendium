@@ -1,3 +1,13 @@
-<%= form.fields_for :recipe_ingredients do |recipe_ingredient| %>
-  <%= render 'recipe_ingredient', recipe_ingredient: recipe_ingredient %>
-<% end %>
+<div class="recipe_ingredients__wrapper" data-controller="nested-ingredients">
+  <template data-nested-ingredients-target="template">
+    <%= form.fields_for :recipe_ingredients, RecipeIngredient.new, child_index: "NEW_RECORD" do |recipe_ingredient| %>
+      <%= render 'recipes/form/recipe_ingredient', recipe_ingredient: %>
+    <% end %>
+  </template>
+  <%= turbo_frame_tag "recipe_ingredients", data: {"nested-ingredients-target": "container"} do %>
+    <%= form.fields_for :recipe_ingredients do |recipe_ingredient| %>
+      <%= render 'recipes/form/recipe_ingredient', recipe_ingredient: %>
+    <% end %>
+  <% end %>
+  <div class="btn btn-secondary" data-action="click->nested-ingredients#add">Add Ingredient</div>
+</div>
