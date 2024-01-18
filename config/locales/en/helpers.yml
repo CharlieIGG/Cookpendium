@@ -1,5 +1,6 @@
 en:
   helpers:
+    cancel: "Cancel"
     loading:
       base: "Loading..."
     submit:

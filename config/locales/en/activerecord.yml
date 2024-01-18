@@ -67,6 +67,7 @@ en:
         recipe_ingredients: "Recipe Ingredients"
         recipe_step_ingredients: "Recipe Step Ingredients"
       recipe:
+        ingredients_and_instructions: Ingredients and Instructions (for AI Recognition)
         name: "Name"
         description: "Description"
         servings: "Servings"
@@ -89,11 +90,13 @@ en:
       recipe_step_ingredient:
         quantity: "Quantity"
         measurement_unit: "Measurement Unit"
+        measurement_unit_short: "Unit"
         ingredient: "Ingredient"
         recipe_step: "Recipe Step"
       recipe_ingredient:
         quantity: "Quantity"
         measurement_unit: "Measurement Unit"
+        measurement_unit_short: "Unit"
         ingredient: "Ingredient"
         recipe: "Recipe"
       user:

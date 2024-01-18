@@ -1134,8 +1134,8 @@
       headers: modifiedHeaders
     });
   }
-  function fetchMethodFromString(method) {
-    switch (method.toLowerCase()) {
+  function fetchMethodFromString(method2) {
+    switch (method2.toLowerCase()) {
       case "get":
         return FetchMethod.get;
       case "post":
@@ -1174,15 +1174,15 @@
     abortController = new AbortController();
     #resolveRequestPromise = (_value) => {
     };
-    constructor(delegate, method, location2, requestBody = new URLSearchParams(), target = null, enctype = FetchEnctype.urlEncoded) {
-      const [url, body] = buildResourceAndBody(expandURL(location2), method, requestBody, enctype);
+    constructor(delegate, method2, location2, requestBody = new URLSearchParams(), target = null, enctype = FetchEnctype.urlEncoded) {
+      const [url, body] = buildResourceAndBody(expandURL(location2), method2, requestBody, enctype);
       this.delegate = delegate;
       this.url = url;
       this.target = target;
       this.fetchOptions = {
         credentials: "same-origin",
         redirect: "follow",
-        method,
+        method: method2,
         headers: { ...this.defaultHeaders },
         body,
         signal: this.abortSignal,
@@ -1306,9 +1306,9 @@
   function isSafe(fetchMethod) {
     return fetchMethodFromString(fetchMethod) == FetchMethod.get;
   }
-  function buildResourceAndBody(resource, method, requestBody, enctype) {
+  function buildResourceAndBody(resource, method2, requestBody, enctype) {
     const searchParams = Array.from(requestBody).length > 0 ? new URLSearchParams(entriesExcludingFiles(requestBody)) : resource.searchParams;
-    if (isSafe(method)) {
+    if (isSafe(method2)) {
       return [mergeIntoURLSearchParams(resource, searchParams), null];
     } else if (enctype == FetchEnctype.urlEncoded) {
       return [resource, searchParams];
@@ -1394,14 +1394,14 @@
       return Promise.resolve(confirm(message));
     }
     constructor(delegate, formElement, submitter, mustRedirect = false) {
-      const method = getMethod(formElement, submitter);
-      const action = getAction(getFormAction(formElement, submitter), method);
+      const method2 = getMethod(formElement, submitter);
+      const action = getAction(getFormAction(formElement, submitter), method2);
       const body = buildFormData(formElement, submitter);
       const enctype = getEnctype(formElement, submitter);
       this.delegate = delegate;
       this.formElement = formElement;
       this.submitter = submitter;
-      this.fetchRequest = new FetchRequest(this, method, action, body, formElement, enctype);
+      this.fetchRequest = new FetchRequest(this, method2, action, body, formElement, enctype);
       this.mustRedirect = mustRedirect;
     }
     get method() {
@@ -1579,8 +1579,8 @@
     return action;
   }
   function getMethod(formElement, submitter) {
-    const method = submitter?.getAttribute("formmethod") || formElement.getAttribute("method") || "";
-    return fetchMethodFromString(method.toLowerCase()) || FetchMethod.get;
+    const method2 = submitter?.getAttribute("formmethod") || formElement.getAttribute("method") || "";
+    return fetchMethodFromString(method2.toLowerCase()) || FetchMethod.get;
   }
   function getEnctype(formElement, submitter) {
     return fetchEnctypeFromString(submitter?.getAttribute("formenctype") || formElement.enctype);
@@ -1666,8 +1666,8 @@
     };
   };
   function submissionDoesNotDismissDialog(form, submitter) {
-    const method = submitter?.getAttribute("formmethod") || form.getAttribute("method");
-    return method != "dialog";
+    const method2 = submitter?.getAttribute("formmethod") || form.getAttribute("method");
+    return method2 != "dialog";
   }
   function submissionDoesNotTargetIFrame(form, submitter) {
     if (submitter?.hasAttribute("formtarget") || form.hasAttribute("target")) {
@@ -1908,9 +1908,9 @@
       form.setAttribute("data-turbo", "true");
       form.setAttribute("action", action.href);
       form.setAttribute("hidden", "");
-      const method = link.getAttribute("data-turbo-method");
-      if (method)
-        form.setAttribute("method", method);
+      const method2 = link.getAttribute("data-turbo-method");
+      if (method2)
+        form.setAttribute("method", method2);
       const turboFrame = link.getAttribute("data-turbo-frame");
       if (turboFrame)
         form.setAttribute("data-turbo-frame", turboFrame);
@@ -2525,8 +2525,8 @@
     changeHistory() {
       if (!this.historyChanged && this.updateHistory) {
         const actionForHistory = this.location.href === this.referrer?.href ? "replace" : this.action;
-        const method = getHistoryMethodForAction(actionForHistory);
-        this.history.update(method, this.location, this.restorationIdentifier);
+        const method2 = getHistoryMethodForAction(actionForHistory);
+        this.history.update(method2, this.location, this.restorationIdentifier);
         this.historyChanged = true;
       }
     }
@@ -3000,11 +3000,11 @@
     replace(location2, restorationIdentifier) {
       this.update(history.replaceState, location2, restorationIdentifier);
     }
-    update(method, location2, restorationIdentifier = uuid()) {
-      if (method === history.pushState)
+    update(method2, location2, restorationIdentifier = uuid()) {
+      if (method2 === history.pushState)
         ++this.currentIndex;
       const state = { turbo: { restorationIdentifier, restorationIndex: this.currentIndex } };
-      method.call(history, state, "", location2.href);
+      method2.call(history, state, "", location2.href);
       this.location = location2;
       this.restorationIdentifier = restorationIdentifier;
     }
@@ -4997,8 +4997,8 @@
     }
     changeHistory() {
       if (this.action) {
-        const method = getHistoryMethodForAction(this.action);
-        session.history.update(method, expandURL(this.element.src || ""), this.restorationIdentifier);
+        const method2 = getHistoryMethodForAction(this.action);
+        session.history.update(method2, expandURL(this.element.src || ""), this.restorationIdentifier);
       }
     }
     async #handleUnvisitableFrameResponse(fetchResponse) {
@@ -5470,12 +5470,12 @@
       const { target: form, detail: { fetchOptions } } = event;
       form.addEventListener("turbo:submit-start", ({ detail: { formSubmission: { submitter } } }) => {
         const body = isBodyInit(fetchOptions.body) ? fetchOptions.body : new URLSearchParams();
-        const method = determineFetchMethod(submitter, body, form);
-        if (!/get/i.test(method)) {
-          if (/post/i.test(method)) {
+        const method2 = determineFetchMethod(submitter, body, form);
+        if (!/get/i.test(method2)) {
+          if (/post/i.test(method2)) {
             body.delete("_method");
           } else {
-            body.set("_method", method);
+            body.set("_method", method2);
           }
           fetchOptions.method = "post";
         }
@@ -5485,13 +5485,13 @@
   function determineFetchMethod(submitter, body, form) {
     const formMethod = determineFormMethod(submitter);
     const overrideMethod = body.get("_method");
-    const method = form.getAttribute("method") || "get";
+    const method2 = form.getAttribute("method") || "get";
     if (typeof formMethod == "string") {
       return formMethod;
     } else if (typeof overrideMethod == "string") {
       return overrideMethod;
     } else {
-      return method;
+      return method2;
     }
   }
   function determineFormMethod(submitter) {
@@ -5536,12 +5536,12 @@
       this.unorderedBindings.delete(binding);
     }
     handleEvent(event) {
-      const extendedEvent = extendEvent(event);
+      const extendedEvent2 = extendEvent(event);
       for (const binding of this.bindings) {
-        if (extendedEvent.immediatePropagationStopped) {
+        if (extendedEvent2.immediatePropagationStopped) {
           break;
         } else {
-          binding.handleEvent(extendedEvent);
+          binding.handleEvent(extendedEvent2);
         }
       }
     }
@@ -5852,9 +5852,9 @@
       return this.action.eventName;
     }
     get method() {
-      const method = this.controller[this.methodName];
-      if (typeof method == "function") {
-        return method;
+      const method2 = this.controller[this.methodName];
+      if (typeof method2 == "function") {
+        return method2;
       }
       throw new Error(`Action "${this.action}" references undefined method "${this.methodName}"`);
     }
@@ -7966,6 +7966,139 @@
   // app/javascript/controllers/application.ts
   var application = Application.start();
   application.debug = false;
+
+  // node_modules/stimulus-use/dist/index.js
+  var method = (controller, methodName) => {
+    const method2 = controller[methodName];
+    if (typeof method2 == "function") {
+      return method2;
+    } else {
+      return (...args) => {
+      };
+    }
+  };
+  var composeEventName = (name, controller, eventPrefix) => {
+    let composedName = name;
+    if (eventPrefix === true) {
+      composedName = `${controller.identifier}:${name}`;
+    } else if (typeof eventPrefix === "string") {
+      composedName = `${eventPrefix}:${name}`;
+    }
+    return composedName;
+  };
+  var extendedEvent = (type, event, detail) => {
+    const { bubbles, cancelable, composed } = event || {
+      bubbles: true,
+      cancelable: true,
+      composed: true
+    };
+    if (event) {
+      Object.assign(detail, {
+        originalEvent: event
+      });
+    }
+    const customEvent = new CustomEvent(type, {
+      bubbles,
+      cancelable,
+      composed,
+      detail
+    });
+    return customEvent;
+  };
+  var DebounceController = class extends Controller {
+  };
+  DebounceController.debounces = [];
+  var defaultOptions$3 = {
+    dispatchEvent: true,
+    eventPrefix: true,
+    visibleAttribute: "isVisible"
+  };
+  var useIntersection = (composableController, options = {}) => {
+    const controller = composableController;
+    const { dispatchEvent: dispatchEvent2, eventPrefix, visibleAttribute } = Object.assign({}, defaultOptions$3, options);
+    const targetElement = (options === null || options === void 0 ? void 0 : options.element) || controller.element;
+    if (!controller.intersectionElements)
+      controller.intersectionElements = [];
+    controller.intersectionElements.push(targetElement);
+    const callback = (entries) => {
+      const [entry] = entries;
+      if (entry.isIntersecting) {
+        dispatchAppear(entry);
+      } else if (targetElement.hasAttribute(visibleAttribute)) {
+        dispatchDisappear(entry);
+      }
+    };
+    const observer = new IntersectionObserver(callback, options);
+    const dispatchAppear = (entry) => {
+      targetElement.setAttribute(visibleAttribute, "true");
+      method(controller, "appear").call(controller, entry, observer);
+      if (dispatchEvent2) {
+        const eventName = composeEventName("appear", controller, eventPrefix);
+        const appearEvent = extendedEvent(eventName, null, {
+          controller,
+          entry,
+          observer
+        });
+        targetElement.dispatchEvent(appearEvent);
+      }
+    };
+    const dispatchDisappear = (entry) => {
+      targetElement.removeAttribute(visibleAttribute);
+      method(controller, "disappear").call(controller, entry, observer);
+      if (dispatchEvent2) {
+        const eventName = composeEventName("disappear", controller, eventPrefix);
+        const disappearEvent = extendedEvent(eventName, null, {
+          controller,
+          entry,
+          observer
+        });
+        targetElement.dispatchEvent(disappearEvent);
+      }
+    };
+    const controllerDisconnect = controller.disconnect.bind(controller);
+    const disconnect = () => {
+      unobserve();
+      controllerDisconnect();
+    };
+    const observe = () => {
+      observer.observe(targetElement);
+    };
+    const unobserve = () => {
+      observer.unobserve(targetElement);
+    };
+    const noneVisible = () => controller.intersectionElements.filter((element) => element.hasAttribute(visibleAttribute)).length === 0;
+    const oneVisible = () => controller.intersectionElements.filter((element) => element.hasAttribute(visibleAttribute)).length === 1;
+    const atLeastOneVisible = () => controller.intersectionElements.some((element) => element.hasAttribute(visibleAttribute));
+    const allVisible = () => controller.intersectionElements.every((element) => element.hasAttribute(visibleAttribute));
+    const isVisible2 = allVisible;
+    Object.assign(controller, {
+      isVisible: isVisible2,
+      noneVisible,
+      oneVisible,
+      atLeastOneVisible,
+      allVisible,
+      disconnect
+    });
+    observe();
+    return [observe, unobserve];
+  };
+  var ThrottleController = class extends Controller {
+  };
+  ThrottleController.throttles = [];
+
+  // app/javascript/controllers/recipes/ingredients_panel.ts
+  var IngredientsPanelController = class extends Controller {
+    connect() {
+      useIntersection(this);
+      this.navBarElement = document.querySelector(".navbar");
+    }
+    appear() {
+      this.navBarElement.classList.add("navbar__with_ingredients_panel");
+    }
+    disappear() {
+      this.navBarElement.classList.remove("navbar__with_ingredients_panel");
+    }
+  };
 
   // app/javascript/controllers/recipes/nested_ingredients.ts
   var NestedIngredientsController = class extends Controller {
@@ -10130,7 +10263,7 @@
       return selector ? SelectorEngine.find(selector) : [];
     }
   };
-  var enableDismissTrigger = (component, method = "hide") => {
+  var enableDismissTrigger = (component, method2 = "hide") => {
     const clickEvent = `click.dismiss${component.EVENT_KEY}`;
     const name = component.NAME;
     EventHandler.on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function(event) {
@@ -10142,7 +10275,7 @@
       }
       const target = SelectorEngine.getElementFromSelector(this) || this.closest(`.${name}`);
       const instance = component.getOrCreateInstance(target);
-      instance[method]();
+      instance[method2]();
     });
   };
   var NAME$f = "alert";
@@ -13229,6 +13362,7 @@
   application.register("smart-recipe-form", SmartRecipeFormController);
   application.register("toasts", ToastsController);
   application.register("nested-ingredients", NestedIngredientsController);
+  application.register("ingredients-panel", IngredientsPanelController);
 })();
 /*! Bundled license information:
 

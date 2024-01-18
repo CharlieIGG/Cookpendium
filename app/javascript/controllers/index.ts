@@ -3,6 +3,7 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from "./application"
+import { IngredientsPanelController } from "./recipes/ingredients_panel"
 import { NestedIngredientsController } from "./recipes/nested_ingredients"
 import { SmartRecipeFormController } from "./smart_recipe_form_controller"
 import { ToastsController } from "./toasts"
@@ -10,3 +11,4 @@ import { ToastsController } from "./toasts"
 application.register("smart-recipe-form", SmartRecipeFormController)
 application.register("toasts", ToastsController)
 application.register("nested-ingredients", NestedIngredientsController)
+application.register("ingredients-panel", IngredientsPanelController)

@@ -9,22 +9,4 @@ $ingredients__panel_base_width: 400px;
         width: 100%;
     }
 }
-.recipe__ingredients_panel {
-    
-    @media (min-width: 768px) and (orientation: landscape) {
-        width: $ingredients__panel_base_width;
-        height: 100vh; // take full height of the viewport
-        position: fixed;
-        right: 0;
-        top: 0;
-    }
-
-    @media (max-width: 767px), (min-width: 768px) and (orientation: portrait) {
-        width: 100%;
-        margin-bottom: 4rem;
-    }
-}
-.navbar__with_ingredients_panel {
-    width: calc(100% - $ingredients__panel_base_width);
-}
     
