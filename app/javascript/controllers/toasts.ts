@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 import { Toast } from 'bootstrap';
 
-class ToastsController extends Controller {
+export default class ToastsController extends Controller {
     static targets = ["toast"];
     declare toast: Toast;
     declare toastTarget: Element;
@@ -15,5 +15,3 @@ class ToastsController extends Controller {
         this.toast.dispose();
     }
 }
-
-export { ToastsController };

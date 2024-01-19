@@ -2,7 +2,8 @@
   <div class="form-group mt-n1 row">
     <div class="col">
       <%= recipe_ingredient.label :ingredient_id, class: "control-label" %>
-      <%= recipe_ingredient.collection_select :ingredient_id, Ingredient.all, :id, :name, { prompt: "Select an ingredient or create a new one" }, class: "form-control" %>
+      <%= recipe_ingredient.collection_select :ingredient_id, @ingredients, :id, :name, 
+          { include_blank: true }, data: { controller: "smart-select" } %>
     </div>
   </div>
   <div class="form-group row mt-2">

@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 import { useIntersection } from "stimulus-use";
 
-class IngredientsPanelController extends Controller {
+export default class IngredientsPanelController extends Controller {
     declare navBarElement: HTMLElement;
 
     connect(): void {
@@ -17,5 +17,3 @@ class IngredientsPanelController extends Controller {
         this.navBarElement.classList.remove('navbar__with_ingredients_panel')
     }
 }
-
-export { IngredientsPanelController }

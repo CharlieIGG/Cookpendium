@@ -15,6 +15,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new
     @recipe.recipe_ingredients.build
     @recipe.recipe_steps.build
+    @ingredients = Ingredient.by_name
   end
 
   # GET /recipes/1/edit

@@ -1,7 +1,7 @@
 import { Context, Controller } from "@hotwired/stimulus";
 import { Modal } from "bootstrap";
 
-class SmartRecipeFormController extends Controller {
+export default class SmartRecipeFormController extends Controller {
   static values = {
     loadingMessages: Array
   }
@@ -71,5 +71,3 @@ class SmartRecipeFormController extends Controller {
     this.element.removeEventListener('turbo:submit-end', () => this.hideLoader());
   }
 }
-
-export { SmartRecipeFormController }
