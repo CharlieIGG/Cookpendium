@@ -1,6 +1,6 @@
 <div class="p-4 shadow-lg bg-primary text-dark rounded-start recipe__ingredients_panel" data-controller="ingredients-panel">
   <h2 class="mb-5 ingredient_list__title"><%= Ingredient.model_name.human(count: 2) %></h2>
-  <div class="recipe_ingredients__wrapper" data-controller="nested-ingredients">
+  <div class="recipe_ingredients__wrapper" data-controller="nested-ingredients" data-nested-ingredients-wrapper-selector-value=".nested-recipe-ingredient-wrapper">
     <template data-nested-ingredients-target="template">
       <%= form.fields_for :recipe_ingredients, RecipeIngredient.new, child_index: "NEW_RECORD" do |recipe_ingredient| %>
         <%= render 'recipes/form/recipe_ingredient', recipe_ingredient: %>
@@ -12,7 +12,8 @@
       <% end %>
     <% end %>
     <div class="d-flex justify-content-center my-3">
-      <button class="btn btn-outline-secondary rounded fs-3" data-action="click->nested-ingredients#add">
+      <button class="btn btn-outline-secondary rounded fs-3"
+              data-action="click->nested-ingredients#add" title="<%= t('forms.add_new') %>">
         <i class="bi bi-plus-lg"></i>
       </button>
     </div>

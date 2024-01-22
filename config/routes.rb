@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :ingredients, only: [:create]
+      resources :measurement_units, only: [:create]
     end
   end
 

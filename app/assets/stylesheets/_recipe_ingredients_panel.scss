@@ -24,3 +24,14 @@
 .d-none .recipe__ingredients_panel{
     transform: translateX($ingredients__panel_base_width);
 }
+
+.nested-recipe-ingredient-wrapper {
+    position: relative;
+}
+
+.recipe__ingredients_panel__remove_button {
+    position: absolute;
+    right: 0.5rem;
+    top: 0;
+    cursor: pointer;
+}

@@ -12,6 +12,8 @@ en:
       identifying_instructions: "Identifying Instructions..."
       associating_ingredients_and_steps: "Associating Ingredients and Steps..."
       importing_into_recipes_database: "Importing into Recipes Database..."
+  ingredients:
+    select_or_create: "Select or create an ingredient"
   time:
     minutes: "minutes"
     mins: "mins."
@@ -23,3 +25,5 @@ en:
     save: "Save"
     cancel: "Cancel"
     back: "Go back"
+    delete: "Delete"
+    add_new: "Add new"

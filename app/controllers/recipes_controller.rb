@@ -16,6 +16,7 @@ class RecipesController < ApplicationController
     @recipe.recipe_ingredients.build
     @recipe.recipe_steps.build
     @ingredients = Ingredient.by_name
+    @measurement_units = MeasurementUnit.by_name.map { |mu| MeasurementUnitDecorator.new(mu) }
   end
 
   # GET /recipes/1/edit

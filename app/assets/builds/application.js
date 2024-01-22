@@ -12273,6 +12273,11 @@
     static {
       this.targets = ["container", "template"];
     }
+    static {
+      this.values = {
+        wrapperSelector: String
+      };
+    }
     add(e) {
       e.preventDefault();
       const content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, (/* @__PURE__ */ new Date()).getTime().toString());

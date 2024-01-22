@@ -1,11 +1,17 @@
-<%= turbo_frame_tag dom_id(recipe_ingredient.object), class:"border border-secondary rounded d-block p-3 my-2" do %>
+<%= turbo_frame_tag dom_id(recipe_ingredient.object), 
+    class:"border border-secondary rounded d-block p-4 my-2 nested-recipe-ingredient-wrapper",
+    data: { "new-record": recipe_ingredient.object.new_record? } do %>
+  <a class="text-secondary rounded fs-3 recipe__ingredients_panel__remove_button" 
+     data-action="click->nested-ingredients#remove" title="<%= t('forms.delete') %>">
+    <i class="bi bi-x-circle"></i>
+  </a>
   <div class="form-group mt-n1 row">
     <div class="col">
       <%= recipe_ingredient.label :ingredient_id, class: "control-label" %>
       <%= recipe_ingredient.collection_select :ingredient_id, @ingredients, :id, :name, 
-          { include_blank: true }, data: { controller: "smart-select",
-                                           "smart-select-create-value": true,
-                                           "smart-select-create-url-value": api_v1_ingredients_path } %>
+          { include_blank: true, prompt: t('ingredients.select_or_create') }, 
+          data: { controller: "smart-select", "smart-select-create-value": true,
+                  "smart-select-create-url-value": api_v1_ingredients_path } %>
     </div>
   </div>
   <div class="form-group row mt-2">
@@ -15,7 +21,11 @@
     </div>
     <div class="col">
       <%= recipe_ingredient.label :measurement_unit_id, RecipeIngredient.human_attribute_name(:measurement_unit_short), class: "control-label" %>
-      <%= recipe_ingredient.collection_select :measurement_unit_id, MeasurementUnit.all, :id, :name, { prompt: "Select a measurement unit or create a new one" }, class: "form-control" %>
+      <%= recipe_ingredient.collection_select :measurement_unit_id, @measurement_units, :id, :full_label, 
+          { include_blank: true }, 
+          data: { controller: "smart-select", "smart-select-create-value": true,
+                  "smart-select-create-url-value": api_v1_measurement_units_path } %>
     </div>
   </div>
+  <%= recipe_ingredient.hidden_field :_destroy %>
 <% end %>

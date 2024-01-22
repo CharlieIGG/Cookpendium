@@ -7,6 +7,10 @@ export default class NestedIngredientsController extends Controller {
 
     static targets = ['container', 'template']
 
+    static values = {
+        wrapperSelector: String
+    }
+
     add(e: Event) {
         e.preventDefault()
         const content: string = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime().toString())
