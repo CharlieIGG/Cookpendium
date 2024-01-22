@@ -6,7 +6,7 @@ module RecipeImporter
     class ContentError < StandardError; end
     class DataStructureError < StandardError; end
 
-    def initialize(recipe_data) # rubocop:disable Lint/MissingSuper
+    def initialize(recipe_data)
       @recipe_data = recipe_data
     end
 

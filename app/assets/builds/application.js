@@ -13750,7 +13750,7 @@
             resolve(state);
           });
         }),
-        destroy: function destroy() {
+        destroy: function destroy2() {
           cleanupModifierEffects();
           isDestroyed = true;
         }
@@ -17514,14 +17514,323 @@
 
   // app/javascript/controllers/smart_select.ts
   var import_tom_select = __toESM(require_tom_select_complete());
+
+  // node_modules/@rails/request.js/src/fetch_response.js
+  var FetchResponse2 = class {
+    constructor(response) {
+      this.response = response;
+    }
+    get statusCode() {
+      return this.response.status;
+    }
+    get redirected() {
+      return this.response.redirected;
+    }
+    get ok() {
+      return this.response.ok;
+    }
+    get unauthenticated() {
+      return this.statusCode === 401;
+    }
+    get unprocessableEntity() {
+      return this.statusCode === 422;
+    }
+    get authenticationURL() {
+      return this.response.headers.get("WWW-Authenticate");
+    }
+    get contentType() {
+      const contentType = this.response.headers.get("Content-Type") || "";
+      return contentType.replace(/;.*$/, "");
+    }
+    get headers() {
+      return this.response.headers;
+    }
+    get html() {
+      if (this.contentType.match(/^(application|text)\/(html|xhtml\+xml)$/)) {
+        return this.text;
+      }
+      return Promise.reject(new Error(`Expected an HTML response but got "${this.contentType}" instead`));
+    }
+    get json() {
+      if (this.contentType.match(/^application\/.*json$/)) {
+        return this.responseJson || (this.responseJson = this.response.json());
+      }
+      return Promise.reject(new Error(`Expected a JSON response but got "${this.contentType}" instead`));
+    }
+    get text() {
+      return this.responseText || (this.responseText = this.response.text());
+    }
+    get isTurboStream() {
+      return this.contentType.match(/^text\/vnd\.turbo-stream\.html/);
+    }
+    async renderTurboStream() {
+      if (this.isTurboStream) {
+        if (window.Turbo) {
+          await window.Turbo.renderStreamMessage(await this.text);
+        } else {
+          console.warn("You must set `window.Turbo = Turbo` to automatically process Turbo Stream events with request.js");
+        }
+      } else {
+        return Promise.reject(new Error(`Expected a Turbo Stream response but got "${this.contentType}" instead`));
+      }
+    }
+  };
+
+  // node_modules/@rails/request.js/src/request_interceptor.js
+  var RequestInterceptor = class {
+    static register(interceptor) {
+      this.interceptor = interceptor;
+    }
+    static get() {
+      return this.interceptor;
+    }
+    static reset() {
+      this.interceptor = void 0;
+    }
+  };
+
+  // node_modules/@rails/request.js/src/lib/utils.js
+  function getCookie(name) {
+    const cookies = document.cookie ? document.cookie.split("; ") : [];
+    const prefix = `${encodeURIComponent(name)}=`;
+    const cookie = cookies.find((cookie2) => cookie2.startsWith(prefix));
+    if (cookie) {
+      const value = cookie.split("=").slice(1).join("=");
+      if (value) {
+        return decodeURIComponent(value);
+      }
+    }
+  }
+  function compact(object) {
+    const result = {};
+    for (const key in object) {
+      const value = object[key];
+      if (value !== void 0) {
+        result[key] = value;
+      }
+    }
+    return result;
+  }
+  function metaContent(name) {
+    const element = document.head.querySelector(`meta[name="${name}"]`);
+    return element && element.content;
+  }
+  function stringEntriesFromFormData(formData) {
+    return [...formData].reduce((entries, [name, value]) => {
+      return entries.concat(typeof value === "string" ? [[name, value]] : []);
+    }, []);
+  }
+  function mergeEntries(searchParams, entries) {
+    for (const [name, value] of entries) {
+      if (value instanceof window.File)
+        continue;
+      if (searchParams.has(name) && !name.includes("[]")) {
+        searchParams.delete(name);
+        searchParams.set(name, value);
+      } else {
+        searchParams.append(name, value);
+      }
+    }
+  }
+
+  // node_modules/@rails/request.js/src/fetch_request.js
+  var FetchRequest2 = class {
+    constructor(method2, url, options = {}) {
+      this.method = method2;
+      this.options = options;
+      this.originalUrl = url.toString();
+    }
+    async perform() {
+      try {
+        const requestInterceptor = RequestInterceptor.get();
+        if (requestInterceptor) {
+          await requestInterceptor(this);
+        }
+      } catch (error2) {
+        console.error(error2);
+      }
+      const response = new FetchResponse2(await window.fetch(this.url, this.fetchOptions));
+      if (response.unauthenticated && response.authenticationURL) {
+        return Promise.reject(window.location.href = response.authenticationURL);
+      }
+      const responseStatusIsTurboStreamable = response.ok || response.unprocessableEntity;
+      if (responseStatusIsTurboStreamable && response.isTurboStream) {
+        await response.renderTurboStream();
+      }
+      return response;
+    }
+    addHeader(key, value) {
+      const headers = this.additionalHeaders;
+      headers[key] = value;
+      this.options.headers = headers;
+    }
+    sameHostname() {
+      if (!this.originalUrl.startsWith("http:")) {
+        return true;
+      }
+      try {
+        return new URL(this.originalUrl).hostname === window.location.hostname;
+      } catch (_) {
+        return true;
+      }
+    }
+    get fetchOptions() {
+      return {
+        method: this.method.toUpperCase(),
+        headers: this.headers,
+        body: this.formattedBody,
+        signal: this.signal,
+        credentials: this.credentials,
+        redirect: this.redirect
+      };
+    }
+    get headers() {
+      const baseHeaders = {
+        "X-Requested-With": "XMLHttpRequest",
+        "Content-Type": this.contentType,
+        Accept: this.accept
+      };
+      if (this.sameHostname()) {
+        baseHeaders["X-CSRF-Token"] = this.csrfToken;
+      }
+      return compact(
+        Object.assign(baseHeaders, this.additionalHeaders)
+      );
+    }
+    get csrfToken() {
+      return getCookie(metaContent("csrf-param")) || metaContent("csrf-token");
+    }
+    get contentType() {
+      if (this.options.contentType) {
+        return this.options.contentType;
+      } else if (this.body == null || this.body instanceof window.FormData) {
+        return void 0;
+      } else if (this.body instanceof window.File) {
+        return this.body.type;
+      }
+      return "application/json";
+    }
+    get accept() {
+      switch (this.responseKind) {
+        case "html":
+          return "text/html, application/xhtml+xml";
+        case "turbo-stream":
+          return "text/vnd.turbo-stream.html, text/html, application/xhtml+xml";
+        case "json":
+          return "application/json, application/vnd.api+json";
+        default:
+          return "*/*";
+      }
+    }
+    get body() {
+      return this.options.body;
+    }
+    get query() {
+      const originalQuery = (this.originalUrl.split("?")[1] || "").split("#")[0];
+      const params = new URLSearchParams(originalQuery);
+      let requestQuery = this.options.query;
+      if (requestQuery instanceof window.FormData) {
+        requestQuery = stringEntriesFromFormData(requestQuery);
+      } else if (requestQuery instanceof window.URLSearchParams) {
+        requestQuery = requestQuery.entries();
+      } else {
+        requestQuery = Object.entries(requestQuery || {});
+      }
+      mergeEntries(params, requestQuery);
+      const query = params.toString();
+      return query.length > 0 ? `?${query}` : "";
+    }
+    get url() {
+      return this.originalUrl.split("?")[0].split("#")[0] + this.query;
+    }
+    get responseKind() {
+      return this.options.responseKind || "html";
+    }
+    get signal() {
+      return this.options.signal;
+    }
+    get redirect() {
+      return this.options.redirect || "follow";
+    }
+    get credentials() {
+      return this.options.credentials || "same-origin";
+    }
+    get additionalHeaders() {
+      return this.options.headers || {};
+    }
+    get formattedBody() {
+      const bodyIsAString = Object.prototype.toString.call(this.body) === "[object String]";
+      const contentTypeIsJson = this.headers["Content-Type"] === "application/json";
+      if (contentTypeIsJson && !bodyIsAString) {
+        return JSON.stringify(this.body);
+      }
+      return this.body;
+    }
+  };
+
+  // node_modules/@rails/request.js/src/verbs.js
+  async function post(url, options) {
+    const request = new FetchRequest2("post", url, options);
+    return request.perform();
+  }
+
+  // app/javascript/controllers/smart_select.ts
   var SmartSelectController = class extends Controller {
+    static {
+      this.values = {
+        create: Boolean,
+        createUrl: String
+      };
+    }
+    initialize() {
+      this.createNewEntry = this.createNewEntry.bind(this);
+    }
     connect() {
       useIntersection(this);
     }
     appear() {
-      new import_tom_select.default(this.element, {
-        // Add your TomSelect options here
+      this.smartSelect = new import_tom_select.default(this.element, {
+        create: this.createValue ? this.createNewEntry : false
       });
+    }
+    async createNewEntry(input, callback) {
+      const response = await post(this.createUrlValue, {
+        responseKind: "json",
+        body: {
+          ingredient: {
+            name: input
+          }
+        }
+      });
+      const data = await response.json;
+      if (response.ok) {
+        callback({ value: data.id, text: data.name });
+      } else {
+        data.forEach((error2, index) => {
+          setTimeout(() => {
+            this.notifyFailure(error2);
+          }, index > 0 ? 1e3 : 0);
+        });
+      }
+    }
+    notifyFailure(error2) {
+      const container = document.getElementById("toasts_container");
+      const toast = document.createElement("div");
+      toast.classList.add("mt-3");
+      toast.innerHTML = `
+            <div data-controller="toasts">
+                <div class="toast align-items-center text-bg-warning text-light border-0"
+                     role="alert" aria-live="assertive" aria-atomic="true" data-toasts-target="toast">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            ${error2}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        `;
+      container?.appendChild(toast);
     }
   };
 
