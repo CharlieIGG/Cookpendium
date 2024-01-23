@@ -11,7 +11,10 @@
       <%= recipe_ingredient.collection_select :ingredient_id, @ingredients, :id, :name, 
           { include_blank: true, prompt: t('ingredients.select_or_create') }, 
           data: { controller: "smart-select", "smart-select-create-value": true,
-                  "smart-select-create-url-value": api_v1_ingredients_path } %>
+                  "smart-select-create-url-value": api_v1_ingredients_path,
+                  "smart-select-create-text-value": t('forms.add_new'),
+                  "smart-select-create-by-attribute-value": "name",
+                  "smart-select-model-name-value": "ingredient" } %>
     </div>
   </div>
   <div class="form-group row mt-2">
@@ -24,7 +27,10 @@
       <%= recipe_ingredient.collection_select :measurement_unit_id, @measurement_units, :id, :full_label, 
           { include_blank: true }, 
           data: { controller: "smart-select", "smart-select-create-value": true,
-                  "smart-select-create-url-value": api_v1_measurement_units_path } %>
+                  "smart-select-create-url-value": api_v1_measurement_units_path,
+                  "smart-select-create-text-value": t('forms.add_new'),
+                  "smart-select-create-by-attribute-value": "name",
+                  "smart-select-model-name-value": "measurement_unit" } %>
     </div>
   </div>
   <%= recipe_ingredient.hidden_field :_destroy %>

@@ -4,7 +4,7 @@
 
 import { application } from "./application"
 import IngredientsPanelController from "./recipes/ingredients_panel"
-import NestedIngredientsController from "./recipes/nested_ingredients"
+import NestedIngredientsController from "./recipes/nested_ingredients_controller"
 import SmartRecipeFormController from "./smart_recipe_form_controller"
 import SmartSelectController from "./smart_select"
 import ToastsController from "./toasts"

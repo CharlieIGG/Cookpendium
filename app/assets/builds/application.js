@@ -12268,7 +12268,7 @@
     }
   };
 
-  // app/javascript/controllers/recipes/nested_ingredients.ts
+  // app/javascript/controllers/recipes/nested_ingredients_controller.ts
   var NestedIngredientsController = class extends Controller {
     static {
       this.targets = ["container", "template"];
@@ -17784,7 +17784,10 @@
     static {
       this.values = {
         create: Boolean,
-        createUrl: String
+        createUrl: String,
+        modelName: String,
+        createByAttribute: String,
+        createText: { type: String, default: "New" }
       };
     }
     initialize() {
@@ -17795,19 +17798,36 @@
     }
     appear() {
       this.smartSelect = new import_tom_select.default(this.element, {
-        create: this.createValue ? this.createNewEntry : false
-      });
-    }
-    async createNewEntry(input, callback) {
-      const response = await post(this.createUrlValue, {
-        responseKind: "json",
-        body: {
-          ingredient: {
-            name: input
+        create: this.createValue ? this.createNewEntry : false,
+        render: {
+          option_create: (data, escape) => {
+            return `<div class="option create text-secondary">${this.createTextValue} <strong>${escape(data.input)}</strong></div>`;
           }
         }
       });
+    }
+    validateCreateSetupComplete() {
+      if (this.createValue && (!this.createUrlValue || !this.createByAttributeValue || !this.modelNameValue)) {
+        throw new Error("Smart select is configured to create new entries, but is missing one of the required values: create-url, create-by-attribute, model-name");
+      }
+    }
+    createRequestBody(input) {
+      return {
+        [this.modelNameValue]: {
+          [this.createByAttributeValue]: input
+        }
+      };
+    }
+    async createNewEntry(input, callback) {
+      this.validateCreateSetupComplete();
+      const response = await post(this.createUrlValue, {
+        responseKind: "json",
+        body: this.createRequestBody(input)
+      });
       const data = await response.json;
+      this.handleCreateResponse(response, data, callback);
+    }
+    handleCreateResponse(response, data, callback) {
       if (response.ok) {
         callback({ value: data.id, text: data.name });
       } else {
