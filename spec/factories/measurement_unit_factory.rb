@@ -10,7 +10,7 @@
 #
 FactoryBot.define do
   factory :measurement_unit do
-    name { Faker::Measurement.weight }
+    sequence(:name) { |n| "#{Faker::Measurement.weight} #{n}" }
     abbreviation { Faker::Measurement.weight }
   end
 end
