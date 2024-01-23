@@ -163,6 +163,25 @@ RSpec.describe 'Create Recipes', type: :system do
         expect(RecipeIngredient.last.name).to eq(new_ingredient_name)
         expect(RecipeIngredient.last.measurement_unit.name).to eq(new_measurement_unit_name)
       end
+
+      it 'gets an error if trying to create an already existing ingredient' do
+        existing_ingredient = create(:ingredient)
+        existing_measurement_unit = create(:measurement_unit)
+
+        visit new_recipe_path
+
+        find('label', text: I18n.t('helpers.ai_tools.use_ai')).click
+
+        fill_in RecipeIngredient.human_attribute_name(:quantity), with: 10
+        smart_select(existing_ingredient.name,
+                     from: RecipeIngredient.human_attribute_name(:ingredient),
+                     wrapper_css_selector: '.col', create: true)
+        expect(page).to have_content(I18n.t('helpers.errors.create', model: Ingredient.model_name.human))
+        smart_select(existing_measurement_unit.name,
+                     from: RecipeIngredient.human_attribute_name(:measurement_unit_short),
+                     wrapper_css_selector: '.col', create: true)
+        expect(page).to have_content(I18n.t('helpers.errors.create', model: MeasurementUnit.model_name.human))
+      end
     end
   end
 end
