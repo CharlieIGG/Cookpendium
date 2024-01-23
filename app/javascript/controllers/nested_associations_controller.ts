@@ -1,6 +1,6 @@
 import { Controller } from '@hotwired/stimulus'
 
-export default class NestedIngredientsController extends Controller {
+export default class NestedAssociationsController extends Controller {
     declare containerTarget: HTMLElement
     declare templateTarget: HTMLElement
     declare wrapperSelectorValue: string

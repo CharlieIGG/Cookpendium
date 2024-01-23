@@ -182,6 +182,36 @@ RSpec.describe 'Create Recipes', type: :system do
                      wrapper_css_selector: '.col', create: true)
         expect(page).to have_content(I18n.t('helpers.errors.create', model: MeasurementUnit.model_name.human))
       end
+
+      it 'can manually create recipe steps', focus: true do
+        visit new_recipe_path
+
+        find('label', text: I18n.t('helpers.ai_tools.use_ai')).click
+
+        expect(page).to have_content(RecipeStep.model_name.human.pluralize)
+        within('.recipe__steps_panel') do
+          fill_in Recipe.human_attribute_name(:title), with: 'My Title'
+          fill_in Recipe.human_attribute_name(:description), with: 'My Description'
+          fill_in RecipeStep.human_attribute_name(:instruction), with: 'My Instruction'
+          fill_in RecipeStep.human_attribute_name(:description), with: 'My Longer Description'
+          fill_in RecipeStep.human_attribute_name(:step_number), with: 1
+
+          find("button[title='#{I18n.t('forms.add_new')}']").click
+
+          expect(all('label', text: RecipeStep.human_attribute_name(:step_number)).count).to eq(2)
+
+          within('.nested-recipe-step-wrapper:nth-of-type(2)') do
+            fill_in RecipeStep.human_attribute_name(:instruction), with: 'My Instruction 2'
+            fill_in RecipeStep.human_attribute_name(:description), with: 'My Longer Description 2'
+            fill_in RecipeStep.human_attribute_name(:step_number), with: 2
+          end
+
+          expect do
+            click_button I18n.t('helpers.submit.create', model: Recipe.model_name.human)
+            expect(page).to have_content(I18n.t('helpers.created.one', model: Recipe.model_name.human))
+          end.to change(RecipeStep, :count).by(2)
+        end
+      end
     end
   end
 end

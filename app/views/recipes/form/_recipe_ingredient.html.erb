@@ -2,7 +2,7 @@
     class:"border border-secondary rounded d-block p-4 my-2 nested-recipe-ingredient-wrapper",
     data: { "new-record": recipe_ingredient.object.new_record? } do %>
   <a class="text-secondary rounded fs-3 recipe__ingredients_panel__remove_button" 
-     data-action="click->nested-ingredients#remove" title="<%= t('forms.delete') %>">
+     data-action="click->nested-associations#remove" title="<%= t('forms.delete') %>">
     <i class="bi bi-x-circle"></i>
   </a>
   <div class="form-group mt-n1 row">

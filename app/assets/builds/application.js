@@ -12268,8 +12268,8 @@
     }
   };
 
-  // app/javascript/controllers/recipes/nested_ingredients_controller.ts
-  var NestedIngredientsController = class extends Controller {
+  // app/javascript/controllers/nested_associations_controller.ts
+  var NestedAssociationsController = class extends Controller {
     static {
       this.targets = ["container", "template"];
     }
@@ -17876,7 +17876,7 @@
   // app/javascript/controllers/index.ts
   application.register("smart-recipe-form", SmartRecipeFormController);
   application.register("toasts", ToastsController);
-  application.register("nested-ingredients", NestedIngredientsController);
+  application.register("nested-associations", NestedAssociationsController);
   application.register("ingredients-panel", IngredientsPanelController);
   application.register("smart-select", SmartSelectController);
 })();

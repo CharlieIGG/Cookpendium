@@ -4,13 +4,13 @@
 
 import { application } from "./application"
 import IngredientsPanelController from "./recipes/ingredients_panel"
-import NestedIngredientsController from "./recipes/nested_ingredients_controller"
+import NestedAssociationsController from "./nested_associations_controller"
 import SmartRecipeFormController from "./smart_recipe_form_controller"
 import SmartSelectController from "./smart_select"
 import ToastsController from "./toasts"
 
 application.register("smart-recipe-form", SmartRecipeFormController)
 application.register("toasts", ToastsController)
-application.register("nested-ingredients", NestedIngredientsController)
+application.register("nested-associations", NestedAssociationsController)
 application.register("ingredients-panel", IngredientsPanelController)
 application.register("smart-select", SmartSelectController)

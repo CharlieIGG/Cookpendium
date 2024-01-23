@@ -1,0 +1,21 @@
+<div class="recipe__steps_panel">
+  <h3 class="mx-4 mb-3 text-secondary"><%= RecipeStep.model_name.human(count: 2) %></h3>
+  <ul class="list-group" data-controller="nested-associations" 
+                           data-nested-associations-wrapper-selector-value=".nested-recipe-step-wrapper"
+                           data-nested-associations-target="container">
+    <template data-nested-associations-target="template">
+      <%= form.fields_for :recipe_steps, RecipeStep.new, child_index: "NEW_RECORD" do |recipe_step| %>
+        <%= render 'recipes/form/recipe_step', recipe_step: %>
+      <% end %>
+    </template>
+    <%= form.fields_for :recipe_steps do |recipe_step| %>
+      <%= render 'recipes/form/recipe_step', recipe_step: %>
+    <% end %>
+    <div class="d-flex justify-content-center my-3">
+      <button class="btn btn-outline-secondary rounded fs-3"
+              data-action="click->nested-associations#add" title="<%= t('forms.add_new') %>">
+        <i class="bi bi-plus-lg"></i>
+      </button>
+    </div>
+  </ul>
+</div>

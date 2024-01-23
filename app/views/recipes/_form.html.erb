@@ -34,6 +34,7 @@
   </div>
   <div data-smart-recipe-form-target="nonAIFormInputs" class="d-none">
     <%= render 'recipes/form/recipe_ingredients', form: form %>
+    <%= render 'recipes/form/recipe_steps', form: form %>
   </div>
   <div class="form-group">
     <%= form.submit t('helpers.submit.create', model: Recipe.model_name.human), class: "btn btn-primary" %>
