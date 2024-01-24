@@ -115,10 +115,14 @@ class RecipesController < ApplicationController
   end
 
   def handle_recipe_create_failure
+    model_name = Recipe.model_name.human
+    error_message = I18n.t('helpers.errors.create', model: model_name)
+    form_title = I18n.t('activerecord.actions.new', model: model_name)
     render turbo_stream: [
       turbo_stream.append('toasts_container', partial: 'shared/toast',
-                                              locals: { message: I18n.t('helpers.errors.create', model: Recipe.model_name.human), type: :alert }),
-      turbo_stream.update('new_recipe_form', partial: 'form', locals: { recipe: @recipe })
+                                              locals: { message: error_message, type: :alert }),
+      turbo_stream.update('new_recipe_form', partial: 'form',
+                                             locals: { recipe: @recipe, title: form_title })
     ]
   end
 end

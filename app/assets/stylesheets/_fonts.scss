@@ -60,3 +60,7 @@ h1,
 label {
     color: $dark;
 }
+
+::placeholder {
+    color: $gray-500 !important;
+}

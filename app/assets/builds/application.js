@@ -12259,12 +12259,15 @@
     connect() {
       useIntersection(this);
       this.navBarElement = document.querySelector(".navbar");
+      this.bodyElement = document.querySelector("body");
     }
     appear() {
       this.navBarElement.classList.add("navbar__with_ingredients_panel");
+      this.bodyElement.classList.add("body__with_ingredients_panel");
     }
     disappear() {
       this.navBarElement.classList.remove("navbar__with_ingredients_panel");
+      this.bodyElement.classList.remove("body__with_ingredients_panel");
     }
   };
 

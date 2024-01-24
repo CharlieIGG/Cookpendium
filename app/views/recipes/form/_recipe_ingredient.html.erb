@@ -20,12 +20,12 @@
   <div class="form-group row mt-2">
     <div class="col">
       <%= recipe_ingredient.label :quantity, class: "control-label" %>
-      <%= recipe_ingredient.number_field :quantity, class: "form-control" %>
+      <%= recipe_ingredient.number_field :quantity, class: "form-control", placeholder: t('activerecord.placeholders.recipe_ingredients.quantity') %>
     </div>
     <div class="col">
       <%= recipe_ingredient.label :measurement_unit_id, RecipeIngredient.human_attribute_name(:measurement_unit_short), class: "control-label" %>
       <%= recipe_ingredient.collection_select :measurement_unit_id, @measurement_units, :id, :full_label, 
-          { include_blank: true }, 
+          { include_blank: true, prompt: t('activerecord.placeholders.recipe_ingredients.measurement_unit') }, 
           data: { controller: "smart-select", "smart-select-create-value": true,
                   "smart-select-create-url-value": api_v1_measurement_units_path,
                   "smart-select-create-text-value": t('forms.add_new'),

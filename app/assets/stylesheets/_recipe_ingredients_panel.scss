@@ -17,7 +17,7 @@
     }
 }
 
-.navbar__with_ingredients_panel {
+.navbar__with_ingredients_panel, .body__with_ingredients_panel {
     width: calc(100% - $ingredients__panel_base_width);
 }
 
