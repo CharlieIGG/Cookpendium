@@ -121,12 +121,12 @@ RSpec.describe 'Create Recipes', type: :system do
         users_title = 'My Title'
         users_description = 'My Description'
 
-        find('label', text: I18n.t('helpers.ai_tools.use_ai')).click
-
         expect(page).to have_content(Ingredient.model_name.human.pluralize)
 
         fill_in Recipe.human_attribute_name(:title), with: users_title
         fill_in Recipe.human_attribute_name(:description), with: users_description
+
+        find('label', text: I18n.t('helpers.ai_tools.use_ai')).click
 
         fill_in(RecipeIngredient.human_attribute_name(:ingredient), with: existing_ingredient.name,
                                                                     visible: false).send_keys(:return)
