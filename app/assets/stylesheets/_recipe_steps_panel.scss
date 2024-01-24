@@ -1,0 +1,12 @@
+.recipe__steps_panel__remove_button {
+    position: absolute;
+    right: 0.5rem;
+    top: 0;
+    cursor: pointer;
+}
+
+.nested-recipe-step-wrapper {
+    cursor: grab; /* Add cursor for draggable element */
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}

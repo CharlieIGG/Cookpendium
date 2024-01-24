@@ -12,7 +12,7 @@
       <i class="bi bi-plus-lg"></i>
     </button>
   </div>
-  <ul class="list-group mb-4" data-nested-associations-target="container">
+  <ul class="list-group mb-4" data-nested-associations-target="container" data-controller="sortable">
     <%= form.fields_for :recipe_steps do |recipe_step| %>
       <%= render 'recipes/form/recipe_step', recipe_step: %>
     <% end %>

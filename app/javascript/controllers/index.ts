@@ -3,6 +3,9 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from "./application"
+
+import Sortable from 'stimulus-sortable'
+
 import IngredientsPanelController from "./recipes/ingredients_panel"
 import NestedAssociationsController from "./nested_associations_controller"
 import SmartRecipeFormController from "./smart_recipe_form_controller"
@@ -14,3 +17,4 @@ application.register("toasts", ToastsController)
 application.register("nested-associations", NestedAssociationsController)
 application.register("ingredients-panel", IngredientsPanelController)
 application.register("smart-select", SmartSelectController)
+application.register("sortable", Sortable)

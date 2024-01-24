@@ -1,4 +1,9 @@
-<li class="list-group-item d-flex justify-content-between align-items-start nested-recipe-step-wrapper">
+<li class="list-group-item d-flex justify-content-between align-items-start nested-recipe-step-wrapper position-relative"
+    data-new-record="<%= recipe_step.object.new_record? %>">
+  <a class="text-secondary rounded fs-3 recipe__steps_panel__remove_button" 
+     data-action="click->nested-associations#remove" title="<%= t('forms.delete') %>">
+    <i class="bi bi-x-circle"></i>
+  </a>
   <div class="ms-2 w-100">
     <div class="mb-3">
       <div class="row">
@@ -22,5 +27,6 @@
         </div>
       </div>
     </div>
+    <%= recipe_step.hidden_field :_destroy %>
   </div>
 </li>
