@@ -12,6 +12,15 @@ Rails.application.routes.draw do
   }
 
   resources :recipes
+
+  resources :recipe_ingredients, module: 'recipes'
+  namespace :api do
+    namespace :v1 do
+      resources :ingredients, only: [:create]
+      resources :measurement_units, only: [:create]
+    end
+  end
+
   resources :users, only: %i[edit update]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

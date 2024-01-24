@@ -30,4 +30,6 @@ class RecipeIngredient < ApplicationRecord
   belongs_to :measurement_unit, optional: true
 
   validates :quantity, numericality: { greater_than: 0, allow_nil: true }
+
+  delegate :name, to: :ingredient
 end

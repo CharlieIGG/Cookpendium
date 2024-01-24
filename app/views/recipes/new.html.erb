@@ -1,9 +1,11 @@
-<h1>New recipe</h1>
-<%= turbo_frame_tag "new_recipe_form", target: :_top do %>
-  <%= render "form", recipe: @recipe %>
-<% end %>
-<br>
-<div>
-  <%= link_to "Back to recipes", recipes_path %>
+<div class="p-5 ms-5">
+  <div class="recipe_details flex-grow-1">
+    <%= turbo_frame_tag "new_recipe_form", target: :_top do %>
+      <%= render "form", recipe: @recipe, title: t('activerecord.actions.new', model: Recipe.model_name.human) %>
+    <% end %>
+  </div>
+  <div class="d-flex justify-content-center">
+    <%= link_to t('helpers.cancel'), recipes_path, class: "btn btn-outline-warning" %>
+  </div>
 </div>
 <%= render 'shared/loading_modal' %>

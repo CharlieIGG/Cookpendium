@@ -34,8 +34,8 @@ then
   # 6: Check if the gem dependencies are met, or install
   bundle check || bundle install
 
-  # 7: Check yarn dependencies, or install:
-  check-dependencies || yarn install
+  # 7: Check yarn dependencies, or install: not needed after split with esuibld?
+  # check-dependencies || yarn install
 
   # 8: Check if the database exists, or setup the database if it doesn't, as it is
   # the case when the project runs for the first time.

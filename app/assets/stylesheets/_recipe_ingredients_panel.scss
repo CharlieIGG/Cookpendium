@@ -1,0 +1,39 @@
+.recipe__ingredients_panel {
+    overflow-y: scroll;
+    @media (min-width: 768px) and (orientation: landscape) {
+        width: $ingredients__panel_base_width;
+        height: 100vh;
+        position: fixed;
+        right: 0;
+        top: 0;
+        transform: translateX(0px);
+        transition: transform 3s ease-in-out; // add transition for smooth animation
+    }
+
+    @media (max-width: 767px), (min-width: 768px) and (orientation: portrait) {
+        width: 100%;
+        margin-bottom: 4rem;
+    }
+}
+
+.navbar__with_ingredients_panel,
+.body__with_ingredients_panel {
+    @media (min-width: 768px) and (orientation: landscape) {
+        width: calc(100% - $ingredients__panel_base_width);
+    }
+}
+
+.d-none .recipe__ingredients_panel {
+    transform: translateX($ingredients__panel_base_width);
+}
+
+.nested-recipe-ingredient-wrapper {
+    position: relative;
+}
+
+.recipe__ingredients_panel__remove_button {
+    position: absolute;
+    right: 0.5rem;
+    top: 0;
+    cursor: pointer;
+}

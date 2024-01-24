@@ -67,6 +67,7 @@ en:
         recipe_ingredients: "Recipe Ingredients"
         recipe_step_ingredients: "Recipe Step Ingredients"
       recipe:
+        ingredients_and_instructions: Ingredients and Instructions (for AI Recognition)
         name: "Name"
         description: "Description"
         servings: "Servings"
@@ -89,11 +90,13 @@ en:
       recipe_step_ingredient:
         quantity: "Quantity"
         measurement_unit: "Measurement Unit"
+        measurement_unit_short: "Unit"
         ingredient: "Ingredient"
         recipe_step: "Recipe Step"
       recipe_ingredient:
         quantity: "Quantity"
         measurement_unit: "Measurement Unit"
+        measurement_unit_short: "Unit"
         ingredient: "Ingredient"
         recipe: "Recipe"
       user:
@@ -103,3 +106,23 @@ en:
         remember_me: "Remember Me"
         reset_password_token: "Reset Password Token"
         reset_password_sent_at: "Reset Password Sent At"
+    placeholders:
+      recipes:
+        title: e.g "Salted Caramel Brownies"
+        description: e.g. "These are the best brownies I've ever had! ..."
+        ingredients_and_instructions: e.g. "1 cup flour, 1/2 cup sugar, 1/2 cup butter, ... 1. Preheat oven to 350 degrees. 2. Mix flour and sugar in a bowl. ..."
+      recipe_ingredients:
+        quantity: e.g. "1"
+        measurement_unit: e.g. "cup"
+        ingredient: e.g. "flour"
+      recipe_steps:
+        step_number: e.g. "1"
+        instruction: e.g. "Mix the ingredients"
+        description: e.g. "Mix the flour and the sugar in a bowl. Slowly add the butter and mix until smooth."
+    helper_texts:
+      recipe_steps:
+        instruction: The step summarized, e.g. 'mix the ingredients'
+        description: The step in detail, e.g. 'mix the flour and the sugar in a bowl. Slowly add the butter and mix until smooth.'
+        step_number: The order of the step, e.g. '1'
+    actions:
+      new: "New %{model}"

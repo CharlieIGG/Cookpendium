@@ -14,4 +14,8 @@ class MeasurementUnit < ApplicationRecord
   translates :name, :abbreviation
 
   validates :name, presence: true
+  validates :name, uniqueness: { case_sensitive: false }
+  validates :abbreviation, uniqueness: { case_sensitive: false }, allow_blank: true
+
+  scope :by_name, -> { order(:name) }
 end

@@ -3,7 +3,7 @@
 module RecipeImporter
   # assigns ingredients with measurement units to a Recipe or RecipeStep from a Hash
   class ModelIngredientAssigner < ApplicationService
-    def initialize(object, ingredients_data) # rubocop:disable Lint/MissingSuper
+    def initialize(object, ingredients_data)
       @object = object
       @ingredients_data = ingredients_data
     end

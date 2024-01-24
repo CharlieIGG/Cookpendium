@@ -1,25 +1,33 @@
-import { Controller } from "@hotwired/stimulus";
+import { Context, Controller } from "@hotwired/stimulus";
 import { Modal } from "bootstrap";
 
-class SmartRecipeFormController extends Controller {
+export default class SmartRecipeFormController extends Controller {
   static values = {
     loadingMessages: Array
   }
   static targets = ["AIToolsToggle", "AIToolsInput", "nonAIFormInputs", "AIInputGroup"];
+  declare loadingModal: Modal;
+  declare AIToolsToggleTarget: Element;
+  declare AIInputGroupTarget: Element;
+  declare nonAIFormInputsTarget: Element;
+  declare AIToolsInputTarget: HTMLInputElement;
+  declare loadingMessagesValue: Array<string>;
 
-  constructor(...args) {
-    super(...args);
-    this.loadingModal = window.lodmo = new Modal(document.getElementById('loadingModal'));
+  constructor(context: Context) {
+    super(context);
+    const loadingModalElement = document.getElementById('loadingModal');
+    if (loadingModalElement) {
+      this.loadingModal = new Modal(loadingModalElement);
+    }
   }
 
   connect() {
-    console.log(this.loadingMessagesValue)
-    this.AIToolsToggleTarget.addEventListener('change', (e) => this.toggleAITools(e.target.checked));
+    this.AIToolsToggleTarget.addEventListener('change', (e) => this.toggleAITools((e.target as HTMLInputElement).checked));
     this.element.addEventListener('turbo:submit-start', () => this.showLoader());
     this.element.addEventListener('turbo:submit-end', () => this.hideLoader());
   }
 
-  toggleAITools(checked) {
+  toggleAITools(checked: boolean) {
     if (checked) {
       this.AIInputGroupTarget.classList.remove('d-none');
       this.nonAIFormInputsTarget.classList.add('d-none');
@@ -38,6 +46,8 @@ class SmartRecipeFormController extends Controller {
   iterate_messages() {
     const messages = this.loadingMessagesValue;
     const loadingModalBody = document.querySelector('#loadingModal .modal-body .modal-text');
+    if (!loadingModalBody) return;
+
     loadingModalBody.textContent = messages[0];
     let index = 1;
     const intervalId = setInterval(() => {
@@ -61,5 +71,3 @@ class SmartRecipeFormController extends Controller {
     this.element.removeEventListener('turbo:submit-end', () => this.hideLoader());
   }
 }
-
-export { SmartRecipeFormController }

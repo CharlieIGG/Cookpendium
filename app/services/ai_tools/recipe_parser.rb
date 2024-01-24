@@ -6,7 +6,7 @@ module AITools
     SYSTEM_ROLE = 'system'
     USER_ROLE = 'user'
 
-    def initialize(raw_text, locale: 'en', client: OpenAI::Client.new) # rubocop:disable Lint/MissingSuper
+    def initialize(raw_text, locale: 'en', client: OpenAI::Client.new)
       @raw_text = raw_text
       @client = client
       @locale = locale

@@ -1,4 +1,4 @@
-<div class="p-4 shadow-lg bg-primary text-dark rounded-start recipe__ingredients_panel">
+<div class="p-4 shadow-lg bg-primary text-dark rounded-start recipe__ingredients_panel" data-controller="ingredients-panel">
   <h2 class="mb-5 ingredient_list__title"><%= Ingredient.model_name.human(count: 2) %></h2>
   <ol class="ingredient_list__list">
     <% @recipe.recipe_ingredients.each do |r_ingredient| %>

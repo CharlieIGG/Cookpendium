@@ -3,6 +3,7 @@
 // external libraries
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+@import 'tom-select/dist/scss/tom-select.bootstrap5';
 
 // styles with a global-scope
 @import 'global.scss';
@@ -11,6 +12,9 @@
 @import 'fonts.scss';
 @import 'buttons.scss';
 @import 'spinners.scss';
+@import 'navbar.scss';
 
 // domain-secific styles
 @import 'recipe_show.scss';
+@import 'recipe_ingredients_panel.scss';
+@import 'recipe_steps_panel.scss';

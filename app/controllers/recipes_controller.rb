@@ -13,6 +13,10 @@ class RecipesController < ApplicationController
   # GET /recipes/new
   def new
     @recipe = Recipe.new
+    @recipe.recipe_ingredients.build
+    @recipe.recipe_steps.build
+    @ingredients = Ingredient.by_name
+    @measurement_units = MeasurementUnit.by_name.map { |mu| MeasurementUnitDecorator.new(mu) }
   end
 
   # GET /recipes/1/edit
@@ -52,14 +56,18 @@ class RecipesController < ApplicationController
 
   private
 
+  # Only allow a list of trusted parameters through.
+  def recipe_params
+    params
+      .require(:recipe)
+      .permit(:title, :description,
+              recipe_ingredients_attributes: %i[id ingredient_id quantity measurement_unit_id _destroy],
+              recipe_steps_attributes: %i[id instruction description step_number _destroy])
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_recipe
     @recipe = RecipeDecorator.new(Recipe.find(params[:id]))
-  end
-
-  # Only allow a list of trusted parameters through.
-  def recipe_params
-    params.require(:recipe).permit(:title, :description)
   end
 
   def create_recipe_from_raw_text(raw_recipe)
@@ -107,10 +115,14 @@ class RecipesController < ApplicationController
   end
 
   def handle_recipe_create_failure
+    model_name = Recipe.model_name.human
+    error_message = I18n.t('helpers.errors.create', model: model_name)
+    form_title = I18n.t('activerecord.actions.new', model: model_name)
     render turbo_stream: [
       turbo_stream.append('toasts_container', partial: 'shared/toast',
-                                              locals: { message: I18n.t('helpers.errors.create', model: Recipe.model_name.human), type: :alert }),
-      turbo_stream.update('new_recipe_form', partial: 'form', locals: { recipe: @recipe })
+                                              locals: { message: error_message, type: :alert }),
+      turbo_stream.update('new_recipe_form', partial: 'form',
+                                             locals: { recipe: @recipe, title: form_title })
     ]
   end
 end
