@@ -46,3 +46,5 @@ spec/examples.txt
 .irb_history
 .rdbg_history
 .cache/*
+coverage/.last_run.json
+coverage/.resultset.json
