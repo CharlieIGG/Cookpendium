@@ -28,4 +28,11 @@ RSpec.describe Recipe, type: :model do
     I18n.locale = :en
     expect(recipe.title).to eq('Fruit Salad')
   end
+
+  it 'can attach an image' do
+    recipe = Recipe.create!(title: 'Fruit Salad', description: 'A delicious fruit salad')
+    image = fixture_file_upload(Rails.root.join('spec', 'fixtures', 'sample_image.png'), 'image/png')
+    recipe.image.attach(image)
+    expect(recipe.image).to be_attached
+  end
 end

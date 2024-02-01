@@ -2,6 +2,7 @@ version: "3.7"
 
 volumes:
   app_node_modules: # Used to store the app's node modules...
+  minio_data: # Used to store the minio data...
 
 networks:
   backend:
@@ -68,6 +69,11 @@ services:
       MAILER_PORT: 3000
       LISTEN_USE_POLLING: ${COOKPENDIUM_LISTEN_USE_POLLING:-no}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-S0M3_F4K3_4P1_K3Y}
+      STORAGE_ACCESS_KEY_ID: ${STORAGE_ACCESS_KEY_ID}
+      STORAGE_SECRET_ACCESS_KEY: ${STORAGE_SECRET_ACCESS_KEY}
+      STORAGE_REGION: eu-central-1
+      STORAGE_BUCKET_NAME: ${STORAGE_BUCKET_NAME:-cookpendium}
+      STORAGE_ENDPOINT_URL: http://minio:9000
       # REDIS_URL: redis://redis:6379/1
 
   web:
@@ -81,6 +87,7 @@ services:
       - postgres
       - esbuild
       - css_watch
+      - minio
       # - redis
       # - worker
 
@@ -119,6 +126,37 @@ services:
       OPENAI_API_KEY: S0M3_F4K3_4P1_K3Y
     depends_on:
       - postgres
+
+  minio:
+    image: minio/minio
+    ports:
+      - "${MINIO_PORT:-9000}:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+      - "./bin/minio-entrypoint:/usr/bin/minio-entrypoint"
+    entrypoint: "/usr/bin/minio-entrypoint"
+    command: server --console-address :9001 /data
+    networks:
+      - backend
+    depends_on:
+      - minio_setup
+    env_file: .env
+    environment: &minio_env
+      MINIO_ROOT_USER: ${STORAGE_ACCESS_KEY_ID}
+      MINIO_ROOT_PASSWORD: ${STORAGE_SECRET_ACCESS_KEY}
+      STORAGE_BUCKET_NAME: ${STORAGE_BUCKET_NAME:-cookpendium}
+
+  # We'll use a run-once service to configure the minio server:
+  minio_setup:
+    image: minio/mc
+    volumes:
+      - ./bin/minio-setup.sh:/usr/bin/setup
+    entrypoint: ["/bin/sh", "-c"]
+    command: setup
+    environment: *minio_env
+    networks:
+      - backend
 
   # worker:
   #   <<: *app
