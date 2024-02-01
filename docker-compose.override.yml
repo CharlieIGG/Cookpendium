@@ -113,9 +113,9 @@ services:
       <<: *app_environment
       RAILS_ENV: test
       RACK_ENV: test
-      FDOC: 1 #Factory Doctor activated
-      FPROF: 1 #Factory Prof activated
-      RD_PROF: 1 #RSpec Dissect activated
+      FDOC: 1 #Factory Doctor
+      FPROF: 1 #Factory Prof
+      RD_PROF: 1 #RSpec Dissect
       OPENAI_API_KEY: S0M3_F4K3_4P1_K3Y
     depends_on:
       - postgres
