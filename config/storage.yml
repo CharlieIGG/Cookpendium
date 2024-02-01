@@ -6,11 +6,11 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
-amazon: &amazon_s3
-  service: S3
-  access_key_id: <%= ENV.fetch('STORAGE_ACCESS_KEY_ID', 'AWS_KEY_ID') %>
-  secret_access_key: <%= ENV.fetch('STORAGE_SECRET_ACCESS_KEY', 'AWS_SECRET_ACCESS_KEY') %>
-  region: <%= ENV.fetch('STORAGE_REGION', 'eu-central-1') %>
+google: &google_storage
+  service: GCS
+  private_key_id: <%= ENV.fetch('STORAGE_ACCESS_KEY_ID', 'CLOUD_STORAGE_KEY_ID') %>
+  private_key: <%= ENV.fetch('STORAGE_SECRET_ACCESS_KEY', 'CLOUD_STORAGE_SECRET_ACCESS_KEY') %>
+  project: <%= ENV.fetch('STORAGE_PROJECT_ID', 'cookpendium') %>
   bucket: <%= ENV.fetch('STORAGE_BUCKET_NAME', 'cookpendium') %>
   <% if ENV.key?('STORAGE_ENDPOINT_URL') %>
   endpoint: <%= ENV.fetch('STORAGE_ENDPOINT_URL') %>

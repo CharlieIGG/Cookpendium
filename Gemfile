@@ -68,6 +68,7 @@ gem 'tzinfo-data', platforms: %i[windows jruby]
 gem 'bootsnap', require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+gem 'google-cloud-storage', '~> 1.48'
 gem 'image_processing', '~> 1.12'
 
 group :development, :test do

@@ -20,7 +20,7 @@ RSpec.describe 'Managing images for a recipe', type: :system do
       click_button I18n.t('recipes.add_image_cta')
 
       # Select an image file to upload
-      attach_file 'Image', Rails.root.join('spec', 'fixtures', 'images', 'recipe_image.jpg')
+      attach_file 'Image', Rails.root.join('spec', 'fixtures', 'sample_image.png')
 
       # Verify that the image preview is shown
       expect(page).to have_css('.recipe-image-preview')
