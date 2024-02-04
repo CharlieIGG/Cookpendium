@@ -11,6 +11,7 @@ import NestedAssociationsController from "./nested_associations_controller"
 import SmartRecipeFormController from "./smart_recipe_form_controller"
 import SmartSelectController from "./smart_select"
 import ToastsController from "./toasts"
+import ImagePreviewController from "./image_preview"
 
 application.register("smart-recipe-form", SmartRecipeFormController)
 application.register("toasts", ToastsController)
@@ -18,3 +19,4 @@ application.register("nested-associations", NestedAssociationsController)
 application.register("ingredients-panel", IngredientsPanelController)
 application.register("smart-select", SmartSelectController)
 application.register("sortable", Sortable)
+application.register("image-preview", ImagePreviewController)

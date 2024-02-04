@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Managing images for a recipe', type: :system do
@@ -5,6 +7,10 @@ RSpec.describe 'Managing images for a recipe', type: :system do
 
   before(:each) do
     login_as user
+  end
+
+  after(:context) do
+    FileUtils.rm_rf(ActiveStorage::Blob.service.root)
   end
 
   describe 'during recipe creation' do
@@ -17,14 +23,19 @@ RSpec.describe 'Managing images for a recipe', type: :system do
       fill_in Recipe.human_attribute_name(:title), with: users_title
       fill_in Recipe.human_attribute_name(:description), with: users_description
 
-      click_button I18n.t('recipes.add_image_cta')
+      click_link I18n.t('recipes.add_image_cta')
 
       # Select an image file to upload
-      attach_file 'Image', Rails.root.join('spec', 'fixtures', 'sample_image.png')
+      attach_file I18n.t('recipes.select_image_cta'), Rails.root.join('spec', 'fixtures', 'sample_image.png'),
+                  visible: false
 
       # Verify that the image preview is shown
       expect(page).to have_css('.recipe-image-preview')
 
+      # Dismiss the modal by triggering a JavaScript click event on the button
+      find('button', text: I18n.t('recipes.approve_image_cta')).click
+
+      expect(page).not_to have_css('#imageModal', wait: 5) # Verify that the modal has closed
       # Verify that the recipe now has an associated image
       expect do
         click_button I18n.t('helpers.submit.create', model: Recipe.model_name.human)

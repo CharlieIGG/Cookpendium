@@ -81,6 +81,7 @@ en:
         servings: "servings"
         vegan: "vegan"
         vegetarian: "vegetarian"
+        image: image
       recipe_step:
         instruction: "Instruction"
         description: "Description"

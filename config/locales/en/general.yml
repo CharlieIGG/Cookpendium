@@ -6,6 +6,8 @@ en:
   recipes:
     about: "About this recipe"
     add_image_cta: "Add an image"
+    select_image_cta: "Select an image"
+    approve_image_cta: "Keep this image"
     loading_messages:
       analyzing_recipe: "Analyzing Recipe..."
       checking_title_and_description: "Checking Title and Description..."

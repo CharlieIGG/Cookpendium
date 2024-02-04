@@ -20,8 +20,9 @@
         "downlevelIteration": true,
         "typeRoots": [
             "./node_modules/@types",
-            "./app/javascript/types"
-        ],
+            "./app/javascript/types",
+            "./node_modules/@types/rails"
+        ]
     },
     "$schema": "<https://json.schemastore.org/tsconfig>",
     "display": "Recommended",

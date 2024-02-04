@@ -1,0 +1,15 @@
+.recipe-image-preview__wrapper {
+    position: relative;
+    display: inline-flex;
+    .recipe-image-preview__close {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        i {
+            display: flex;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+        }
+    }
+}
