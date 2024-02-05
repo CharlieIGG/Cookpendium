@@ -8,11 +8,14 @@ local:
 
 google: &google_storage
   service: GCS
-  private_key_id: <%= ENV.fetch('STORAGE_ACCESS_KEY_ID', 'CLOUD_STORAGE_KEY_ID') %>
-  private_key: <%= ENV.fetch('STORAGE_SECRET_ACCESS_KEY', 'CLOUD_STORAGE_SECRET_ACCESS_KEY') %>
+  credentials:
+    private_key_id: <%= ENV.fetch('STORAGE_ACCESS_KEY_ID', 'CLOUD_STORAGE_KEY_ID') %>
+    private_key: <%= ENV.fetch('STORAGE_SECRET_ACCESS_KEY', 'CLOUD_STORAGE_SECRET_ACCESS_KEY') %>
+    auth_uri: <%= ENV.fetch('STORAGE_AUTH_URI', 'https://accounts.google.com/o/oauth2/auth') %>
+    token_uri: <%= ENV.fetch('STORAGE_TOKEN_URI', 'https://accounts.google.com/o/oauth2/token') %>
+    auth_provider_x509_cert_url: <%= ENV.fetch('STORAGE_AUTH_PROVIDER_X509_CERT_URL', 'https://www.googleapis.com/oauth2/v1/certs') %>
   project: <%= ENV.fetch('STORAGE_PROJECT_ID', 'cookpendium') %>
   bucket: <%= ENV.fetch('STORAGE_BUCKET_NAME', 'cookpendium') %>
   <% if ENV.key?('STORAGE_ENDPOINT_URL') %>
   endpoint: <%= ENV.fetch('STORAGE_ENDPOINT_URL') %>
-  force_path_style: true
   <% end %>

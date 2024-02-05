@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+Capybara.save_path = Rails.root.join('tmp', 'capybara')
+
 Capybara.register_driver :selenium_chrome_headless do |app|
   version = Capybara::Selenium::Driver.load_selenium
   options_key = Capybara::Selenium::Driver::CAPS_VERSION.satisfied_by?(version) ? :capabilities : :options

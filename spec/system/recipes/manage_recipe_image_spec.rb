@@ -32,10 +32,10 @@ RSpec.describe 'Managing images for a recipe', type: :system do
       # Verify that the image preview is shown
       expect(page).to have_css('.recipe-image-preview')
 
-      # Dismiss the modal by triggering a JavaScript click event on the button
-      find('button', text: I18n.t('recipes.approve_image_cta')).click
+      sleep 1 # HACK: otherwise modal doesn't dismiss on click
+      click_button I18n.t('recipes.approve_image_cta')
 
-      expect(page).not_to have_css('#imageModal', wait: 5) # Verify that the modal has closed
+      expect(page).not_to have_css('#imageModal') # Verify that the modal has closed
       # Verify that the recipe now has an associated image
       expect do
         click_button I18n.t('helpers.submit.create', model: Recipe.model_name.human)

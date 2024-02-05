@@ -60,7 +60,7 @@ class RecipesController < ApplicationController
   def recipe_params
     params
       .require(:recipe)
-      .permit(:title, :description,
+      .permit(:title, :description, :image,
               recipe_ingredients_attributes: %i[id ingredient_id quantity measurement_unit_id _destroy],
               recipe_steps_attributes: %i[id instruction description step_number _destroy])
   end
