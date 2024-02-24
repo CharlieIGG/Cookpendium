@@ -127,3 +127,4 @@ en:
         step_number: The order of the step, e.g. '1'
     actions:
       new: "New %{model}"
+      edit: "Edit %{model}"

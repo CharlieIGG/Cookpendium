@@ -68,6 +68,7 @@ RUN apt-get update && \
   build-essential \
   chromium \
   chromium-driver \
+  libvips \
   git \
   graphviz \
   libpq-dev && \

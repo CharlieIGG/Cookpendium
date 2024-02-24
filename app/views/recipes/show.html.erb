@@ -2,20 +2,24 @@
   <div class="recipe_details flex-grow-1">
     <h1 class="my-2 text-dark"><%= @recipe.title %></h1>
     <%= render 'recipe_extra_details', recipe: @recipe %>
-    <%= image_tag @recipe.image %>
-    <div class="accordion accordion-preview w-50 mb-5" id="recipeDescriptionAccordion">
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#recipeDescription" aria-expanded="true" aria-controls="recipeDescription">
-            <%= t("recipes.about") %>
-          </button>
-        </h2>
-        <div id="recipeDescription" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#recipeDescriptionAccordion">
-          <div class="accordion-body">
-            <%= @recipe.description %>
+    <div class="row mb-5">
+      <div class="accordion accordion-preview col" id="recipeDescriptionAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#recipeDescription" aria-expanded="true" aria-controls="recipeDescription">
+              <%= t("recipes.about") %>
+            </button>
+          </h2>
+          <div id="recipeDescription" class="accordion-collapse collapse show flex-fill" aria-labelledby="headingOne" data-bs-parent="#recipeDescriptionAccordion">
+            <div class="accordion-body">
+              <%= @recipe.description %>
+            </div>
           </div>
         </div>
       </div>
+      <% if @recipe.image.attached? %>
+        <%= image_tag @recipe.image, height:"400px", class: "col" %>
+      <% end %>
     </div>
     <%= render 'ingredients_panel' %>
     <%= render 'steps_list' %>

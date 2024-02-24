@@ -28,7 +28,9 @@ class Recipe < ApplicationRecord
   has_many :roles, as: :resource, dependent: :destroy
   has_many :authors, -> { distinct }, through: :roles, class_name: 'User', source: :users
 
-  has_one_attached :image
+  has_one_attached :image do |attachable|
+    attachable.variant :thumb, resize_to_fill: [300, 300], preprocessed: true
+  end
 
   accepts_nested_attributes_for :recipe_ingredients, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :recipe_steps, allow_destroy: true, reject_if: :all_blank
