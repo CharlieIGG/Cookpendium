@@ -124,6 +124,8 @@ services:
       STORAGE_BUCKET_NAME: cookpendium-test
     depends_on:
       - postgres
+    shm_size: "256mb" # Needed for the Chrome headless browser to run without issues
+
 
   # worker:
   #   <<: *app

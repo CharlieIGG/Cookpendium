@@ -51,3 +51,4 @@ coverage/.resultset.json
 .local/*
 config/external_credentials/*
 .DS_Store
+.config/chromium/*
