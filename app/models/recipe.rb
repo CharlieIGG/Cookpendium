@@ -25,8 +25,8 @@ class Recipe < ApplicationRecord
   has_many :ingredients, through: :recipe_ingredients
   has_many :recipe_steps, dependent: :destroy
   has_many :recipe_step_ingredients, through: :recipe_steps, source: :ingredients
-  has_many :authors, -> { distinct }, through: :roles, class_name: 'User', source: :users
   has_many :roles, as: :resource, dependent: :destroy
+  has_many :authors, -> { distinct }, through: :roles, class_name: 'User', source: :users
 
   has_one_attached :image
 

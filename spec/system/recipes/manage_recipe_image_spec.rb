@@ -10,7 +10,7 @@ RSpec.describe 'Managing images for a recipe', type: :system do
   end
 
   after(:context) do
-    FileUtils.rm_rf(ActiveStorage::Blob.service.root)
+    FileUtils.rm_rf(ActiveStorage::Blob.service.root) # assumes local storage
   end
 
   describe 'during recipe creation' do

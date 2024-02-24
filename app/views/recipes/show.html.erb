@@ -2,6 +2,7 @@
   <div class="recipe_details flex-grow-1">
     <h1 class="my-2 text-dark"><%= @recipe.title %></h1>
     <%= render 'recipe_extra_details', recipe: @recipe %>
+    <%= image_tag @recipe.image %>
     <div class="accordion accordion-preview w-50 mb-5" id="recipeDescriptionAccordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">

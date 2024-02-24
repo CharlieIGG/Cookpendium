@@ -48,3 +48,6 @@ spec/examples.txt
 .cache/*
 coverage/.last_run.json
 coverage/.resultset.json
+.local/*
+config/external_credentials/*
+.DS_Store

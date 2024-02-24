@@ -29,6 +29,7 @@ This is an application meant for parsing, showing, and creating recipes... backe
     - [**Application Layers**](#application-layers)
   - [**Continuous Integration**](#continuous-integration)
   - [**Deploying**](#deploying)
+    - [**Google Cloud Storage**](#google-cloud-storage)
   - [**TO-DO**](#to-do)
   - [**Contributing**](#contributing)
 
@@ -151,7 +152,19 @@ The result of these workflows is currently also acting as a blocking mechanism f
 
 ## **Deploying**
 
-TBD
+WIP ⚠️
+
+### **Google Cloud Storage**
+The production environment is set to work with Google Cloud Storage (GCS) for the storage of assets and media files.
+In order for this to work you'll need to (setup)[https://fbohorqu.medium.com/active-storage-integration-with-google-cloud-storage-fast-track-5198580031e1] (or get access to) a GCS bucket, and a corresponding service account with the necessary permissions.
+
+The service account credentials should be stored as a JSON file at `config/external_credentials/google_cloud_storage.json`.
+
+Before deploying to production, you should test your GCS setup in your development environment by changing the ActiveStorage service from `:local` to `:google` in `config/environments/development.rb`: 
+
+```ruby
+  config.active_storage.service = :google
+```
 
 ## **TO-DO**
 

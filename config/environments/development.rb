@@ -1,4 +1,5 @@
 require 'active_support/core_ext/integer/time'
+require 'httplog'
 
 Rails.application.configure do # rubocop:disable Metrics/BlockLength
   # Settings specified here will take precedence over those in config/application.rb.
@@ -33,8 +34,9 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
     config.cache_store = :null_store
   end
 
+  config.web_console.whitelisted_ips = ['172.16.0.0/12', '192.168.0.0/16']
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :google
+  config.active_storage.service = :local
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   # Don't care if the mailer can't send.
@@ -76,4 +78,10 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
+  config.after_initialize do
+    HttpLog.configure do |config|
+      config.logger = Rails.logger
+    end
+  end
 end

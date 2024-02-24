@@ -8,18 +8,6 @@ local:
 
 google: &google_storage
   service: GCS
-  credentials:
-    type: "service_account"
-    private_key_id: <%= ENV.fetch('STORAGE_ACCESS_KEY_ID', 'CLOUD_STORAGE_KEY_ID') %>
-    private_key: |
-      <%= ENV.fetch('STORAGE_SECRET_ACCESS_KEY').each_line.with_index.map { |line, i| i.zero? ? line : "      #{line}" }.join %>
-    auth_uri: <%= ENV.fetch('STORAGE_AUTH_URI', 'https://accounts.google.com/o/oauth2/auth') %>
-    token_uri: <%= ENV.fetch('STORAGE_TOKEN_URI', 'https://accounts.google.com/o/oauth2/token') %>
-    auth_provider_x509_cert_url: <%= ENV.fetch('STORAGE_AUTH_PROVIDER_X509_CERT_URL', 'https://www.googleapis.com/oauth2/v1/certs') %>
-    client_email: <%= ENV.fetch('STORAGE_CLIENT_EMAIL', 'CLOUD_STORAGE_CLIENT_EMAIL') %>
-    client_id: <%= ENV.fetch('STORAGE_CLIENT_ID', 'CLOUD_STORAGE_CLIENT_ID') %>
+  credentials: <%= Rails.root.join("config/external_credentials/google_cloud_storage.json") %>
   project: <%= ENV.fetch('STORAGE_PROJECT_ID', 'cookpendium') %>
   bucket: <%= ENV.fetch('STORAGE_BUCKET_NAME', 'cookpendium') %>
-  <% if ENV.key?('STORAGE_ENDPOINT_URL') %>
-  endpoint: <%= ENV.fetch('STORAGE_ENDPOINT_URL') %>
-  <% end %>

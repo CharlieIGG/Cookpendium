@@ -215,6 +215,9 @@ GEM
     hashdiff (1.1.0)
     hashie (5.0.0)
     httpclient (2.8.3)
+    httplog (1.6.2)
+      rack (>= 2.0)
+      rainbow (>= 2.0.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -533,6 +536,7 @@ DEPENDENCIES
   globalize (~> 6.3)
   google-cloud-storage (~> 1.48)
   guard-rspec (~> 4.7)
+  httplog
   image_processing (~> 1.12)
   jbuilder
   jsbundling-rails

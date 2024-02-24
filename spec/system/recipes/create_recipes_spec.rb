@@ -37,7 +37,9 @@ RSpec.describe 'Create Recipes', type: :system do
       end
 
       it 'User\'s title and description override that of the raw text recipe' do
-        ingredients_and_instructions = File.read(Rails.root.join('spec', 'fixtures', 'valid_raw_recipe.txt'))
+        ingredients_and_instructions = File.read(Rails.root.join('spec', 'fixtures', 'valid_raw_recipe.txt')).gsub(
+          "\n", "\r\n"
+        )
         recipe_hash = YAML.load_file(Rails.root.join('spec', 'fixtures', 'recipe_hash.yaml'))
         allow(AITools::RecipeParser).to receive(:call).with(ingredients_and_instructions).and_return(recipe_hash)
 
@@ -74,7 +76,9 @@ RSpec.describe 'Create Recipes', type: :system do
       end
 
       it 'properly attributes authorship' do
-        ingredients_and_instructions = File.read(Rails.root.join('spec', 'fixtures', 'valid_raw_recipe.txt'))
+        ingredients_and_instructions = File.read(Rails.root.join('spec', 'fixtures', 'valid_raw_recipe.txt')).gsub(
+          "\n", "\r\n"
+        )
         recipe_hash = YAML.load_file(Rails.root.join('spec', 'fixtures', 'recipe_hash.yaml'))
         allow(AITools::RecipeParser).to receive(:call).with(ingredients_and_instructions).and_return(recipe_hash)
 
