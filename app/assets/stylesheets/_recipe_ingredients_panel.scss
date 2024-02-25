@@ -1,3 +1,5 @@
+$ingredients__panel_base_width: 400px;
+
 .recipe__ingredients_panel {
     overflow-y: scroll;
     @media (min-width: 768px) and (orientation: landscape) {

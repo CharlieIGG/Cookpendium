@@ -2,7 +2,7 @@
      data-nested-associations-wrapper-selector-value=".nested-recipe-step-wrapper">
   <template data-nested-associations-target="template">
     <%= form.fields_for :recipe_steps, RecipeStep.new, child_index: "NEW_RECORD" do |recipe_step| %>
-      <%= render 'recipes/form/recipe_step', recipe_step: %>
+      <%= render 'recipes/form/recipe_step', recipe_step:, available_ingredients:, measurement_units: %>
     <% end %>
   </template>
   <div class="d-flex my-3">
@@ -14,7 +14,7 @@
   </div>
   <ul class="list-group mb-4" data-nested-associations-target="container" data-controller="sortable">
     <%= form.fields_for :recipe_steps do |recipe_step| %>
-      <%= render 'recipes/form/recipe_step', recipe_step: %>
+      <%= render 'recipes/form/recipe_step', recipe_step:, available_ingredients:, measurement_units: %>
     <% end %>
   </ul>
 </div>

@@ -1,20 +1,21 @@
 @import "colors.scss";
 @import "bootstrap_overrides.scss";
 // external libraries
-@import 'bootstrap/scss/bootstrap';
-@import 'bootstrap-icons/font/bootstrap-icons';
-@import 'tom-select/dist/scss/tom-select.bootstrap5';
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons";
+@import "tom-select/dist/scss/tom-select.bootstrap5";
 
 // styles with a global-scope
-@import 'global.scss';
-@import 'accordions.scss';
-@import 'cards.scss';
-@import 'fonts.scss';
-@import 'buttons.scss';
-@import 'spinners.scss';
-@import 'navbar.scss';
+@import "global.scss";
+@import "accordions.scss";
+@import "cards.scss";
+@import "images.scss";
+@import "fonts.scss";
+@import "buttons.scss";
+@import "spinners.scss";
+@import "navbar.scss";
 
 // domain-secific styles
-@import 'recipe_show.scss';
-@import 'recipe_ingredients_panel.scss';
-@import 'recipe_steps_panel.scss';
+@import "recipe_show.scss";
+@import "recipe_ingredients_panel.scss";
+@import "recipe_steps_panel.scss";

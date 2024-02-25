@@ -8,7 +8,7 @@
   <div class="form-group mt-n1 row">
     <div class="col">
       <%= recipe_ingredient.label :ingredient_id, class: "control-label" %>
-      <%= recipe_ingredient.collection_select :ingredient_id, @ingredients, :id, :name, 
+      <%= recipe_ingredient.collection_select :ingredient_id, available_ingredients, :id, :name, 
           { include_blank: true, prompt: t('ingredients.select_or_create') }, 
           data: { controller: "smart-select", "smart-select-create-value": true,
                   "smart-select-create-url-value": api_v1_ingredients_path,
@@ -24,7 +24,7 @@
     </div>
     <div class="col">
       <%= recipe_ingredient.label :measurement_unit_id, RecipeIngredient.human_attribute_name(:measurement_unit_short), class: "control-label" %>
-      <%= recipe_ingredient.collection_select :measurement_unit_id, @measurement_units, :id, :full_label, 
+      <%= recipe_ingredient.collection_select :measurement_unit_id, measurement_units, :id, :full_label, 
           { include_blank: true, prompt: t('activerecord.placeholders.recipe_ingredients.measurement_unit') }, 
           data: { controller: "smart-select", "smart-select-create-value": true,
                   "smart-select-create-url-value": api_v1_measurement_units_path,

@@ -20154,6 +20154,79 @@
     }
   };
 
+  // app/javascript/constants/css_manipulation.ts
+  var HIDE_CLASS = "d-none";
+
+  // app/javascript/controllers/image_preview.ts
+  var ImagePreviewController = class extends Controller {
+    static {
+      this.targets = ["output", "input", "approval", "preview", "initiator"];
+    }
+    readURL() {
+      var input = this.inputTarget;
+      if (input.files && input.files[0]) {
+        if (!this.validateImage(input.files[0]))
+          return this.handleInvalidFile();
+        var reader = new FileReader();
+        reader.onload = () => {
+          this.updateOutputSources(reader.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+        this.toggleOutputsAndPreviews(true);
+        this.toggleApprovalTarget(true);
+        this.toggleInitiatorTarget(false);
+      }
+    }
+    handleInvalidFile() {
+      alert("Invalid file type. Please upload a valid image file (jpg, jpeg, png, gif)");
+      this.inputTarget.value = "";
+      this.clearPreviews();
+    }
+    updateOutputSources(source) {
+      this.outputTargets.forEach((output) => output.src = source);
+    }
+    toggleOutputsAndPreviews(show) {
+      const method2 = show ? "remove" : "add";
+      this.outputTargets.forEach((output) => output.classList[method2](HIDE_CLASS));
+      this.previewTargets.forEach((preview) => preview.classList[method2](HIDE_CLASS));
+    }
+    toggleApprovalTarget(show) {
+      const method2 = show ? "remove" : "add";
+      if (this.hasApprovalTarget) {
+        this.approvalTarget?.classList[method2](HIDE_CLASS);
+      }
+    }
+    toggleInitiatorTarget(show) {
+      const method2 = show ? "remove" : "add";
+      if (this.hasInitiatorTarget) {
+        this.initiatorTarget?.classList[method2](HIDE_CLASS);
+      }
+    }
+    validateImage(file) {
+      const allowedExtensions = ["jpg", "jpeg", "png", "gif"];
+      const fileExtension = file.name.split(".").pop()?.toLowerCase();
+      if (fileExtension && allowedExtensions.includes(fileExtension)) {
+        return true;
+      }
+      return false;
+    }
+    clearPreviews() {
+      this.updateOutputSources("");
+      if (this.hasApprovalTarget) {
+        this.toggleApprovalTarget(false);
+      }
+      if (this.hasInitiatorTarget) {
+        this.toggleInitiatorTarget(true);
+      }
+    }
+    clear(e) {
+      e.preventDefault();
+      this.inputTarget.value = "";
+      this.clearPreviews();
+      this.toggleOutputsAndPreviews(false);
+    }
+  };
+
   // app/javascript/controllers/index.ts
   application.register("smart-recipe-form", SmartRecipeFormController);
   application.register("toasts", ToastsController);
@@ -20161,6 +20234,7 @@
   application.register("ingredients-panel", IngredientsPanelController);
   application.register("smart-select", SmartSelectController);
   application.register("sortable", r);
+  application.register("image-preview", ImagePreviewController);
 })();
 /*! Bundled license information:
 

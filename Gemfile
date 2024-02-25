@@ -1,6 +1,7 @@
-source 'https://rubygems.org'
+# frozen_string_literal: true
 
 source 'https://rubygems.org'
+
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.2.2'
@@ -68,7 +69,8 @@ gem 'tzinfo-data', platforms: %i[windows jruby]
 gem 'bootsnap', require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+gem 'google-cloud-storage', '~> 1.48'
+gem 'image_processing', '~> 1.12'
 
 group :development, :test do
   gem 'standard'
@@ -76,6 +78,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw windows]
   gem 'dotenv-rails', '~> 2.8'
   gem 'factory_bot_rails', '~> 6.4'
+  gem 'httplog', require: false
   gem 'letter_opener', '~> 1.8.1'
   gem 'rspec-rails', '~> 6.1.0'
   gem 'shoulda-matchers', '~> 6.0.0'

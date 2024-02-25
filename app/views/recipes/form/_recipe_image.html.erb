@@ -1,0 +1,36 @@
+<div data-controller="image-preview">
+  <a href="#" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#imageModal" data-image-preview-target="initiator">
+    <%= t('recipes.add_image_cta')%>
+  </a>
+  <div class="recipe-image-preview__wrapper d-none mt-3" data-image-preview-target="preview">
+    <%= image_tag("", width: "300px", hight: "200px", class: "recipe-image-preview d-none", data: { "image-preview-target": "output" }) %>
+    <a href="#" class="recipe-image-preview__remove" data-action="image-preview#clear">
+      <i class="bi bi-x-circle text-danger"></i>
+    </a>
+  </div>
+  <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header d-flex justify-content-center">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel"><%= "#{Recipe.model_name.human} #{Recipe.human_attribute_name(:image)}" %></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body d-flex flex-column justify-content-center align-items-center">
+          <%= image_tag("", width: "300px", hight: "200px", class: "recipe-image-preview d-none mb-3", 
+                        data: { "image-preview-target": "output" }) %>
+          <button type="button" class="btn btn-success d-none mb-3 text-light" data-bs-dismiss="modal" 
+                    data-image-preview-target="approval" aria-label="<%= t('recipes.approve_image_cta') %>">
+            <%= t('recipes.approve_image_cta') %>
+          </button>
+          <%= form.label :image, for: "image_uploader",
+                        class: 'btn btn-rounded-circle btn-outline-secondary mb-0' do %>
+            <%= t('recipes.select_image_cta')%>
+          <% end %>
+          <%= form.file_field :image, direct_upload: false,  id: "image_uploader", class: 'd-none',
+                            data: {"image-preview-target": "input", action: "image-preview#readURL"} %>
+          <div class="modal-text text-center"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
