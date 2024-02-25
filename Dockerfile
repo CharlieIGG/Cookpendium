@@ -30,7 +30,8 @@ RUN apt-get update && \
   curl
 
 # Step 7: Add nodejs source
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - &&\
+  apt-get install -y nodejs
 
 # Step 8: Add yarn packages repository
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
@@ -43,7 +44,6 @@ RUN apt-get update && \
   ca-certificates \
   libpq5 \
   openssl \
-  nodejs \
   tzdata \
   yarn && \
   rm -rf /var/lib/apt/lists/*
@@ -75,10 +75,10 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 # Step 13: install npm
-# - see https://github.com/npm/uid-number/issues/7
-RUN apt-get update && \
-  apt-get install -y --no-install-recommends \
-  npm
+
+# RUN apt-get update && \
+#   apt-get install -y --no-install-recommends \
+#   npm
 
 # Step 14: Install the 'check-dependencies' node package:
 RUN npm install -g check-dependencies
