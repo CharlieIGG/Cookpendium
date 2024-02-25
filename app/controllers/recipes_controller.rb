@@ -66,7 +66,12 @@ class RecipesController < ApplicationController # rubocop:disable Metrics/ClassL
 
   # Use callbacks to share common setup or constraints between actions.
   def set_recipe
-    @recipe = RecipeDecorator.new(Recipe.find(params[:id]))
+    @recipe = RecipeDecorator.new(Recipe.includes(
+      recipe_ingredients: [ingredient: [:translations], measurement_unit: [:translations]], recipe_steps: [
+        :translations, { recipe_step_ingredients: %i[ingredient measurement_unit] }
+      ]
+    )
+                                                  .find(params[:id]))
   end
 
   def create_recipe_from_raw_text(raw_recipe)

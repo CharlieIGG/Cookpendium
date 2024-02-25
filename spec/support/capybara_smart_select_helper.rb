@@ -6,7 +6,9 @@ module CapybaraSmartSelectHelper
     container = find(:label, text: from).ancestor(wrapper_css_selector)
     within(container) do
       find('.ts-control input').send_keys(value)
-      all('.ts-dropdown .ts-dropdown-content .option', text: target_text)[0].click
+      target_option = all('.ts-dropdown .ts-dropdown-content .option', text: target_text)[0]
+      sleep 0.3 unless target_option
+      target_option.click
     end
     sleep 0.3 if create
   end

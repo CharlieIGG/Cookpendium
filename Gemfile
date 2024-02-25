@@ -75,6 +75,7 @@ gem 'image_processing', '~> 1.12'
 group :development, :test do
   gem 'standard'
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem 'bullet', '~> 7.1'
   gem 'debug', platforms: %i[mri mingw x64_mingw windows]
   gem 'dotenv-rails', '~> 2.8'
   gem 'factory_bot_rails', '~> 6.4'
