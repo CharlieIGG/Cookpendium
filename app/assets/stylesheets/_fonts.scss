@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;600&family=Shantell+Sans:wght@600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;600&family=Shantell+Sans:wght@600&display=swap");
 
 * {
-    font-family: 'Noto Serif', serif;
+    font-family: "Noto Serif", serif;
 }
 
 h1,
@@ -11,7 +11,7 @@ h4,
 h5,
 h6,
 label {
-    font-family: 'Shantell Sans', sans-serif;
+    font-family: "Shantell Sans", sans-serif;
 }
 
 h1,
@@ -63,4 +63,13 @@ label {
 
 ::placeholder {
     color: $gray-500 !important;
+}
+
+.form-label.required {
+    &::after {
+        content: "*";
+        font-size: x-small;
+        position: relative;
+        top: -4px;
+    }
 }

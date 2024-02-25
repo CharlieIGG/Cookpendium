@@ -2,6 +2,10 @@
 
 # Encapsulates representational logic for rendering a Recipe
 class RecipeDecorator < BaseDecorator
+  def self.name
+    'Recipe' # Used to ensure that Rolify's has_role? works with decorate Recipes
+  end
+
   def vegan_vegetarian_marker
     return unless vegan || vegetarian
     return vegan_marker if vegan

@@ -23,6 +23,8 @@ en:
       recipes:
         import: "There was an error importing your recipe. Please review your input and try again."
         parser_content: "The provided text does not look like a recipe. Please provide a recipe."
+      ai:
+        content_policy_violation: The provided text violates either our content policy, or the content policy of our AI provider. Please try again with a different input.
     ai_tools:
       use_ai: "Use Artificial Intelligence Tools"
       parser_explanation:

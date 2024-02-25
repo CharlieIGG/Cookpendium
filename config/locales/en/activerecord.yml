@@ -81,6 +81,7 @@ en:
         servings: "servings"
         vegan: "vegan"
         vegetarian: "vegetarian"
+        image: image
       recipe_step:
         instruction: "Instruction"
         description: "Description"
@@ -126,3 +127,4 @@ en:
         step_number: The order of the step, e.g. '1'
     actions:
       new: "New %{model}"
+      edit: "Edit %{model}"

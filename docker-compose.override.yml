@@ -68,6 +68,10 @@ services:
       MAILER_PORT: 3000
       LISTEN_USE_POLLING: ${COOKPENDIUM_LISTEN_USE_POLLING:-no}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-S0M3_F4K3_4P1_K3Y}
+      STORAGE_ACCESS_KEY_ID: ${STORAGE_ACCESS_KEY_ID}
+      STORAGE_SECRET_ACCESS_KEY: ${STORAGE_SECRET_ACCESS_KEY}
+      STORAGE_REGION: eu-central-1
+      STORAGE_BUCKET_NAME: ${STORAGE_BUCKET_NAME:-cookpendium-development}
       # REDIS_URL: redis://redis:6379/1
 
   web:
@@ -113,12 +117,15 @@ services:
       <<: *app_environment
       RAILS_ENV: test
       RACK_ENV: test
-      FDOC: 1 #Factory Doctor activated
-      FPROF: 1 #Factory Prof activated
-      RD_PROF: 1 #RSpec Dissect activated
+      FDOC: 1 #Factory Doctor
+      FPROF: 1 #Factory Prof
+      RD_PROF: 1 #RSpec Dissect
       OPENAI_API_KEY: S0M3_F4K3_4P1_K3Y
+      STORAGE_BUCKET_NAME: cookpendium-test
     depends_on:
       - postgres
+    shm_size: "256mb" # Needed for the Chrome headless browser to run without issues
+
 
   # worker:
   #   <<: *app

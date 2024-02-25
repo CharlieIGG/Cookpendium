@@ -9,12 +9,12 @@
     </div>
     <template data-nested-associations-target="template">
       <%= form.fields_for :recipe_ingredients, RecipeIngredient.new, child_index: "NEW_RECORD" do |recipe_ingredient| %>
-        <%= render 'recipes/form/recipe_ingredient', recipe_ingredient: %>
+        <%= render 'recipes/form/recipe_ingredient', recipe_ingredient:, available_ingredients:, measurement_units: %>
       <% end %>
     </template>
     <%= turbo_frame_tag "recipe_ingredients", data: {"nested-associations-target": "container"} do %>
       <%= form.fields_for :recipe_ingredients do |recipe_ingredient| %>
-        <%= render 'recipes/form/recipe_ingredient', recipe_ingredient: %>
+        <%= render 'recipes/form/recipe_ingredient', recipe_ingredient:, available_ingredients:, measurement_units: %>
       <% end %>
     <% end %>
   </div>

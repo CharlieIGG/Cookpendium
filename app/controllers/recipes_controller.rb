@@ -1,4 +1,4 @@
-class RecipesController < ApplicationController
+class RecipesController < ApplicationController # rubocop:disable Metrics/ClassLength
   skip_before_action :authenticate_user!, only: %i[index show]
   before_action :set_recipe, only: %i[show edit update destroy]
 
@@ -15,8 +15,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new
     @recipe.recipe_ingredients.build
     @recipe.recipe_steps.build
-    @ingredients = Ingredient.by_name
-    @measurement_units = MeasurementUnit.by_name.map { |mu| MeasurementUnitDecorator.new(mu) }
+    set_units_and_ingredients
   end
 
   # GET /recipes/1/edit
@@ -60,7 +59,7 @@ class RecipesController < ApplicationController
   def recipe_params
     params
       .require(:recipe)
-      .permit(:title, :description,
+      .permit(:title, :description, :image,
               recipe_ingredients_attributes: %i[id ingredient_id quantity measurement_unit_id _destroy],
               recipe_steps_attributes: %i[id instruction description step_number _destroy])
   end
@@ -114,7 +113,13 @@ class RecipesController < ApplicationController
     ]
   end
 
+  def set_units_and_ingredients
+    @available_ingredients = Ingredient.by_name
+    @measurement_units = MeasurementUnit.by_name.map { |mu| MeasurementUnitDecorator.new(mu) }
+  end
+
   def handle_recipe_create_failure
+    set_units_and_ingredients
     model_name = Recipe.model_name.human
     error_message = I18n.t('helpers.errors.create', model: model_name)
     form_title = I18n.t('activerecord.actions.new', model: model_name)
@@ -122,7 +127,8 @@ class RecipesController < ApplicationController
       turbo_stream.append('toasts_container', partial: 'shared/toast',
                                               locals: { message: error_message, type: :alert }),
       turbo_stream.update('new_recipe_form', partial: 'form',
-                                             locals: { recipe: @recipe, title: form_title })
+                                             locals: { recipe: @recipe, available_ingredients: @available_ingredients,
+                                                       measurement_units: @measurement_units, title: form_title })
     ]
   end
 end
