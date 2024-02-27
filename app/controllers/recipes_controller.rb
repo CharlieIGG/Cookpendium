@@ -1,10 +1,12 @@
-class RecipesController < ApplicationController # rubocop:disable Metrics/ClassLength
+class RecipesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
   before_action :set_recipe, only: %i[show edit update destroy]
 
   # GET /recipes or /recipes.json
   def index
-    @recipes = Recipe.with_steps_and_ingredients.map { |recipe| RecipeDecorator.new(recipe) }
+    @recipes = Recipe.with_steps_and_ingredients.includes(:translations, :image_attachment).map do |recipe|
+      RecipeDecorator.new(recipe)
+    end
   end
 
   # GET /recipes/1 or /recipes/1.json
@@ -24,7 +26,7 @@ class RecipesController < ApplicationController # rubocop:disable Metrics/ClassL
   # POST /recipes or /recipes.json
   def create
     raw_recipe = params.dig(:recipe, :ingredients_and_instructions)
-    return create_recipe_from_raw_text(raw_recipe) if raw_recipe.present? && raw_recipe.length.positive?
+    return create_with_ai(raw_recipe) if raw_recipe.present? && raw_recipe.length.positive?
 
     @recipe = Recipe.new(recipe_params)
     return after_create if @recipe.save
@@ -66,35 +68,19 @@ class RecipesController < ApplicationController # rubocop:disable Metrics/ClassL
 
   # Use callbacks to share common setup or constraints between actions.
   def set_recipe
-    @recipe = RecipeDecorator.new(Recipe.find(params[:id]))
+    @recipe = RecipeDecorator.new(Recipe.includes(
+      :translations, recipe_ingredients: [measurement_unit: [:translations], ingredient: [:translations]],
+                     recipe_steps: [:translations, { recipe_step_ingredients: [
+                       ingredient: [:translations], measurement_unit: [:translations]
+                     ] }]
+    ).find(params[:id]))
   end
 
-  def create_recipe_from_raw_text(raw_recipe)
-    recipe_hash = AITools::RecipeParser.call(raw_recipe)
-    update_recipe_attributes(recipe_hash)
-    import_recipe(recipe_hash)
+  def create_with_ai(raw_recipe)
+    @recipe = AITools::RecipeCreator.call(raw_recipe, recipe_params[:title], recipe_params[:description])
+    after_create
   rescue StandardError => e
     handle_recipe_import_error(e)
-  end
-
-  def update_recipe_attributes(recipe_hash)
-    update_recipe_title(recipe_hash)
-    update_recipe_description(recipe_hash)
-  end
-
-  def update_recipe_title(recipe_hash)
-    title = recipe_params[:title]
-    recipe_hash['title'] = title if title.present? && title.length.positive?
-  end
-
-  def update_recipe_description(recipe_hash)
-    description = recipe_params[:description]
-    recipe_hash['description'] = description if description.present? && description.length.positive?
-  end
-
-  def import_recipe(recipe_hash)
-    @recipe = RecipeImporter::Importer.call(recipe_hash)
-    after_create
   end
 
   def after_create
@@ -120,10 +106,15 @@ class RecipesController < ApplicationController # rubocop:disable Metrics/ClassL
 
   def handle_recipe_create_failure
     set_units_and_ingredients
+
+    render turbo_stream: recipe_create_turbo_stream
+  end
+
+  def recipe_create_turbo_stream
     model_name = Recipe.model_name.human
     error_message = I18n.t('helpers.errors.create', model: model_name)
     form_title = I18n.t('activerecord.actions.new', model: model_name)
-    render turbo_stream: [
+    [
       turbo_stream.append('toasts_container', partial: 'shared/toast',
                                               locals: { message: error_message, type: :alert }),
       turbo_stream.update('new_recipe_form', partial: 'form',

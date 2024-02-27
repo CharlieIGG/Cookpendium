@@ -6,6 +6,16 @@ require 'active_support/core_ext/integer/time'
 # and recreated between test runs. Don't rely on the data there!
 
 Rails.application.configure do
+  config.after_initialize do
+    Bullet.enable        = true
+    Bullet.bullet_logger = true
+    Bullet.raise         = true
+    Bullet.add_safelist type: :unused_eager_loading, class_name: 'RecipeIngredient',
+                        association: :measurement_unit
+    Bullet.add_safelist type: :unused_eager_loading, class_name: 'MeasurementUnit',
+                        association: :translations
+  end
+
   config.logger = ActiveSupport::TaggedLogging.new(Logger.new(nil))
   config.log_level = :fatal
   # Settings specified here will take precedence over those in config/application.rb.
