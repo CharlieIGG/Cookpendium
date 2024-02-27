@@ -9,7 +9,11 @@ Rails.application.configure do
   config.after_initialize do
     Bullet.enable        = true
     Bullet.bullet_logger = true
-    # Bullet.raise         = true # raise an error if n+1 query occurs
+    Bullet.raise         = true
+    Bullet.add_safelist type: :unused_eager_loading, class_name: 'RecipeIngredient',
+                        association: :measurement_unit
+    Bullet.add_safelist type: :unused_eager_loading, class_name: 'MeasurementUnit',
+                        association: :translations
   end
 
   config.logger = ActiveSupport::TaggedLogging.new(Logger.new(nil))

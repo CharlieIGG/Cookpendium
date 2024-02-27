@@ -4,7 +4,9 @@ class RecipesController < ApplicationController
 
   # GET /recipes or /recipes.json
   def index
-    @recipes = Recipe.with_steps_and_ingredients.map { |recipe| RecipeDecorator.new(recipe) }
+    @recipes = Recipe.with_steps_and_ingredients.includes(:translations, :image_attachment).map do |recipe|
+      RecipeDecorator.new(recipe)
+    end
   end
 
   # GET /recipes/1 or /recipes/1.json
@@ -67,11 +69,11 @@ class RecipesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_recipe
     @recipe = RecipeDecorator.new(Recipe.includes(
-      recipe_ingredients: [ingredient: [:translations], measurement_unit: [:translations]], recipe_steps: [
-        :translations, { recipe_step_ingredients: %i[ingredient measurement_unit] }
-      ]
-    )
-                                                  .find(params[:id]))
+      :translations, recipe_ingredients: [measurement_unit: [:translations], ingredient: [:translations]],
+                     recipe_steps: [:translations, { recipe_step_ingredients: [
+                       ingredient: [:translations], measurement_unit: [:translations]
+                     ] }]
+    ).find(params[:id]))
   end
 
   def create_with_ai(raw_recipe)
