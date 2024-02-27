@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe 'Create Recipes', type: :system do
-  describe 'creating recipes requires authentication' do
+RSpec.describe 'Creating Recipes', type: :system do
+  describe 'requires authentication' do
     it 'redirects to login page' do
       visit new_recipe_path
       expect(page).to have_content(I18n.t('devise.failure.unauthenticated'))
     end
   end
 
-  describe 'creating new recipe via Form Fields' do
+  describe 'via Form Fields' do
     let_it_be(:user) { create(:user) }
 
     before(:each) do
