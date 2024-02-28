@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'ExploreRecipes', type: :system do # rubocop:disable Metrics/BlockLength
+RSpec.describe 'ExploreRecipes', type: :system do
   describe 'viewing all recipes' do
     let_it_be(:recipes) { create_list(:recipe, 5, :with_ingredients, :with_steps) }
 
@@ -67,6 +67,46 @@ RSpec.describe 'ExploreRecipes', type: :system do # rubocop:disable Metrics/Bloc
         # Assert that the recipe steps are displayed
         expect(page).to have_content(step.instruction)
         expect(page).to have_content(step.description)
+      end
+    end
+
+    describe 'when the user is not logged in' do
+      it 'does not display the edit and delete buttons' do
+        recipe = Recipe.first
+
+        visit recipe_path(recipe)
+
+        expect(page).not_to have_content(I18n.t('activerecord.actions.edit', model: Recipe.model_name.human))
+        expect(page).not_to have_content(I18n.t('activerecord.actions.delete', model: Recipe.model_name.human))
+      end
+    end
+    describe 'when the user is logged in' do
+      let_it_be(:user) { create(:user) }
+
+      describe 'when the user is not the Author in' do
+        it 'does not display the edit and delete buttons' do
+          recipe = Recipe.first
+
+          login_as user
+          visit recipe_path(recipe)
+
+          expect(page).not_to have_content(I18n.t('activerecord.actions.edit', model: Recipe.model_name.human))
+          expect(page).not_to have_content(I18n.t('activerecord.actions.delete', model: Recipe.model_name.human))
+        end
+      end
+
+      describe 'when the user is the Author' do
+        it 'displays the edit and delete buttons' do
+          recipe = Recipe.first
+
+          user.add_role(:author, recipe)
+
+          login_as user
+          visit recipe_path(recipe)
+
+          expect(page).to have_content(I18n.t('activerecord.actions.edit', model: Recipe.model_name.human))
+          expect(page).not_to have_content(I18n.t('activerecord.actions.delete', model: Recipe.model_name.human))
+        end
       end
     end
   end

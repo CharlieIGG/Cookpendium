@@ -1,8 +1,4 @@
 en:
-  languages:
-    en: "English"
-    de: "German"
-    es: "Spanish"
   recipes:
     about: "About this recipe"
     add_image_cta: "Add an image"
@@ -17,18 +13,3 @@ en:
       identifying_instructions: "Identifying Instructions..."
       associating_ingredients_and_steps: "Associating Ingredients and Steps..."
       importing_into_recipes_database: "Importing into Recipes Database..."
-  ingredients:
-    select_or_create: "Select or create an ingredient"
-  time:
-    minutes: "minutes"
-    mins: "mins."
-    hours: "hours"
-    hrs: "hrs."
-  numerators:
-    all: "all"
-  forms:
-    save: "Save"
-    cancel: "Cancel"
-    back: "Go back"
-    delete: "Delete"
-    add_new: "Add new"

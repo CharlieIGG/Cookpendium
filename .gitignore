@@ -51,3 +51,8 @@ coverage/.resultset.json
 config/external_credentials/*
 .DS_Store
 .config/chromium/*
+coverage/.resultset.json
+coverage/index.html
+coverage/.resultset.json
+coverage/index.html
+.cache/selenium/se-metadata.json
