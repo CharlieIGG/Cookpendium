@@ -96,16 +96,55 @@ RSpec.describe 'ExploreRecipes', type: :system do
       end
 
       describe 'when the user is the Author' do
-        it 'displays the edit and delete buttons' do
-          recipe = Recipe.first
+        let(:recipe) { Recipe.first }
 
+        before(:each) do
           user.add_role(:author, recipe)
-
           login_as user
           visit recipe_path(recipe)
+        end
 
+        it 'displays the edit and delete buttons' do
           expect(page).to have_content(I18n.t('activerecord.actions.edit', model: Recipe.model_name.human))
           expect(page).not_to have_content(I18n.t('activerecord.actions.delete', model: Recipe.model_name.human))
+        end
+
+        it 'can go to edit the recipe' do
+          click_link I18n.t('activerecord.actions.edit', model: Recipe.model_name.human)
+
+          expect(page).to have_current_path(edit_recipe_path(recipe))
+        end
+
+        describe 'deleting a recipe' do
+          it 'displays the delete button' do
+            expect(page).to have_content(I18n.t('activerecord.actions.delete', model: Recipe.model_name.human))
+          end
+
+          it 'shows a confirmation alert when delete button is clicked' do
+            accept_confirm do
+              click_link I18n.t('activerecord.actions.delete', model: Recipe.model_name.human)
+            end
+
+            expect(page).to have_content(I18n.t('recipes.destroy.confirmation', title: recipe.title))
+          end
+
+          it 'deletes the recipe when confirmation is accepted' do
+            accept_confirm do
+              click_link I18n.t('activerecord.actions.delete', model: Recipe.model_name.human)
+            end
+
+            expect(page).to have_content(I18n.t('recipes.destroy.success', title: recipe.title))
+            expect(Recipe.exists?(recipe.id)).to be_falsey
+          end
+
+          it 'does not delete the recipe when confirmation is dismissed' do
+            dismiss_confirm do
+              click_link I18n.t('activerecord.actions.delete', model: Recipe.model_name.human)
+            end
+
+            expect(page).not_to have_content(I18n.t('recipes.destroy.success', title: recipe.title))
+            expect(Recipe.exists?(recipe.id)).to be_truthy
+          end
         end
       end
     end

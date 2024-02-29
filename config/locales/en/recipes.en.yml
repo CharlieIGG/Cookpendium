@@ -13,3 +13,6 @@ en:
       identifying_instructions: "Identifying Instructions..."
       associating_ingredients_and_steps: "Associating Ingredients and Steps..."
       importing_into_recipes_database: "Importing into Recipes Database..."
+    destroy:
+      confirmation: "Are you sure you want to delete this recipe? This action cannot be undone."
+      success: "Recipe was successfully deleted."
