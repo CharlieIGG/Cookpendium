@@ -20,7 +20,7 @@
   <div class="form-group row mt-2">
     <div class="col">
       <%= recipe_ingredient.label :quantity, class: "control-label" %>
-      <%= recipe_ingredient.number_field :quantity, class: "form-control", placeholder: t('activerecord.placeholders.recipe_ingredients.quantity') %>
+      <%= recipe_ingredient.number_field :quantity, class: "form-control", step: "any", placeholder: t('activerecord.placeholders.recipe_ingredients.quantity') %>
     </div>
     <div class="col">
       <%= recipe_ingredient.label :measurement_unit_id, RecipeIngredient.human_attribute_name(:measurement_unit_short), class: "control-label" %>

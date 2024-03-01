@@ -106,7 +106,7 @@ RSpec.describe 'ExploreRecipes', type: :system do
 
         it 'displays the edit and delete buttons' do
           expect(page).to have_content(I18n.t('activerecord.actions.edit', model: Recipe.model_name.human))
-          expect(page).not_to have_content(I18n.t('activerecord.actions.delete', model: Recipe.model_name.human))
+          expect(page).to have_content(I18n.t('activerecord.actions.delete', model: Recipe.model_name.human))
         end
 
         it 'can go to edit the recipe' do

@@ -30,7 +30,7 @@ RSpec.describe 'Edit Recipes', type: :system do
       it 'allows editing' do
         user.add_role(:admin)
         visit edit_recipe_path(recipe)
-        expect(page).to have_content(I18n.t('recipes.edit.title'))
+        expect(page).to have_content(I18n.t('activerecord.actions.edit', model: Recipe.model_name.human))
       end
     end
 
@@ -41,13 +41,15 @@ RSpec.describe 'Edit Recipes', type: :system do
 
       it 'allows editing' do
         visit edit_recipe_path(recipe)
-        expect(page).to have_content(I18n.t('recipes.edit.title'))
+        expect(page).to have_content(I18n.t('activerecord.actions.edit', model: Recipe.model_name.human))
       end
 
       it 'can update the recipe\'s title and description' do
         visit edit_recipe_path(recipe)
-        fill_in 'Title', with: 'Updated Title'
-        fill_in 'Description', with: 'Updated Description'
+        within('.recipe__main') do
+          fill_in 'Title', with: 'Updated Title'
+          fill_in 'Description', with: 'Updated Description'
+        end
         click_button 'Update Recipe'
         expect(page).to have_content(I18n.t('helpers.updated.one', model: Recipe.model_name.human))
         expect(page).to have_content('Updated Title')
@@ -68,8 +70,8 @@ RSpec.describe 'Edit Recipes', type: :system do
 
       it 'can remove an ingredient' do
         visit edit_recipe_path(recipe)
-        within(".nested-recipe-ingredient-wrapper:nth-of-type(#{new_ingredient_count})") do
-          find("button[title='#{I18n.t('forms.remove')}']").click # needs adjustment
+        within(".nested-recipe-ingredient-wrapper:nth-of-type(#{recipe.recipe_ingredients.count})") do
+          find("a[title='Delete']").click
         end
         expect do
           click_button I18n.t('helpers.submit.update', model: Recipe.model_name.human)
@@ -83,20 +85,23 @@ RSpec.describe 'Edit Recipes', type: :system do
         expect do
           within('.recipe__ingredients_panel') do
             find("button[title='#{I18n.t('forms.add_new')}']").click
-          end
 
-          expect(all('label',
-                     text: RecipeIngredient.human_attribute_name(:quantity)).count).to eq(new_ingredient_count)
+            expect(all('label',
+                       text: RecipeIngredient.human_attribute_name(:quantity)).count).to eq(new_ingredient_count)
 
-          within(".nested-recipe-ingredient-wrapper:nth-of-type(#{new_ingredient_count})") do
-            fill_in RecipeIngredient.human_attribute_name(:quantity), with: 10
-            smart_select(new_ingredient_name,
-                         from: RecipeIngredient.human_attribute_name(:ingredient),
-                         wrapper_css_selector: '.col', create: true)
+            new_ingredient_name = 'New Ingredient'
+            new_measurement_unit_name = 'New Measurement Unit'
+            page.execute_script("document.querySelector('.recipe__ingredients_panel').scrollTo(0, document.querySelector('.recipe__ingredients_panel').scrollHeight)")
+            within(".nested-recipe-ingredient-wrapper:nth-of-type(#{new_ingredient_count})") do
+              fill_in RecipeIngredient.human_attribute_name(:quantity), with: 10
+              smart_select(new_ingredient_name,
+                           from: RecipeIngredient.human_attribute_name(:ingredient),
+                           wrapper_css_selector: '.col', create: true)
 
-            smart_select(new_measurement_unit_name,
-                         from: RecipeIngredient.human_attribute_name(:measurement_unit_short),
-                         wrapper_css_selector: '.col', create: true)
+              smart_select(new_measurement_unit_name,
+                           from: RecipeIngredient.human_attribute_name(:measurement_unit_short),
+                           wrapper_css_selector: '.col', create: true)
+            end
           end
 
           expect do
@@ -114,10 +119,8 @@ RSpec.describe 'Edit Recipes', type: :system do
             fill_in RecipeStep.human_attribute_name(:description), with: 'My Updated Longer Description'
           end
         end
-        expect do
-          click_button I18n.t('helpers.submit.update', model: Recipe.model_name.human)
-          expect(page).to have_content(I18n.t('helpers.updated.one', model: Recipe.model_name.human))
-        end
+        click_button I18n.t('helpers.submit.update', model: Recipe.model_name.human)
+        expect(page).to have_content(I18n.t('helpers.updated.one', model: Recipe.model_name.human))
         expect(page).to have_content('My Updated Instruction')
         expect(page).to have_content('My Updated Longer Description')
       end
@@ -125,7 +128,7 @@ RSpec.describe 'Edit Recipes', type: :system do
       it 'can remove a step' do
         visit edit_recipe_path(recipe)
         within(".nested-recipe-step-wrapper:nth-of-type(#{recipe.recipe_steps.count})") do
-          find("button[title='#{I18n.t('forms.remove')}']").click
+          find("a[title='Delete']").click
         end
         expect do
           click_button I18n.t('helpers.submit.update', model: Recipe.model_name.human)
@@ -146,11 +149,12 @@ RSpec.describe 'Edit Recipes', type: :system do
             fill_in RecipeStep.human_attribute_name(:description), with: 'My Longer Description 2'
             fill_in RecipeStep.human_attribute_name(:step_number), with: new_step_count
           end
-          expect do
-            click_button I18n.t('helpers.submit.update', model: Recipe.model_name.human)
-            expect(page).to have_content(I18n.t('helpers.updated.one', model: Recipe.model_name.human))
-          end.to change(RecipeStep, :count).by(1)
         end
+        page.execute_script('window.scrollTo(0, document.body.scrollHeight)')
+        expect do
+          click_button I18n.t('helpers.submit.update', model: Recipe.model_name.human)
+          expect(page).to have_content(I18n.t('helpers.updated.one', model: Recipe.model_name.human))
+        end.to change(RecipeStep, :count).by(1)
       end
     end
   end
