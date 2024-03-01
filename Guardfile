@@ -26,7 +26,7 @@
 
 clearing :on
 
-guard :rspec, cmd: 'bundle exec rspec', failed_mode: :focus do # rubocop:disable Metrics/BlockLength
+guard :rspec, cmd: 'bundle exec rspec --fail-fast', failed_mode: :focus do # rubocop:disable Metrics/BlockLength
   require 'guard/rspec/dsl'
   dsl = Guard::RSpec::Dsl.new(self)
 

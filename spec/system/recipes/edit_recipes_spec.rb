@@ -22,7 +22,7 @@ RSpec.describe 'Edit Recipes', type: :system do
     describe 'for non-author standard users' do
       it 'redirects to root path' do
         visit edit_recipe_path(recipe)
-        expect(page).to have_content(I18n.t('pundit.unauthorized'))
+        expect(page).to have_content(I18n.t('pundit.unauthorized.default'))
       end
     end
 
