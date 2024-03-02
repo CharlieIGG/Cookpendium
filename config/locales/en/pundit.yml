@@ -1,4 +1,0 @@
-en:
-  pundit:
-    unauthorized:
-      default: "You are not authorized to perform this action."

@@ -4,10 +4,10 @@
       <div class="card-body w-75">
         <div class="row text-center">
           <div class="mb-4 devise__title-container text-center">
-            <h1 class="devise__title fs-1 mt-4"><%= t('my_profile') %></h1>
+            <h1 class="devise__title fs-1 mt-4"><%= t('users.my_profile') %></h1>
           </div>
           <% if @user.username.nil? %>
-            <p><%= t('set_username_cta') %></p>
+            <p><%= t('users.set_username_cta') %></p>
           <% end %>
         </div>
         <%= form_for(@user, data: {turbo: false}) do |f| %>
@@ -15,7 +15,7 @@
             <%= f.label :username %><br />
             <%= f.text_field :username, value: @user.username || @suggested_username, autofocus: true, 
                 disabled: @user.username.present?, class: "form-control", "aria-describedby":"username-help" %>
-            <div id="username-help" class="form-text"><%= t('username_warning') %>
+            <div id="username-help" class="form-text"><%= t('users.username_warning') %>
             </div>
           </div>
           <div class="actions text-center d-flex flex-column my-4">

@@ -7,7 +7,8 @@ export default class SmartRecipeFormController extends Controller {
   }
   static targets = ["AIToolsToggle", "AIToolsInput", "nonAIFormInputs", "AIInputGroup"];
   declare loadingModal: Modal;
-  declare AIToolsToggleTarget: Element;
+  declare AIToolsToggleTarget?: Element;
+  declare hasAIToolsToggleTarget: boolean;
   declare AIInputGroupTarget: Element;
   declare nonAIFormInputsTarget: Element;
   declare AIToolsInputTarget: HTMLInputElement;
@@ -22,9 +23,11 @@ export default class SmartRecipeFormController extends Controller {
   }
 
   connect() {
-    this.AIToolsToggleTarget.addEventListener('change', (e) => this.toggleAITools((e.target as HTMLInputElement).checked));
     this.element.addEventListener('turbo:submit-start', () => this.showLoader());
     this.element.addEventListener('turbo:submit-end', () => this.hideLoader());
+    if (!this.hasAIToolsToggleTarget) return;
+
+    this.AIToolsToggleTarget!.addEventListener('change', (e) => this.toggleAITools((e.target as HTMLInputElement).checked));
   }
 
   toggleAITools(checked: boolean) {

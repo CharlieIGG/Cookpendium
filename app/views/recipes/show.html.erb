@@ -1,6 +1,16 @@
 <div class="d-flex flex-row recipe__main p-5">
   <div class="recipe_details flex-grow-1">
-    <h1 class="my-2 text-dark"><%= @recipe.title %></h1>
+    <div class="row mb-3">
+      <div class="col">
+        <h1 class="my-2 text-dark"><%= @recipe.title %></h1>
+      </div>
+      <% if current_user && (current_user.author?(@recipe) || current_user.admin?) %>
+        <div class="col d-flex align-items-center justify-content-end">
+          <%= link_to t('activerecord.actions.edit', model: Recipe.model_name.human), edit_recipe_path(@recipe), class: "btn btn-secondary text-white" %>
+          <%= link_to t('activerecord.actions.delete', model: Recipe.model_name.human), @recipe, data: { turbo_method: :delete, turbo_confirm: t('recipes.destroy.confirmation') }, class: "btn btn-outline-danger ms-3" %>
+        </div>
+      <% end %>
+    </div>
     <%= render 'recipe_extra_details', recipe: @recipe %>
     <div class="row mb-5">
       <div class="accordion accordion-preview col" id="recipeDescriptionAccordion">

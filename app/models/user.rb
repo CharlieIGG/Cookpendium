@@ -46,6 +46,14 @@ class User < ApplicationRecord
     User.create(email: data['email'], password: Devise.friendly_token[0, 20]).tap(&:confirm)
   end
 
+  def admin?
+    has_role?(:admin)
+  end
+
+  def author?(resource)
+    has_role?(:author, resource)
+  end
+
   private
 
   def assign_default_role

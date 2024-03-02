@@ -128,3 +128,4 @@ en:
     actions:
       new: "New %{model}"
       edit: "Edit %{model}"
+      delete: "Delete %{model}"

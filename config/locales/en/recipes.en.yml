@@ -1,0 +1,18 @@
+en:
+  recipes:
+    about: "About this recipe"
+    add_image_cta: "Add an image"
+    add_steps_cta: "Add steps to this recipe"
+    select_image_cta: "Select an image"
+    approve_image_cta: "Keep this image"
+    no_steps: "It looks like there are no steps for this recipe yet"
+    loading_messages:
+      analyzing_recipe: "Analyzing Recipe..."
+      checking_title_and_description: "Checking Title and Description..."
+      identifying_ingredients: "Identifying Ingredients..."
+      identifying_instructions: "Identifying Instructions..."
+      associating_ingredients_and_steps: "Associating Ingredients and Steps..."
+      importing_into_recipes_database: "Importing into Recipes Database..."
+    destroy:
+      confirmation: "Are you sure you want to delete this recipe? This action cannot be undone."
+      success: "Recipe was successfully deleted."

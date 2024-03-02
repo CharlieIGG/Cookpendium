@@ -20015,9 +20015,11 @@
       }
     }
     connect() {
-      this.AIToolsToggleTarget.addEventListener("change", (e) => this.toggleAITools(e.target.checked));
       this.element.addEventListener("turbo:submit-start", () => this.showLoader());
       this.element.addEventListener("turbo:submit-end", () => this.hideLoader());
+      if (!this.hasAIToolsToggleTarget)
+        return;
+      this.AIToolsToggleTarget.addEventListener("change", (e) => this.toggleAITools(e.target.checked));
     }
     toggleAITools(checked) {
       if (checked) {

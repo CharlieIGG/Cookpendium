@@ -1,0 +1,33 @@
+en:
+  helpers:
+    cancel: "Cancel"
+    loading:
+      base: "Loading..."
+    submit:
+      create: "Create %{model}"
+      submit: "Save %{model}"
+      update: "Update %{model}"
+    created:
+      one: "%{model} was successfully created."
+      other: "%{model} were successfully created."
+    updated:
+      one: "%{model} was successfully updated."
+      other: "%{model} were successfully updated."
+    deleted:
+      one: "%{model} was successfully deleted."
+      other: "%{model} were successfully deleted."
+    errors:
+      saving: "The following errors prohibited this %{model} from being saved:"
+      body: "There were problems with the following fields:"
+      create: "Unable to create %{model}, please review your input."
+      recipes:
+        import: "There was an error importing your recipe. Please review your input and try again."
+        parser_content: "The provided text does not look like a recipe. Please provide a recipe."
+      ai:
+        content_policy_violation: The provided text violates either our content policy, or the content policy of our AI provider. Please try again with a different input.
+    ai_tools:
+      use_ai: "Use Artificial Intelligence Tools"
+      parser_explanation:
+        With AI Tools, you can write any text in any format, with any length, and the system will
+        automatically recognize the ingredients, steps, description, and more.
+        Otherwise, you can enter the ingredients and steps one by one.

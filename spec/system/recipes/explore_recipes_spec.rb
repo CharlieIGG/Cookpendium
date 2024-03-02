@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'ExploreRecipes', type: :system do # rubocop:disable Metrics/BlockLength
+RSpec.describe 'ExploreRecipes', type: :system do
   describe 'viewing all recipes' do
     let_it_be(:recipes) { create_list(:recipe, 5, :with_ingredients, :with_steps) }
 
@@ -67,6 +67,77 @@ RSpec.describe 'ExploreRecipes', type: :system do # rubocop:disable Metrics/Bloc
         # Assert that the recipe steps are displayed
         expect(page).to have_content(step.instruction)
         expect(page).to have_content(step.description)
+      end
+    end
+
+    describe 'when the user is not logged in' do
+      it 'does not display the edit and delete buttons' do
+        recipe = Recipe.first
+
+        visit recipe_path(recipe)
+
+        expect(page).not_to have_content(I18n.t('activerecord.actions.edit', model: Recipe.model_name.human))
+        expect(page).not_to have_content(I18n.t('activerecord.actions.delete', model: Recipe.model_name.human))
+      end
+    end
+    describe 'when the user is logged in' do
+      let_it_be(:user) { create(:user) }
+
+      describe 'when the user is not the Author in' do
+        it 'does not display the edit and delete buttons' do
+          recipe = Recipe.first
+
+          login_as user
+          visit recipe_path(recipe)
+
+          expect(page).not_to have_content(I18n.t('activerecord.actions.edit', model: Recipe.model_name.human))
+          expect(page).not_to have_content(I18n.t('activerecord.actions.delete', model: Recipe.model_name.human))
+        end
+      end
+
+      describe 'when the user is the Author' do
+        let(:recipe) { Recipe.first }
+
+        before(:each) do
+          user.add_role(:author, recipe)
+          login_as user
+          visit recipe_path(recipe)
+        end
+
+        it 'displays the edit and delete buttons' do
+          expect(page).to have_content(I18n.t('activerecord.actions.edit', model: Recipe.model_name.human))
+          expect(page).to have_content(I18n.t('activerecord.actions.delete', model: Recipe.model_name.human))
+        end
+
+        it 'can go to edit the recipe' do
+          click_link I18n.t('activerecord.actions.edit', model: Recipe.model_name.human)
+
+          expect(page).to have_current_path(edit_recipe_path(recipe))
+        end
+
+        describe 'deleting a recipe' do
+          it 'displays the delete button' do
+            expect(page).to have_content(I18n.t('activerecord.actions.delete', model: Recipe.model_name.human))
+          end
+
+          it 'deletes the recipe when confirmation is accepted' do
+            accept_confirm do
+              click_link I18n.t('activerecord.actions.delete', model: Recipe.model_name.human)
+            end
+
+            expect(page).to have_content(I18n.t('helpers.deleted.one', model: Recipe.model_name.human))
+            expect(Recipe.exists?(recipe.id)).to be_falsey
+          end
+
+          it 'does not delete the recipe when confirmation is dismissed' do
+            dismiss_confirm do
+              click_link I18n.t('activerecord.actions.delete', model: Recipe.model_name.human)
+            end
+
+            expect(page).not_to have_content(I18n.t('recipes.destroy.success', title: recipe.title))
+            expect(Recipe.exists?(recipe.id)).to be_truthy
+          end
+        end
       end
     end
   end

@@ -1,0 +1,18 @@
+en:
+  languages:
+    en: "English"
+    de: "German"
+    es: "Spanish"
+  time:
+    minutes: "minutes"
+    mins: "mins."
+    hours: "hours"
+    hrs: "hrs."
+  numerators:
+    all: "all"
+  forms:
+    save: "Save"
+    cancel: "Cancel"
+    back: "Go back"
+    delete: "Delete"
+    add_new: "Add new"

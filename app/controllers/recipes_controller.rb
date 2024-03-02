@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
   before_action :set_recipe, only: %i[show edit update destroy]
+  before_action -> { authorize @recipe }, only: %i[edit update destroy]
 
   # GET /recipes or /recipes.json
   def index
@@ -21,7 +22,9 @@ class RecipesController < ApplicationController
   end
 
   # GET /recipes/1/edit
-  def edit; end
+  def edit
+    set_units_and_ingredients
+  end
 
   # POST /recipes or /recipes.json
   def create
@@ -29,20 +32,16 @@ class RecipesController < ApplicationController
     return create_with_ai(raw_recipe) if raw_recipe.present? && raw_recipe.length.positive?
 
     @recipe = Recipe.new(recipe_params)
-    return after_create if @recipe.save
+    return after_save if @recipe.save
 
-    handle_recipe_create_failure
+    handle_recipe_save_failure
   end
 
   # PATCH/PUT /recipes/1 or /recipes/1.json
   def update
-    respond_to do |format|
-      if @recipe.update(recipe_params)
-        format.html { redirect_to recipe_url(@recipe), notice: 'Recipe was successfully updated.' }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
-    end
+    return after_save if @recipe.update(recipe_params)
+
+    handle_recipe_save_failure
   end
 
   # DELETE /recipes/1 or /recipes/1.json
@@ -50,7 +49,7 @@ class RecipesController < ApplicationController
     @recipe.destroy!
 
     respond_to do |format|
-      format.html { redirect_to recipes_url, notice: 'Recipe was successfully destroyed.' }
+      format.html { redirect_to recipes_url, notice: I18n.t('helpers.deleted.one', model: Recipe.model_name.human) }
       format.json { head :no_content }
     end
   end
@@ -78,15 +77,17 @@ class RecipesController < ApplicationController
 
   def create_with_ai(raw_recipe)
     @recipe = AITools::RecipeCreator.call(raw_recipe, recipe_params[:title], recipe_params[:description])
-    after_create
+    after_save
   rescue StandardError => e
     handle_recipe_import_error(e)
   end
 
-  def after_create
+  def after_save
+    notice = I18n.t(action_name == 'create' ? 'helpers.created.one' : 'helpers.updated.one',
+                    model: Recipe.model_name.human)
     current_user.add_role(:author, @recipe)
     redirect_to recipe_path(@recipe),
-                notice: I18n.t('helpers.created.one', model: Recipe.model_name.human), status: :see_other
+                notice:, status: :see_other
   end
 
   def handle_recipe_import_error(error)
@@ -104,7 +105,7 @@ class RecipesController < ApplicationController
     @measurement_units = MeasurementUnit.by_name.map { |mu| MeasurementUnitDecorator.new(mu) }
   end
 
-  def handle_recipe_create_failure
+  def handle_recipe_save_failure
     set_units_and_ingredients
 
     render turbo_stream: recipe_create_turbo_stream

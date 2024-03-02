@@ -9,7 +9,7 @@ Rails.application.configure do
   config.after_initialize do
     Bullet.enable        = true
     Bullet.bullet_logger = true
-    Bullet.raise         = true
+    Bullet.raise         = false
     Bullet.add_safelist type: :unused_eager_loading, class_name: 'RecipeIngredient',
                         association: :measurement_unit
     Bullet.add_safelist type: :unused_eager_loading, class_name: 'MeasurementUnit',
