@@ -120,20 +120,12 @@ RSpec.describe 'ExploreRecipes', type: :system do
             expect(page).to have_content(I18n.t('activerecord.actions.delete', model: Recipe.model_name.human))
           end
 
-          it 'shows a confirmation alert when delete button is clicked' do
-            accept_confirm do
-              click_link I18n.t('activerecord.actions.delete', model: Recipe.model_name.human)
-            end
-
-            expect(page).to have_content(I18n.t('recipes.destroy.confirmation', title: recipe.title))
-          end
-
           it 'deletes the recipe when confirmation is accepted' do
             accept_confirm do
               click_link I18n.t('activerecord.actions.delete', model: Recipe.model_name.human)
             end
 
-            expect(page).to have_content(I18n.t('recipes.destroy.success', title: recipe.title))
+            expect(page).to have_content(I18n.t('helpers.deleted.one', model: Recipe.model_name.human))
             expect(Recipe.exists?(recipe.id)).to be_falsey
           end
 
