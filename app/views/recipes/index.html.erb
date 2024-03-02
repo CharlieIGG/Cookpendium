@@ -3,28 +3,12 @@
     <h1 class="text-dark my-5 text-capitalize"><%= "#{t('numerators.all')} #{Recipe.model_name.human(count: 2)}" %></h1>
     <%= link_to "Submit a new recipe", new_recipe_path, class: "btn btn-secondary text-light px-3" %>
   </div>
-  <div class="row">
-    <% @recipes.each do |recipe| %>
-      <div class="col-md-4">
-        <%= link_to recipe_path(recipe) do %>
-          <div class="card mb-3">
-            <div class="card-body row">
-              <div class="col">
-                <h5 class="card-title"><%= recipe.title %></h5>
-                <p class="card-text"><%= truncate(recipe.description, length: 90) %></p>
-              </div>
-              <% if recipe.image.attached? %>
-                <div class="col-4">
-                  <%= image_tag recipe.image.variant(:thumb), class: "img-fluid" if recipe.image.attached? %>
-                </div>
-              <% end %>
-            </div>
-            <div class="card-footer text-body-secondary">
-              <%= render 'recipe_extra_details', recipe: %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+  <%= turbo_frame_tag "recipes_list", class: "row", src: recipes_url(format: :turbo_stream, page: params[:page]), loading: "lazy" do %>
+    <div class="row" id="recipes_placeholder">
+      <% 12.times do %>
+        <%= render "recipe_placeholder" %>
+      <% end %>
+    </div>
+  <% end %>
+  <%= turbo_frame_tag "recipes_pagination" %>
 </div>

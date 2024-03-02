@@ -5,8 +5,13 @@ class RecipesController < ApplicationController
 
   # GET /recipes or /recipes.json
   def index
-    @recipes = Recipe.with_steps_and_ingredients.includes(:translations, :image_attachment).map do |recipe|
+    @pagy, @recipes = pagy(Recipe.with_steps_and_ingredients.includes(:translations, :image_attachment), items: 12)
+    @recipes = @recipes.map do |recipe|
       RecipeDecorator.new(recipe)
+    end
+    respond_to do |format|
+      format.html
+      format.turbo_stream
     end
   end
 

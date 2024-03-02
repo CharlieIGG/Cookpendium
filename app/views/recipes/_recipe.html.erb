@@ -1,2 +1,18 @@
-<div id="<%= dom_id recipe %>">
+<div id="<%= dom_id recipe %>" class="col-md-4">
+  <div class="card mb-3">
+    <div class="card-body row">
+      <div class="col">
+        <h5 class="card-title"><%= recipe.title %></h5>
+        <p class="card-text"><%= truncate(recipe.description, length: 90) %></p>
+      </div>
+      <% if recipe.image.attached? %>
+        <div class="col-4">
+          <%= image_tag recipe.image.variant(:thumb), class: "img-fluid" if recipe.image.attached? %>
+        </div>
+      <% end %>
+    </div>
+    <div class="card-footer text-body-secondary">
+      <%= render 'recipe_extra_details', recipe: %>
+    </div>
+  </div>
 </div>
