@@ -46,11 +46,13 @@
       <%= render 'recipes/form/recipe_image', form: form %>
     </div>
   </div>
-  <div class="form-group mb-4" data-smart-recipe-form-target="AIInputGroup">
-    <%= form.label :ingredients_and_instructions, class: "form-label" %>
-    <%= form.text_area :ingredients_and_instructions, class: "form-control", placeholder: t('activerecord.placeholders.recipes.ingredients_and_instructions'), 
+  <% if action_name == "new" %>
+    <div class="form-group mb-4" data-smart-recipe-form-target="AIInputGroup">
+      <%= form.label :ingredients_and_instructions, class: "form-label" %>
+      <%= form.text_area :ingredients_and_instructions, class: "form-control", placeholder: t('activerecord.placeholders.recipes.ingredients_and_instructions'), 
                        rows: 10, data: { "smart-recipe-form-target" => "AIToolsInput" } %>
-  </div>
+    </div>
+  <% end %>
   <div data-smart-recipe-form-target="nonAIFormInputs" class="<%= action_name == "edit" ? '' : 'd-none' %>">
     <%= render 'recipes/form/recipe_ingredients', form: form, available_ingredients:, measurement_units: %>
     <%= render 'recipes/form/recipe_steps', form: form, available_ingredients:, measurement_units: %>
