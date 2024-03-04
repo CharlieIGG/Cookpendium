@@ -53,10 +53,8 @@ class RecipesController < ApplicationController
   def destroy
     @recipe.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to recipes_url, notice: I18n.t('helpers.deleted.one', model: Recipe.model_name.human) }
-      format.json { head :no_content }
-    end
+    redirect_to recipes_path(status: :see_other, format: :html),
+                notice: I18n.t('helpers.deleted.one', model: Recipe.model_name.human)
   end
 
   private
