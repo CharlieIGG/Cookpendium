@@ -20229,6 +20229,44 @@
     }
   };
 
+  // app/javascript/controllers/infinite_scrolling_controller.ts
+  var InfiniteScrollingController = class extends Controller {
+    constructor() {
+      super(...arguments);
+      this.placeholderStack = [];
+    }
+    static {
+      this.targets = ["placeholderTemplate", "container"];
+    }
+    initialize() {
+      this.handleFetchRequest = this.handleFetchRequest.bind(this);
+      this.handleFetchResponse = this.handleFetchResponse.bind(this);
+    }
+    connect() {
+      document.addEventListener("turbo:before-fetch-request", this.handleFetchRequest);
+      document.addEventListener("turbo:before-fetch-response", this.handleFetchResponse);
+    }
+    disconnect() {
+      document.removeEventListener("turbo:before-fetch-request", this.handleFetchRequest);
+      document.removeEventListener("turbo:before-fetch-response", this.handleFetchResponse);
+    }
+    handleFetchRequest(_event) {
+      for (let i = 0; i < 3; i++) {
+        const newNode = new DOMParser().parseFromString(this.placeholderTemplateTarget.innerHTML, "text/html").body.firstChild;
+        this.element.appendChild(newNode);
+        this.placeholderStack.push(newNode);
+      }
+    }
+    handleFetchResponse(_event) {
+      for (let i = 0; i < 3; i++) {
+        const lastNode = this.placeholderStack.pop();
+        if (lastNode) {
+          lastNode.remove();
+        }
+      }
+    }
+  };
+
   // app/javascript/controllers/index.ts
   application.register("smart-recipe-form", SmartRecipeFormController);
   application.register("toasts", ToastsController);
@@ -20237,6 +20275,7 @@
   application.register("smart-select", SmartSelectController);
   application.register("sortable", r);
   application.register("image-preview", ImagePreviewController);
+  application.register("infinite-scrolling", InfiniteScrollingController);
 })();
 /*! Bundled license information:
 
