@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'ExploreRecipes', type: :system do
+RSpec.describe 'Exploring recipes', type: :system do
   describe 'viewing all recipes' do
     let_it_be(:recipes) { create_list(:recipe, 5, :with_ingredients, :with_steps) }
 
@@ -38,6 +38,17 @@ RSpec.describe 'ExploreRecipes', type: :system do
       [recipe_without_ingredients_or_steps, recipe_without_ingredients, recipe_without_steps].each do |recipe|
         expect(page).not_to have_content(recipe.title)
       end
+    end
+
+    it 'has infinite scrolling' do
+      create_list(:recipe, 19, :with_ingredients, :with_steps) # together with the 5 recipes created in the let_it_be block, this will make 24 recipes
+      visit recipes_path
+
+      expect(page).to have_css('.capybara__recipe_card', count: 12)
+
+      page.execute_script('window.scrollTo(0, document.body.scrollHeight)')
+
+      expect(page).to have_css('.capybara__recipe_card', count: 24)
     end
   end
 

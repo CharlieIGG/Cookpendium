@@ -12,6 +12,7 @@ import SmartRecipeFormController from "./smart_recipe_form_controller"
 import SmartSelectController from "./smart_select"
 import ToastsController from "./toasts"
 import ImagePreviewController from "./image_preview"
+import InfiniteScrollingController from "./infinite_scrolling_controller"
 
 application.register("smart-recipe-form", SmartRecipeFormController)
 application.register("toasts", ToastsController)
@@ -20,3 +21,4 @@ application.register("ingredients-panel", IngredientsPanelController)
 application.register("smart-select", SmartSelectController)
 application.register("sortable", Sortable)
 application.register("image-preview", ImagePreviewController)
+application.register("infinite-scrolling", InfiniteScrollingController)

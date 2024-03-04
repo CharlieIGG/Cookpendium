@@ -5,8 +5,13 @@ class RecipesController < ApplicationController
 
   # GET /recipes or /recipes.json
   def index
-    @recipes = Recipe.with_steps_and_ingredients.includes(:translations, :image_attachment).map do |recipe|
+    @pagy, @recipes = pagy(Recipe.with_steps_and_ingredients.includes(:translations, :image_attachment), items: 12)
+    @recipes = @recipes.map do |recipe|
       RecipeDecorator.new(recipe)
+    end
+    respond_to do |format|
+      format.html
+      format.turbo_stream
     end
   end
 
@@ -48,10 +53,8 @@ class RecipesController < ApplicationController
   def destroy
     @recipe.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to recipes_url, notice: I18n.t('helpers.deleted.one', model: Recipe.model_name.human) }
-      format.json { head :no_content }
-    end
+    redirect_to recipes_path(status: :see_other, format: :html),
+                notice: I18n.t('helpers.deleted.one', model: Recipe.model_name.human)
   end
 
   private

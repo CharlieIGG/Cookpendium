@@ -29,7 +29,7 @@
                   <%= link_to t('users.my_profile'), edit_user_path(current_user), class: "dropdown-item" %>
                 </li>
                 <li class="dropdown-item">
-                  <%= link_to t('devise.sessions.sign_out'), destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
+                  <%= link_to t('devise.sessions.sign_out'), destroy_user_session_path, data: { turbo_method: :delete, turbo_frame: :_top }, class: "dropdown-item" %>
                 </li>
               </ul>
             </li>
