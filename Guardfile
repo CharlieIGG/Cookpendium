@@ -26,7 +26,7 @@
 
 clearing :on
 
-guard :rspec, cmd: 'bundle exec rspec --fail-fast', failed_mode: :focus do # rubocop:disable Metrics/BlockLength
+guard :rspec, cmd: 'bundle exec rspec --fail-fast', failed_mode: :focus do
   require 'guard/rspec/dsl'
   dsl = Guard::RSpec::Dsl.new(self)
 
@@ -54,7 +54,6 @@ guard :rspec, cmd: 'bundle exec rspec --fail-fast', failed_mode: :focus do # rub
       rspec.spec.call("acceptance/#{m[1]}")
     ]
   end
-
   # Rails config changes
   watch(rails.spec_helper)     { rspec.spec_dir }
   watch(rails.routes)          { "#{rspec.spec_dir}/routing" }
@@ -63,10 +62,4 @@ guard :rspec, cmd: 'bundle exec rspec --fail-fast', failed_mode: :focus do # rub
   # Capybara features specs
   watch(rails.view_dirs)     { |m| rspec.spec.call("features/#{m[1]}") }
   watch(rails.layouts)       { |m| rspec.spec.call("features/#{m[1]}") }
-
-  # Turnip features and steps
-  watch(%r{^spec/acceptance/(.+)\.feature$})
-  watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$}) do |m|
-    Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance'
-  end
 end
