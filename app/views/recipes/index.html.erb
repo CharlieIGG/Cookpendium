@@ -1,16 +1,7 @@
 <div id="recipes" class="container">
   <div class="w-100 d-flex justify-content-between align-items-center">
-    <h1 class="text-dark my-5 text-capitalize"><%= "#{t('numerators.all')} #{Recipe.model_name.human(count: 2)}" %></h1>
-    <div class="search-bar"></div>
-    <%= form_tag(recipes_path, method: :get, data: {turbo_stream: true}, class: "form-inline") do %>
-      <div class="form-group mr-2">
-        <%= text_field_tag :search_text, params[:search_text], class: "form-control", placeholder: "Search" %>
-      </div>
-      <div class="form-group mr-2">
-        <%= select_tag :search_ingredient_ids, options_for_select(Ingredient.all.map { |i| [i.name, i.id] }, params[:search_ingredient_ids]), { prompt: "Select Ingredients", multiple: true, class: "form-control" } %>
-      </div>
-      <%= submit_tag "Search", class: "btn btn-primary" %>
-    <% end %>
+    <h1 class="text-dark my-5 me-5 text-capitalize"><%= "#{t('numerators.all')} #{Recipe.model_name.human(count: 2)}" %></h1>
+    <%= render 'search' %>
     <%= link_to "Submit a new recipe", new_recipe_path, class: "btn btn-secondary text-light px-3" %>
   </div>
   <%= turbo_frame_tag "recipes_list", class: "row", src: recipes_url(format: :turbo_stream, page: params[:page], search_text: params[:search_text], search_ingredient_ids: params[:search_ingredient_ids]), loading: "lazy", data: {controller: 'infinite-scrolling'} do %>
