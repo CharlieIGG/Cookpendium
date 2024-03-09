@@ -15,7 +15,7 @@ en:
       importing_into_recipes_database: "Importing into Recipes Database..."
     search:
       placeholder: "Search for a recipe"
-      no_results: "No recipes found"
+      no_results: "No recipes found..."
       no_results_explanation: "Try searching for something else. If you're filtering by ingredients, try removing some."
       filter_by_ingredients: "Filter by ingredients: only recipes containing these ingredients are shown."
     destroy:

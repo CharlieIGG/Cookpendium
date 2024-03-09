@@ -1,0 +1,14 @@
+.search_field {
+    position: relative;
+    .search_field__icon {
+        color: $gray-400;
+        font-size: 1.5em;
+        position: absolute;
+        top: 50%;
+        left: 0.5em;
+        transform: translateY(-50%);
+    }
+    input {
+        padding-left: 2.5em;
+    }
+}
