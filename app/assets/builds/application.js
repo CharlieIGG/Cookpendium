@@ -20086,6 +20086,10 @@
           option_create: (data, escape) => {
             return `<div class="option create text-secondary">${this.createTextValue} <strong>${escape(data.input)}</strong></div>`;
           }
+        },
+        onItemAdd: () => {
+          this.smartSelect.setTextboxValue("");
+          this.smartSelect.refreshOptions(false);
         }
       });
     }

@@ -1,9 +1,10 @@
 <div id="recipes" class="container">
   <div class="w-100 d-flex justify-content-between align-items-center">
-    <h1 class="text-dark my-5 text-capitalize"><%= "#{t('numerators.all')} #{Recipe.model_name.human(count: 2)}" %></h1>
+    <h1 class="text-dark my-5 me-5 text-capitalize"><%= "#{t('numerators.all')} #{Recipe.model_name.human(count: 2)}" %></h1>
+    <%= render 'search' %>
     <%= link_to "Submit a new recipe", new_recipe_path, class: "btn btn-secondary text-light px-3" %>
   </div>
-  <%= turbo_frame_tag "recipes_list", class: "row", src: recipes_url(format: :turbo_stream, page: params[:page]), loading: "lazy", data: {controller: 'infinite-scrolling'} do %>
+  <%= turbo_frame_tag "recipes_list", class: "row", src: recipes_url(format: :turbo_stream, page: params[:page], search_text: params[:search_text], search_ingredient_ids: params[:search_ingredient_ids]), loading: "lazy", data: {controller: 'infinite-scrolling'} do %>
     <div class="row" id="recipes_placeholder" data-infinite-scrolling-target="container">
       <% 12.times do %>
         <%= render "recipe_placeholder" %>

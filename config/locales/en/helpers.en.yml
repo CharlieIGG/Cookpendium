@@ -1,5 +1,6 @@
 en:
   helpers:
+    search: "Search"
     cancel: "Cancel"
     loading:
       base: "Loading..."
