@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Searching Recipes', type: :system, focus: true do
+RSpec.describe 'Searching Recipes', type: :system do
   let!(:recipe1) { create(:recipe, :with_steps, title: 'Spaghetti Bolognese', description: 'Classic Italian dish') }
   let!(:recipe2) { create(:recipe, :with_steps, title: 'Chicken Curry', description: 'Delicious Indian curry') }
   let!(:ingredient0) { create(:ingredient, name: 'salt') }
