@@ -5,8 +5,8 @@ class RecipesController < ApplicationController
 
   # GET /recipes or /recipes.json
   def index
-    @search_active = params[:search_ingredient_ids].present? || params[:search_text].present?
-    @pagy, @recipes = pagy(search_recipes, items: 12)
+    @recipes, @search_active = RecipeFinder.call(params[:search_ingredient_ids], params[:search_text])
+    @pagy, @recipes = pagy(@recipes, items: 12)
     @recipes = @recipes.map { |recipe| RecipeDecorator.new(recipe) }
     respond_to do |format|
       format.html
@@ -125,29 +125,4 @@ class RecipesController < ApplicationController
                                                        measurement_units: @measurement_units, title: form_title })
     ]
   end
-end
-
-def search_recipes
-  query = Recipe
-  query = query.joins(ingredients: [:translations]) if @search_active
-  query = apply_text_search(query)
-  query = apply_ingredient_search(query)
-  query.with_steps_and_ingredients.includes(:translations, :image_attachment)
-end
-
-def apply_text_search(query)
-  if params[:search_text].present?
-    query = query.joins(:translations).where(
-      'recipe_translations.title ILIKE :search OR recipe_translations.description ILIKE :search OR ingredient_translations.name ILIKE :search',
-      search: "#{params[:search_text]}%"
-    )
-  end
-
-  query
-end
-
-def apply_ingredient_search(query)
-  query = query.where(ingredients: { id: params[:search_ingredient_ids] }) if params[:search_ingredient_ids].present?
-
-  query
 end
