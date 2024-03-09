@@ -68,4 +68,35 @@ RSpec.describe 'Searching Recipes', type: :system do
     expect(page).to have_content(recipe1.title)
     expect(page).to have_content(recipe2.title)
   end
+
+  describe 'searching by both search_text and search_ingredient_ids' do
+    it 'only returns recipes that match search_text and search_ingredient_ids both' do
+      visit recipes_path
+      fill_in 'search_text', with: 'spaghetti'
+      select ingredient0.name, from: 'search_ingredient_ids' # both recipes have salt
+      within '#recipes' do
+        click_button 'Search'
+      end
+      expect(page).to have_content(recipe1.title)
+      expect(page).not_to have_content(recipe2.title)
+
+      fill_in 'search_text', with: ingredient0.name
+      select ingredient0.name, from: 'search_ingredient_ids'
+      within '#recipes' do
+        click_button 'Search'
+      end
+      expect(page).to have_content(recipe1.title)
+      expect(page).to have_content(recipe2.title)
+    end
+  end
+
+  it 'shows an explanation when no recipes are found' do
+    visit recipes_path
+    fill_in 'search_text', with: 'nonexistent'
+    within '#recipes' do
+      click_button 'Search'
+    end
+    expect(page).to have_content(I18n.t('recipes.search.no_results'))
+    expect(page).to have_content(I18n.t('recipes.search.no_results_explanation'))
+  end
 end
