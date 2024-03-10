@@ -54,6 +54,7 @@
     </div>
   <% end %>
   <div data-smart-recipe-form-target="nonAIFormInputs" class="<%= action_name == "edit" ? '' : 'd-none' %>">
+    <%= render 'recipes/form/recipe_extra_details', form: form %>
     <%= render 'recipes/form/recipe_ingredients', form: form, available_ingredients:, measurement_units: %>
     <%= render 'recipes/form/recipe_steps', form: form, available_ingredients:, measurement_units: %>
   </div>
