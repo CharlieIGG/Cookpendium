@@ -76,7 +76,9 @@ en:
         recipe_ingredients: "recipe ingredients"
         recipe_steps: "recipe steps"
         cooking_time_minutes: "cooking"
+        cooking_time_minutes_long: "Cooking Time (minutes)"
         prep_time_minutes: "prep"
+        prep_time_minutes_long: "Preparation Time (minutes)"
         serving_unit: "serving unit"
         servings: "servings"
         vegan: "vegan"
@@ -112,6 +114,11 @@ en:
         title: e.g "Salted Caramel Brownies"
         description: e.g. "These are the best brownies I've ever had! ..."
         ingredients_and_instructions: e.g. "1 cup flour, 1/2 cup sugar, 1/2 cup butter, ... 1. Preheat oven to 350 degrees. 2. Mix flour and sugar in a bowl. ..."
+        prep_time_minutes: e.g. "15"
+        cooking_time_minutes: e.g. "30"
+        serving_unit: e.g. "piece"
+        servings: e.g. "12"
+
       recipe_ingredients:
         quantity: e.g. "1"
         measurement_unit: e.g. "cup"

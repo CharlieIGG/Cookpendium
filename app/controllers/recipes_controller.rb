@@ -62,9 +62,9 @@ class RecipesController < ApplicationController
   def recipe_params
     params
       .require(:recipe)
-      .permit(:title, :description, :image,
-              recipe_ingredients_attributes: %i[id ingredient_id quantity measurement_unit_id _destroy],
-              recipe_steps_attributes: %i[id instruction description step_number _destroy])
+      .permit(:title, :description, :image, :cooking_time_minutes, :prep_time_minutes, :serving_unit, :servings, :title,
+              :vegan, :vegetarian, recipe_ingredients_attributes: %i[id ingredient_id quantity measurement_unit_id _destroy],
+                                   recipe_steps_attributes: %i[id instruction description step_number _destroy])
   end
 
   # Use callbacks to share common setup or constraints between actions.
