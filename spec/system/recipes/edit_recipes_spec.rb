@@ -156,6 +156,29 @@ RSpec.describe 'Edit Recipes', type: :system do
           expect(page).to have_content(I18n.t('helpers.updated.one', model: Recipe.model_name.human))
         end.to change(RecipeStep, :count).by(1)
       end
+
+      it 'can update additional attributes' do
+        cooking_time_minutes  = 20
+        prep_time_minutes     = 15
+        serving_unit          = 'People'
+        servings              = 4
+        visit edit_recipe_path(recipe)
+
+        fill_in Recipe.human_attribute_name('prep_time_minutes_long'), with: prep_time_minutes
+        fill_in Recipe.human_attribute_name('cooking_time_minutes_long'), with: cooking_time_minutes
+        fill_in Recipe.human_attribute_name('serving_unit'), with: serving_unit
+        fill_in Recipe.human_attribute_name('servings'), with: servings
+        check Recipe.human_attribute_name('vegan')
+        check Recipe.human_attribute_name('vegetarian')
+        click_button I18n.t('helpers.submit.update', model: Recipe.model_name.human)
+
+        expect(page).to have_content(I18n.t('helpers.updated.one', model: Recipe.model_name.human))
+        expect(page).to have_content("#{cooking_time_minutes} #{I18n.t('time.mins')} #{Recipe.human_attribute_name('cooking_time_minutes')}")
+        expect(page).to have_content("#{prep_time_minutes} #{I18n.t('time.mins')} #{Recipe.human_attribute_name('prep_time_minutes')}")
+        expect(page).to have_content("#{servings} #{serving_unit}")
+        expect(page).to have_content(Recipe.human_attribute_name('vegan'))
+        expect(recipe.reload.vegetarian).to be_truthy # if a recipe is marked with bothvegan and vegetarian, we just show "vegan"
+      end
     end
   end
 end
