@@ -20070,7 +20070,8 @@
         createUrl: String,
         modelName: String,
         createByAttribute: String,
-        createText: { type: String, default: "New" }
+        createText: { type: String, default: "New" },
+        placeholder: String
       };
     }
     initialize() {
@@ -20087,6 +20088,8 @@
             return `<div class="option create text-secondary">${this.createTextValue} <strong>${escape(data.input)}</strong></div>`;
           }
         },
+        hidePlaceholder: true,
+        placeholder: this.hasPlaceholderValue ? this.placeholderValue : void 0,
         onItemAdd: () => {
           this.smartSelect.setTextboxValue("");
           this.smartSelect.refreshOptions(false);

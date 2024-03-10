@@ -13,7 +13,8 @@ export default class SmartSelectController extends Controller<HTMLSelectElement>
         createUrl: String,
         modelName: String,
         createByAttribute: String,
-        createText: { type: String, default: "New" }
+        createText: { type: String, default: "New" },
+        placeholder: String
     }
 
     declare smartSelect?: TomSelect
@@ -22,6 +23,8 @@ export default class SmartSelectController extends Controller<HTMLSelectElement>
     declare createByAttributeValue: string | undefined
     declare modelNameValue: string | undefined
     declare createTextValue: string
+    declare placeholderValue?: string
+    declare hasPlaceholderValue: boolean
 
     initialize(): void {
         this.createNewEntry = this.createNewEntry.bind(this)
@@ -39,6 +42,8 @@ export default class SmartSelectController extends Controller<HTMLSelectElement>
                     return `<div class="option create text-secondary">${this.createTextValue} <strong>${escape(data.input)}</strong></div>`
                 }
             },
+            hidePlaceholder: true,
+            placeholder: this.hasPlaceholderValue ? this.placeholderValue : undefined,
             onItemAdd: () => {
                 this.smartSelect!.setTextboxValue('');
                 this.smartSelect!.refreshOptions(false);
