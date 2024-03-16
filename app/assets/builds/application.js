@@ -14795,10 +14795,33 @@
 
   // app/javascript/controllers/recipes/ingredients_panel.ts
   var IngredientsPanelController = class extends Controller {
+    constructor() {
+      super(...arguments);
+      this.handleScroll = () => {
+        const elementRect = this.element.getBoundingClientRect();
+        if (window.scrollY > elementRect.top + elementRect.height * 0.75) {
+          this.element.classList.add("sticky-top");
+          this.element.style.height = "25vh";
+          this.element.style.top = document.getElementsByTagName("nav")[0].offsetHeight + "px";
+        } else {
+          this.element.classList.remove("sticky-top");
+          this.element.style.height = "";
+          this.element.style.top = "";
+        }
+      };
+    }
     connect() {
       useIntersection(this);
       this.navBarElement = document.querySelector(".navbar");
       this.bodyElement = document.querySelector("body");
+      if (window.innerWidth <= 768) {
+        window.addEventListener("scroll", this.handleScroll);
+      }
+    }
+    disconnect() {
+      if (window.innerWidth <= 768) {
+        window.removeEventListener("scroll", this.handleScroll);
+      }
     }
     appear() {
       this.navBarElement.classList.add("navbar__with_ingredients_panel");

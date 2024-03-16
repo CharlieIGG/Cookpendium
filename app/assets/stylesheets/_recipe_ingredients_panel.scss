@@ -16,6 +16,19 @@ $ingredients__panel_base_width: 400px;
         width: 100vw;
         margin-bottom: 4rem;
     }
+
+    &::after {
+        content: "";
+        display: block;
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background: linear-gradient(to top, $primary, transparent);
+        transform: translateY(24px);
+        border-radius: 50%, 50%, 0, 0;
+    }
 }
 
 .navbar__with_ingredients_panel,
