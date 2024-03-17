@@ -31,8 +31,8 @@
       </div>
     <% end %>
   </div>
-  <div class="d-flex align-items-center recipe__main">
-    <div class="col-lg-8 col-md-12">
+  <div class="d-flex align-items-center recipe__main row">
+    <div class="col-lg-8 col-12">
       <div class="form-group mb-4">
         <%= form.label :title, class: "form-label required" %>
         <%= form.text_field :title, class: "form-control", placeholder: t('activerecord.placeholders.recipes.title') %>
@@ -42,7 +42,7 @@
         <%= form.text_area :description, class: "form-control", placeholder: t('activerecord.placeholders.recipes.description') %>
       </div>
     </div>
-    <div class="col d-flex justify-content-center">
+    <div class="col d-flex justify-content-center mb-4 mb-lg-0">
       <%= render 'recipes/form/recipe_image', form: form %>
     </div>
   </div>
