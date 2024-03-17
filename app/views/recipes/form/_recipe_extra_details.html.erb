@@ -1,21 +1,21 @@
-<div class="d-flex">
-  <div class="px-2 d-flex flex-column justify-content-end">
+<div class="d-flex row">
+  <div class="col-6 col-lg px-2 d-flex flex-column justify-content-end">
     <%= form.label :prep_time_minutes, t('activerecord.attributes.recipe.prep_time_minutes_long'),  class: "form-label" %>
     <%= form.number_field :prep_time_minutes, class: "form-control", placeholder: t('activerecord.placeholders.recipes.prep_time_minutes') %>
   </div>
-  <div class="px-2 d-flex flex-column justify-content-end">
+  <div class="col-6 col-lg px-2 d-flex flex-column justify-content-end">
     <%= form.label :cooking_time_minutes, t('activerecord.attributes.recipe.cooking_time_minutes_long'),  class: "form-label" %>
     <%= form.number_field :cooking_time_minutes, class: "form-control", placeholder: t('activerecord.placeholders.recipes.cooking_time_minutes') %>
   </div>
-  <div class="px-2 d-flex flex-column justify-content-end">
+  <div class="col-6 col-lg px-2 d-flex flex-column justify-content-end">
     <%= form.label :servings, class: "form-label" %>
     <%= form.number_field :servings, class: "form-control", placeholder: t('activerecord.placeholders.recipes.servings') %>
   </div>
-  <div class="px-2 d-flex flex-column justify-content-end">
+  <div class="col-6 col-lg px-2 d-flex flex-column justify-content-end">
     <%= form.label :serving_unit, class: "form-label" %>
     <%= form.text_field :serving_unit, class: "form-control", placeholder: t('activerecord.placeholders.recipes.serving_unit') %>
   </div>
-  <div class="d-flex flex-column mx-2 justify-content-end">
+  <div class="col d-flex flex-lg-column mx-2 justify-content-around my-3 my-lg-0 justify-content-lg-end">
     <div class="form-check">
       <%= form.check_box :vegan, class: "form-check-input", id: "vegan" %>
       <%= form.label :vegan, class: "form-check-label", for: "vegan" %>
