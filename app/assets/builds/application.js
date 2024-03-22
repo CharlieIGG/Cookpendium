@@ -14810,11 +14810,16 @@
         }
       };
     }
+    static {
+      this.values = {
+        shouldCollapse: Boolean
+      };
+    }
     connect() {
       useIntersection(this);
       this.navBarElement = document.querySelector(".navbar");
       this.bodyElement = document.querySelector("body");
-      if (window.innerWidth <= 768) {
+      if (window.innerWidth <= 768 && this.hasShouldCollapseValue && this.shouldCollapseValue) {
         window.addEventListener("scroll", this.handleScroll);
       }
     }
