@@ -31,10 +31,10 @@ export default class SmartSelectController extends Controller<HTMLSelectElement>
     }
 
     connect() {
-        useIntersection(this)
+        this.setup()
     }
 
-    appear() {
+    setup() {
         this.smartSelect = new TomSelect(this.element, {
             create: this.createValue ? this.createNewEntry as TomCreate : false,
             render: {

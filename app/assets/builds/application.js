@@ -14793,7 +14793,7 @@
   };
   ThrottleController.throttles = [];
 
-  // app/javascript/controllers/recipes/ingredients_panel.ts
+  // app/javascript/controllers/recipes/ingredients_panel_controller.ts
   var IngredientsPanelController = class extends Controller {
     constructor() {
       super(...arguments);
@@ -20084,7 +20084,7 @@
     }
   };
 
-  // app/javascript/controllers/smart_select.ts
+  // app/javascript/controllers/smart_select_controller.ts
   var import_tom_select = __toESM(require_tom_select_complete());
   var SmartSelectController = class extends Controller {
     static {
@@ -20101,9 +20101,9 @@
       this.createNewEntry = this.createNewEntry.bind(this);
     }
     connect() {
-      useIntersection(this);
+      this.setup();
     }
-    appear() {
+    setup() {
       this.smartSelect = new import_tom_select.default(this.element, {
         create: this.createValue ? this.createNewEntry : false,
         render: {
@@ -20172,7 +20172,7 @@
     }
   };
 
-  // app/javascript/controllers/toasts.ts
+  // app/javascript/controllers/toasts_controller.ts
   var ToastsController = class extends Controller {
     static {
       this.targets = ["toast"];
@@ -20189,7 +20189,7 @@
   // app/javascript/constants/css_manipulation.ts
   var HIDE_CLASS = "d-none";
 
-  // app/javascript/controllers/image_preview.ts
+  // app/javascript/controllers/image_preview_controller.ts
   var ImagePreviewController = class extends Controller {
     static {
       this.targets = ["output", "input", "approval", "preview", "initiator"];

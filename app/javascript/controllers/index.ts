@@ -6,12 +6,12 @@ import { application } from "./application"
 
 import Sortable from 'stimulus-sortable'
 
-import IngredientsPanelController from "./recipes/ingredients_panel"
+import IngredientsPanelController from "./recipes/ingredients_panel_controller"
 import NestedAssociationsController from "./nested_associations_controller"
 import SmartRecipeFormController from "./smart_recipe_form_controller"
-import SmartSelectController from "./smart_select"
-import ToastsController from "./toasts"
-import ImagePreviewController from "./image_preview"
+import SmartSelectController from "./smart_select_controller"
+import ToastsController from "./toasts_controller"
+import ImagePreviewController from "./image_preview_controller"
 import InfiniteScrollingController from "./infinite_scrolling_controller"
 
 application.register("smart-recipe-form", SmartRecipeFormController)
