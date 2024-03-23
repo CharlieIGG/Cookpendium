@@ -11,7 +11,9 @@
         </div>
       <% end %>
     </div>
-    <%= render 'recipe_extra_details', recipe: @recipe %>
+    <div class="mb-3 mb-lg-2">
+      <%= render 'recipe_extra_details', recipe: @recipe %>
+    </div>
     <div class="row mb-5">
       <div class="accordion accordion-preview col" id="recipeDescriptionAccordion">
         <div class="accordion-item">
