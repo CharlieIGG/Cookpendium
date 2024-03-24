@@ -7,7 +7,7 @@
     <div class="d-flex">
       <div class="form-group flex-grow-1">
         <%= select_tag :search_ingredient_ids, options_for_select(Ingredient.by_name.map { |i| [i.name, i.id] }, params[:search_ingredient_ids]),
-                       { multiple: true, class: "form-control",data: { 
+                       { multiple: true, class: "form-control rounded-pill",data: { 
                         controller: "smart-select", "smart-select-create-value": false,
                         "smart-select-model-name-value": "measurement_unit",
                         "smart-select-placeholder-value": t('recipes.search.filter_by_ingredients') 
