@@ -14793,21 +14793,37 @@
   };
   ThrottleController.throttles = [];
 
-  // app/javascript/controllers/recipes/ingredients_panel_controller.ts
-  var IngredientsPanelController = class extends Controller {
+  // app/javascript/controllers/sticky_controller.ts
+  var StickyController = class extends Controller {
     constructor() {
       super(...arguments);
+      this.isLocked = false;
       this.handleScroll = () => {
+        if (this.isLocked)
+          return;
+        this.isLocked = true;
+        if (this.hasShouldCollapseValue && this.shouldCollapseValue) {
+          this.handleCollapse();
+        }
+        setTimeout(() => {
+          this.isLocked = false;
+        }, 100);
+      };
+      this.handleCollapse = () => {
         const elementRect = this.element.getBoundingClientRect();
         if (window.scrollY > elementRect.top + elementRect.height * 0.75) {
-          this.element.classList.add("sticky-top");
-          this.element.style.height = "25vh";
-          this.element.style.top = document.getElementsByTagName("nav")[0].offsetHeight + "px";
+          this.collapse();
         } else {
-          this.element.classList.remove("sticky-top");
-          this.element.style.height = "";
-          this.element.style.top = "";
+          this.restore();
         }
+      };
+      this.collapse = () => {
+        this.element.classList.add("max-vh-25");
+        this.element.classList.remove("max-vh-100");
+      };
+      this.restore = () => {
+        this.element.classList.add("max-vh-100");
+        this.element.classList.remove("max-vh-25");
       };
     }
     static {
@@ -14816,17 +14832,44 @@
       };
     }
     connect() {
-      useIntersection(this);
-      this.navBarElement = document.querySelector(".navbar");
-      this.bodyElement = document.querySelector("body");
-      if (window.innerWidth <= 768 && this.hasShouldCollapseValue && this.shouldCollapseValue) {
+      if (window.innerWidth <= 768) {
+        this.assignNavBarElement();
+        this.setBaseStyles();
         window.addEventListener("scroll", this.handleScroll);
       }
     }
     disconnect() {
-      if (window.innerWidth <= 768) {
-        window.removeEventListener("scroll", this.handleScroll);
+      window.removeEventListener("scroll", this.handleScroll);
+    }
+    assignNavBarElement() {
+      let navBarElement = document.querySelector("nav");
+      if (navBarElement) {
+        this.navBarElement = navBarElement;
+      } else {
+        throw new Error("Sticky Controller: Navbar element not found");
       }
+    }
+    setBaseStyles() {
+      this.element.style.zIndex = "1";
+      this.element.style.position = "sticky";
+      this.element.style.top = this.navBarElement.offsetHeight + "px";
+      const transitionValue = this.element.style.transition ? this.element.style.transition + ", max-height 0.3s" : "max-height 0.3s";
+      this.element.style.transition = transitionValue;
+    }
+  };
+
+  // app/javascript/controllers/recipes/ingredients_panel_controller.ts
+  var IngredientsPanelController = class extends StickyController {
+    static {
+      this.values = {
+        shouldCollapse: Boolean
+      };
+    }
+    connect() {
+      super.connect();
+      useIntersection(this);
+      this.navBarElement = document.querySelector(".navbar");
+      this.bodyElement = document.querySelector("body");
     }
     appear() {
       this.navBarElement.classList.add("navbar__with_ingredients_panel");

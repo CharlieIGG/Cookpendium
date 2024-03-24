@@ -56,3 +56,7 @@ coverage/index.html
 coverage/.resultset.json
 coverage/index.html
 .cache/selenium/se-metadata.json
+app/assets/builds/application.css
+app/assets/builds/application.css
+app/assets/builds/application.js
+app/assets/builds/application.js.map

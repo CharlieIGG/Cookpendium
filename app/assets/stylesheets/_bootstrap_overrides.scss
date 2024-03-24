@@ -1,2 +1,27 @@
 $enable-negative-margins: true;
 $spinner-animation-speed: 1s;
+
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+$utilities: map-merge(
+    $utilities,
+    (
+        "max-viewport-height": (
+            property: max-height,
+            class: max-vh,
+            values: (
+                100: 100vh,
+                75: 75vh,
+                50: 50vh,
+                25: 25vh
+            )
+        )
+    )
+);
+
+@import "bootstrap/scss/utilities/api";

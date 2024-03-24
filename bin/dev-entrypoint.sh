@@ -21,8 +21,7 @@ trap unlock_setup HUP INT QUIT KILL TERM EXIT
 # 3: Specify a default command, in case it wasn't issued:
 if [ -z "$1" ]; then set -- rails server -p 3000 -b 0.0.0.0 "$@"; fi
 
-if [ "$1" = "rails" ] || [ "$1" = "hutch" ] || [ "$1" = "sidekiq" ] || [ "$1" = "guard" ] || [ "$1" = "rspec" ] || [ "$1" = "webpack-dev-server" ]
-then
+if [ "$1" = "rails" ] || [ "$1" = "sidekiq" ] || [ "$1" = "guard" ] || [ "$1" = "rspec" ] 
 
   # 4: Wait until the setup 'lock' file no longer exists:
   while [ -f $APP_SETUP_LOCK ]; do wait_setup; done
