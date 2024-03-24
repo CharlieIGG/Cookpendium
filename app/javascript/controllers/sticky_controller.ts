@@ -43,13 +43,14 @@ export default class StickyController extends Controller {
     handleScroll = (): void => {
         if (this.isLocked) return;
 
-        this.isLocked = true;
+
         if (this.hasShouldCollapseValue && this.shouldCollapseValue) {
+            this.isLocked = true;
             this.handleCollapse();
+            setTimeout(() => {
+                this.isLocked = false;
+            }, 100);
         }
-        setTimeout(() => {
-            this.isLocked = false;
-        }, 100);
     };
 
     handleCollapse = (): void => {
@@ -63,11 +64,13 @@ export default class StickyController extends Controller {
 
     collapse = (): void => {
         (this.element as HTMLElement).classList.add('max-vh-25');
+        (this.element as HTMLElement).classList.add('sticky-collapsed');
         (this.element as HTMLElement).classList.remove('max-vh-100');
     }
 
     restore = (): void => {
         (this.element as HTMLElement).classList.add('max-vh-100');
         (this.element as HTMLElement).classList.remove('max-vh-25');
+        (this.element as HTMLElement).classList.remove('sticky-collapsed');
     }
 }

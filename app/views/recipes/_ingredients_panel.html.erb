@@ -1,5 +1,9 @@
-<div class="mx-lg-0 mx-n4 p-4 shadow-lg bg-primary text-dark rounded-start recipe__ingredients_panel" data-controller="ingredients-panel"
-     data-ingredients-panel-should-collapse-value="true">
+<div class="mx-lg-0 mx-n4 p-4 shadow-lg bg-primary text-dark rounded-start recipe__ingredients__panel" data-controller="ingredients-panel sticky"
+     data-sticky-should-collapse-value="true">
+  <div class="d-none recipe__ingredients__scroll_cta p-3 mw-33 text-center text-body-tertiary">
+    <em><%= t('helpers.scroll_down_for_more') %></em> <br>
+    <i class="bi bi-arrow-bar-down"></i>
+  </div>
   <h2 class="mb-lg-5 ingredient_list__title"><%= Ingredient.model_name.human(count: 2) %></h2>
   <ol class="ingredient_list__list">
     <% @recipe.recipe_ingredients.each do |r_ingredient| %>

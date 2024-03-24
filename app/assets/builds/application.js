@@ -14793,73 +14793,8 @@
   };
   ThrottleController.throttles = [];
 
-  // app/javascript/controllers/sticky_controller.ts
-  var StickyController = class extends Controller {
-    constructor() {
-      super(...arguments);
-      this.isLocked = false;
-      this.handleScroll = () => {
-        if (this.isLocked)
-          return;
-        this.isLocked = true;
-        if (this.hasShouldCollapseValue && this.shouldCollapseValue) {
-          this.handleCollapse();
-        }
-        setTimeout(() => {
-          this.isLocked = false;
-        }, 100);
-      };
-      this.handleCollapse = () => {
-        const elementRect = this.element.getBoundingClientRect();
-        if (window.scrollY > elementRect.top + elementRect.height * 0.75) {
-          this.collapse();
-        } else {
-          this.restore();
-        }
-      };
-      this.collapse = () => {
-        this.element.classList.add("max-vh-25");
-        this.element.classList.remove("max-vh-100");
-      };
-      this.restore = () => {
-        this.element.classList.add("max-vh-100");
-        this.element.classList.remove("max-vh-25");
-      };
-    }
-    static {
-      this.values = {
-        shouldCollapse: Boolean
-      };
-    }
-    connect() {
-      if (window.innerWidth <= 768) {
-        this.assignNavBarElement();
-        this.setBaseStyles();
-        window.addEventListener("scroll", this.handleScroll);
-      }
-    }
-    disconnect() {
-      window.removeEventListener("scroll", this.handleScroll);
-    }
-    assignNavBarElement() {
-      let navBarElement = document.querySelector("nav");
-      if (navBarElement) {
-        this.navBarElement = navBarElement;
-      } else {
-        throw new Error("Sticky Controller: Navbar element not found");
-      }
-    }
-    setBaseStyles() {
-      this.element.style.zIndex = "1";
-      this.element.style.position = "sticky";
-      this.element.style.top = this.navBarElement.offsetHeight + "px";
-      const transitionValue = this.element.style.transition ? this.element.style.transition + ", max-height 0.3s" : "max-height 0.3s";
-      this.element.style.transition = transitionValue;
-    }
-  };
-
   // app/javascript/controllers/recipes/ingredients_panel_controller.ts
-  var IngredientsPanelController = class extends StickyController {
+  var IngredientsPanelController = class extends Controller {
     static {
       this.values = {
         shouldCollapse: Boolean
@@ -20345,6 +20280,73 @@
     }
   };
 
+  // app/javascript/controllers/sticky_controller.ts
+  var StickyController = class extends Controller {
+    constructor() {
+      super(...arguments);
+      this.isLocked = false;
+      this.handleScroll = () => {
+        if (this.isLocked)
+          return;
+        if (this.hasShouldCollapseValue && this.shouldCollapseValue) {
+          this.isLocked = true;
+          this.handleCollapse();
+          setTimeout(() => {
+            this.isLocked = false;
+          }, 100);
+        }
+      };
+      this.handleCollapse = () => {
+        const elementRect = this.element.getBoundingClientRect();
+        if (window.scrollY > elementRect.top + elementRect.height * 0.75) {
+          this.collapse();
+        } else {
+          this.restore();
+        }
+      };
+      this.collapse = () => {
+        this.element.classList.add("max-vh-25");
+        this.element.classList.add("sticky-collapsed");
+        this.element.classList.remove("max-vh-100");
+      };
+      this.restore = () => {
+        this.element.classList.add("max-vh-100");
+        this.element.classList.remove("max-vh-25");
+        this.element.classList.remove("sticky-collapsed");
+      };
+    }
+    static {
+      this.values = {
+        shouldCollapse: Boolean
+      };
+    }
+    connect() {
+      if (window.innerWidth <= 768) {
+        this.assignNavBarElement();
+        this.setBaseStyles();
+        window.addEventListener("scroll", this.handleScroll);
+      }
+    }
+    disconnect() {
+      window.removeEventListener("scroll", this.handleScroll);
+    }
+    assignNavBarElement() {
+      let navBarElement = document.querySelector("nav");
+      if (navBarElement) {
+        this.navBarElement = navBarElement;
+      } else {
+        throw new Error("Sticky Controller: Navbar element not found");
+      }
+    }
+    setBaseStyles() {
+      this.element.style.zIndex = "1";
+      this.element.style.position = "sticky";
+      this.element.style.top = this.navBarElement.offsetHeight + "px";
+      const transitionValue = this.element.style.transition ? this.element.style.transition + ", max-height 0.3s" : "max-height 0.3s";
+      this.element.style.transition = transitionValue;
+    }
+  };
+
   // app/javascript/controllers/index.ts
   application.register("smart-recipe-form", SmartRecipeFormController);
   application.register("toasts", ToastsController);
@@ -20352,6 +20354,7 @@
   application.register("ingredients-panel", IngredientsPanelController);
   application.register("smart-select", SmartSelectController);
   application.register("sortable", r);
+  application.register("sticky", StickyController);
   application.register("image-preview", ImagePreviewController);
   application.register("infinite-scrolling", InfiniteScrollingController);
 })();

@@ -143,7 +143,7 @@ RSpec.describe 'Creating Recipes', type: :system do
         new_measurement_unit_name = 'NEW MSMT UNIT'
 
         expect do
-          within('.recipe__ingredients_panel') do
+          within('.recipe__ingredients__panel') do
             find("button[title='#{I18n.t('forms.add_new')}']").click
           end
 

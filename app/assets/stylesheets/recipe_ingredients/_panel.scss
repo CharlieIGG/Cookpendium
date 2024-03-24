@@ -1,6 +1,6 @@
 $ingredients__panel_base_width: 400px;
 
-.recipe__ingredients_panel {
+.recipe__ingredients__panel {
     overflow-y: auto;
     transform: translateX(0px);
     transition:
@@ -31,6 +31,14 @@ $ingredients__panel_base_width: 400px;
         transform: translateY(24px);
         border-radius: 50%, 50%, 0, 0;
     }
+    &.sticky-collapsed {
+        .recipe__ingredients__scroll_cta {
+            display: block !important;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
 }
 
 .navbar__with_ingredients_panel,
@@ -40,7 +48,7 @@ $ingredients__panel_base_width: 400px;
     }
 }
 
-.d-none .recipe__ingredients_panel {
+.d-none .recipe__ingredients__panel {
     transform: translateX($ingredients__panel_base_width);
 }
 
@@ -48,7 +56,7 @@ $ingredients__panel_base_width: 400px;
     position: relative;
 }
 
-.recipe__ingredients_panel__remove_button {
+.recipe__ingredients__panel__remove_button {
     position: absolute;
     right: 0.5rem;
     top: 0;

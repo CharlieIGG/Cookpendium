@@ -1,8 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 import { useIntersection } from "stimulus-use";
-import StickyController from "../sticky_controller";
 
-export default class IngredientsPanelController extends StickyController {
+export default class IngredientsPanelController extends Controller {
     declare navBarElement: HTMLElement;
     declare bodyElement: HTMLElement;
     declare shouldCollapseValue: boolean;
