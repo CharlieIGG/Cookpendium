@@ -1,4 +1,4 @@
-<div class="p-5 ms-5">
+<div class="p-4 p-lg-5 ms-lg-5">
   <div class="recipe_details flex-grow-1">
     <%= turbo_frame_tag "new_recipe_form", target: :_top do %>
       <%= render "form", recipe: @recipe, title: t('activerecord.actions.edit', model: Recipe.model_name.human),
