@@ -85,8 +85,8 @@ services:
       - postgres
       - esbuild
       - css_watch
-      # - redis
-      # - worker
+      - redis
+      - worker
 
   # This container autocompiles and serves JS assets for our development environment.
   # The assets are served on the shared context for the web container to consume. No port allocation needed.
@@ -126,14 +126,13 @@ services:
       - postgres
     shm_size: "256mb" # Needed for the Chrome headless browser to run without issues
 
-
-  # worker:
-  #   <<: *app
-  #   command: sidekiq -c 1
-  #   environment:
-  #     <<: *app_environment
-  #     REDIS_URL: redis://redis:6379/1
-  #     RAILS_ENV: development
-  #     RACK_ENV: development
-  #     RAILS_LOG_TO_STDOUT: "true"
-  #     EXPORTER_HOST: "web:3000"
+  worker:
+    <<: *app
+    command: sidekiq -c 1
+    environment:
+      <<: *app_environment
+      REDIS_URL: redis://redis:6379/1
+      RAILS_ENV: development
+      RACK_ENV: development
+      RAILS_LOG_TO_STDOUT: "true"
+      EXPORTER_HOST: "web:3000"
