@@ -17,7 +17,7 @@ en:
       placeholder: "Search for a recipe"
       no_results: "No recipes found..."
       no_results_explanation: "Try searching for something else. If you're filtering by ingredients, try removing some."
-      filter_by_ingredients: "Filter by ingredients: only recipes containing these ingredients are shown."
+      filter_by_ingredients: "Filter by ingredients"
     destroy:
       confirmation: "Are you sure you want to delete this recipe? This action cannot be undone."
       success: "Recipe was successfully deleted."

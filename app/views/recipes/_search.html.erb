@@ -1,16 +1,20 @@
-<%= form_tag(recipes_path, method: :get, data: {turbo_stream: true}, class: "recipes__search form-inline d-flex align-items-center flex-grow-1 me-3") do %>
+<%= form_tag(recipes_path, method: :get, data: {turbo_stream: true}, class: "recipes__search form-inline d-flex align-items-center flex-grow-1") do %>
   <div class="flex-column d-flex flex-grow-1">
-    <div class="form-group me-3 mb-2 search_field ">
+    <div class="form-group mb-2 search_field ">
       <span class='material-symbols-outlined me-1 search_field__icon'>search</span>
       <%= text_field_tag :search_text, params[:search_text], class: "form-control border rounded-pill mb-0", placeholder: t('recipes.search.placeholder'), "aria-label": "Search" %>
     </div>
-    <div class="form-group me-3">
-      <%= select_tag :search_ingredient_ids, options_for_select(Ingredient.by_name.map { |i| [i.name, i.id] }, params[:search_ingredient_ids]),
-                       { prompt: t('recipes.search.filter_by_ingredients'), multiple: true, class: "form-control",data: { 
+    <div class="d-flex">
+      <div class="form-group flex-grow-1">
+        <%= select_tag :search_ingredient_ids, options_for_select(Ingredient.by_name.map { |i| [i.name, i.id] }, params[:search_ingredient_ids]),
+                       { multiple: true, class: "form-control rounded-pill",data: { 
                         controller: "smart-select", "smart-select-create-value": false,
-                        "smart-select-model-name-value": "measurement_unit" 
+                        "smart-select-model-name-value": "measurement_unit",
+                        "smart-select-placeholder-value": t('recipes.search.filter_by_ingredients') 
                         }} %>
+      </div>
+      <%= submit_tag t('helpers.search'), class: "btn btn-primary d-lg-none ms-3" %>
     </div>
   </div>
-  <%= submit_tag t('helpers.search'), class: "btn btn-primary" %>
+  <%= submit_tag t('helpers.search'), class: "btn btn-primary d-none d-lg-block ms-3" %>
 <% end %>

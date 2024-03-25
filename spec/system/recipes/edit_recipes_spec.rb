@@ -58,7 +58,7 @@ RSpec.describe 'Edit Recipes', type: :system do
 
       it 'can update an ingredient' do
         visit edit_recipe_path(recipe)
-        within('.recipe__ingredients_panel') do
+        within('.recipe__ingredients__panel') do
           within('.nested-recipe-ingredient-wrapper:nth-of-type(1)') do
             fill_in RecipeIngredient.human_attribute_name(:quantity), with: 10
           end
@@ -83,7 +83,7 @@ RSpec.describe 'Edit Recipes', type: :system do
         visit edit_recipe_path(recipe)
         new_ingredient_count = recipe.recipe_ingredients.count + 1
         expect do
-          within('.recipe__ingredients_panel') do
+          within('.recipe__ingredients__panel') do
             find("button[title='#{I18n.t('forms.add_new')}']").click
 
             expect(all('label',
@@ -91,7 +91,7 @@ RSpec.describe 'Edit Recipes', type: :system do
 
             new_ingredient_name = 'New Ingredient'
             new_measurement_unit_name = 'New Measurement Unit'
-            page.execute_script("document.querySelector('.recipe__ingredients_panel').scrollTo(0, document.querySelector('.recipe__ingredients_panel').scrollHeight)")
+            page.execute_script("document.querySelector('.recipe__ingredients__panel').scrollTo(0, document.querySelector('.recipe__ingredients__panel').scrollHeight)")
             within(".nested-recipe-ingredient-wrapper:nth-of-type(#{new_ingredient_count})") do
               fill_in RecipeIngredient.human_attribute_name(:quantity), with: 10
               smart_select(new_ingredient_name,

@@ -1,34 +1,27 @@
-<div class="container-fluid bg-primary vh-100 d-flex align-items-center">
-  <div class="row justify-content-center w-100">
-    <div class="col-lg-4 col-md-8 col-sm-10 card bg-primary-subtle d-flex align-items-center">
-      <div class="card-body w-75">
-        <div class="row text-center">
-          <div class="mb-4 devise__title-container text-center">
-            <h1 class="devise__title fs-1 mt-4"><%= t('users.my_profile') %></h1>
-          </div>
-          <% if @user.username.nil? %>
-            <p><%= t('users.set_username_cta') %></p>
-          <% end %>
+<div class="d-flex vw-100 vh-100 bg-primary align-items-start align-items-lg-center justify-content-center">
+  <div class="card d-flex align-items-center bg-primary-subtle p-lg-5 mt-5 mt-lg-n5">
+    <div class="card-body p-lg-2 p-4">
+      <div class="row text-center">
+        <div class="mb-4 devise__title-container text-center">
+          <h1 class="devise__title fs-1 mt-4"><%= t('users.my_profile') %></h1>
         </div>
-        <%= form_for(@user, data: {turbo: false}) do |f| %>
-          <div class="field mb-3">
-            <%= f.label :username %><br />
-            <%= f.text_field :username, value: @user.username || @suggested_username, autofocus: true, 
-                disabled: @user.username.present?, class: "form-control", "aria-describedby":"username-help" %>
-            <div id="username-help" class="form-text"><%= t('users.username_warning') %>
-            </div>
-          </div>
-          <div class="actions text-center d-flex flex-column my-4">
-            <%= f.submit t('forms.save'), disabled: @user.username.present?, class: "btn btn-secondary text-light mb-3" %>
-            <%= link_to t('forms.back'), root_path, class: "btn btn-outline-secondary" %>
-          </div>
+        <% if @user.username.nil? %>
+          <p><%= t('users.set_username_cta') %></p>
         <% end %>
       </div>
+      <%= form_for(@user, data: {turbo: false}) do |f| %>
+        <div class="field mb-3">
+          <%= f.label :username %><br />
+          <%= f.text_field :username, value: @user.username || @suggested_username, autofocus: true, 
+                disabled: @user.username.present?, class: "form-control", "aria-describedby":"username-help" %>
+          <div id="username-help" class="form-text"><%= t('users.username_warning') %>
+          </div>
+        </div>
+        <div class="actions text-center d-flex flex-column my-4">
+          <%= f.submit t('forms.save'), disabled: @user.username.present?, class: "btn btn-secondary text-light mb-3" %>
+          <%= link_to t('forms.back'), root_path, class: "btn btn-outline-secondary" %>
+        </div>
+      <% end %>
     </div>
-    <div class="my-5"></div>
-    <div class="my-5"></div>
-    <div class="my-5"></div>
-    <div class="my-5"></div>
-    <div class="my-5"></div>
   </div>
 </div>

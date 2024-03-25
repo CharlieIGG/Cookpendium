@@ -14793,9 +14793,15 @@
   };
   ThrottleController.throttles = [];
 
-  // app/javascript/controllers/recipes/ingredients_panel.ts
+  // app/javascript/controllers/recipes/ingredients_panel_controller.ts
   var IngredientsPanelController = class extends Controller {
+    static {
+      this.values = {
+        shouldCollapse: Boolean
+      };
+    }
     connect() {
+      super.connect();
       useIntersection(this);
       this.navBarElement = document.querySelector(".navbar");
       this.bodyElement = document.querySelector("body");
@@ -20061,7 +20067,7 @@
     }
   };
 
-  // app/javascript/controllers/smart_select.ts
+  // app/javascript/controllers/smart_select_controller.ts
   var import_tom_select = __toESM(require_tom_select_complete());
   var SmartSelectController = class extends Controller {
     static {
@@ -20070,16 +20076,17 @@
         createUrl: String,
         modelName: String,
         createByAttribute: String,
-        createText: { type: String, default: "New" }
+        createText: { type: String, default: "New" },
+        placeholder: String
       };
     }
     initialize() {
       this.createNewEntry = this.createNewEntry.bind(this);
     }
     connect() {
-      useIntersection(this);
+      this.setup();
     }
-    appear() {
+    setup() {
       this.smartSelect = new import_tom_select.default(this.element, {
         create: this.createValue ? this.createNewEntry : false,
         render: {
@@ -20087,6 +20094,8 @@
             return `<div class="option create text-secondary">${this.createTextValue} <strong>${escape(data.input)}</strong></div>`;
           }
         },
+        hidePlaceholder: true,
+        placeholder: this.hasPlaceholderValue ? this.placeholderValue : void 0,
         onItemAdd: () => {
           this.smartSelect.setTextboxValue("");
           this.smartSelect.refreshOptions(false);
@@ -20146,7 +20155,7 @@
     }
   };
 
-  // app/javascript/controllers/toasts.ts
+  // app/javascript/controllers/toasts_controller.ts
   var ToastsController = class extends Controller {
     static {
       this.targets = ["toast"];
@@ -20163,7 +20172,7 @@
   // app/javascript/constants/css_manipulation.ts
   var HIDE_CLASS = "d-none";
 
-  // app/javascript/controllers/image_preview.ts
+  // app/javascript/controllers/image_preview_controller.ts
   var ImagePreviewController = class extends Controller {
     static {
       this.targets = ["output", "input", "approval", "preview", "initiator"];
@@ -20271,6 +20280,73 @@
     }
   };
 
+  // app/javascript/controllers/sticky_controller.ts
+  var StickyController = class extends Controller {
+    constructor() {
+      super(...arguments);
+      this.isLocked = false;
+      this.handleScroll = () => {
+        if (this.isLocked)
+          return;
+        if (this.hasShouldCollapseValue && this.shouldCollapseValue) {
+          this.isLocked = true;
+          this.handleCollapse();
+          setTimeout(() => {
+            this.isLocked = false;
+          }, 100);
+        }
+      };
+      this.handleCollapse = () => {
+        const elementRect = this.element.getBoundingClientRect();
+        if (window.scrollY > elementRect.top + elementRect.height * 0.75) {
+          this.collapse();
+        } else {
+          this.restore();
+        }
+      };
+      this.collapse = () => {
+        this.element.classList.add("max-vh-25");
+        this.element.classList.add("sticky-collapsed");
+        this.element.classList.remove("max-vh-100");
+      };
+      this.restore = () => {
+        this.element.classList.add("max-vh-100");
+        this.element.classList.remove("max-vh-25");
+        this.element.classList.remove("sticky-collapsed");
+      };
+    }
+    static {
+      this.values = {
+        shouldCollapse: Boolean
+      };
+    }
+    connect() {
+      if (window.innerWidth <= 768) {
+        this.assignNavBarElement();
+        this.setBaseStyles();
+        window.addEventListener("scroll", this.handleScroll);
+      }
+    }
+    disconnect() {
+      window.removeEventListener("scroll", this.handleScroll);
+    }
+    assignNavBarElement() {
+      let navBarElement = document.querySelector("nav");
+      if (navBarElement) {
+        this.navBarElement = navBarElement;
+      } else {
+        throw new Error("Sticky Controller: Navbar element not found");
+      }
+    }
+    setBaseStyles() {
+      this.element.style.zIndex = "1";
+      this.element.style.position = "sticky";
+      this.element.style.top = this.navBarElement.offsetHeight + "px";
+      const transitionValue = this.element.style.transition ? this.element.style.transition + ", max-height 0.3s" : "max-height 0.3s";
+      this.element.style.transition = transitionValue;
+    }
+  };
+
   // app/javascript/controllers/index.ts
   application.register("smart-recipe-form", SmartRecipeFormController);
   application.register("toasts", ToastsController);
@@ -20278,6 +20354,7 @@
   application.register("ingredients-panel", IngredientsPanelController);
   application.register("smart-select", SmartSelectController);
   application.register("sortable", r);
+  application.register("sticky", StickyController);
   application.register("image-preview", ImagePreviewController);
   application.register("infinite-scrolling", InfiniteScrollingController);
 })();
