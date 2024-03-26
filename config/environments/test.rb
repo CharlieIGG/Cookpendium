@@ -16,6 +16,8 @@ Rails.application.configure do
                         association: :translations
   end
 
+  config.active_job.queue_adapter = :sidekiq
+
   config.logger = ActiveSupport::TaggedLogging.new(Logger.new(nil))
   config.log_level = :fatal
   # Settings specified here will take precedence over those in config/application.rb.

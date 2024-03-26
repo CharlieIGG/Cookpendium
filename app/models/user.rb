@@ -59,4 +59,8 @@ class User < ApplicationRecord
   def assign_default_role
     add_role(:basic_user) if roles.blank?
   end
+
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
+  end
 end

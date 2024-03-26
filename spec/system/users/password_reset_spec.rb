@@ -5,24 +5,18 @@ RSpec.describe 'Passwords', type: :system do
 
   describe 'Reset' do
     it 'can get an email to recover their password' do
-      visit new_user_password_path
+      expect do
+        visit new_user_password_path
 
-      fill_in User.human_attribute_name(:email), with: user.email
-      click_button I18n.t('devise.passwords.send_email_cta_button')
+        fill_in User.human_attribute_name(:email), with: user.email
+        click_button I18n.t('devise.passwords.send_email_cta_button')
 
-      expect(page).to have_content(I18n.t('devise.passwords.send_instructions'))
-      expect(ActionMailer::Base.deliveries.count).to eq(1)
+        expect(page).to have_content(I18n.t('devise.passwords.send_instructions'))
+      end.to change { Sidekiq::Worker.jobs.size }.by(1)
     end
 
     it 'can reset their password' do
-      User.send_reset_password_instructions(email: user.email)
-
-      email = ActionMailer::Base.deliveries.last
-      html = Nokogiri::HTML(email.body.to_s)
-      target_url = html.at("a:contains('#{I18n.t('devise.passwords.email.link_cta')}')")['href']
-      relative_target_url = target_url.split('localhost:3000').last # non-relative paths are causing Selenium to send net::ERR_CONNECTION_REFUSED
-
-      visit relative_target_url
+      visit edit_user_password_path(user, reset_password_token: user.send_reset_password_instructions)
 
       fill_in I18n.t('devise.passwords.new_password'), with: 'new_password'
       fill_in I18n.t('devise.passwords.new_password_confirmation'), with: 'new_password'
