@@ -1,17 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe 'User Registration', type: :system do # rubocop:disable Metrics/BlockLength
+RSpec.describe 'User Registration', type: :system do
   describe 'with valid data' do
     it 'creates a user record and sends a confirmation email' do
-      visit new_user_registration_path
+      expect do
+        visit new_user_registration_path
 
-      fill_in I18n.t('activerecord.attributes.user.email'), with: 'test@example.com'
-      fill_in I18n.t('activerecord.attributes.user.password'), with: 'password'
-      fill_in I18n.t('activerecord.attributes.user.password_confirmation'), with: 'password'
-      click_button I18n.t('devise.registrations.sign_up')
+        fill_in I18n.t('activerecord.attributes.user.email'), with: 'test@example.com'
+        fill_in I18n.t('activerecord.attributes.user.password'), with: 'password'
+        fill_in I18n.t('activerecord.attributes.user.password_confirmation'), with: 'password'
+        click_button I18n.t('devise.registrations.sign_up')
 
-      expect(User.count).to eq(1)
-      expect(ActionMailer::Base.deliveries.count).to eq(1)
+        expect(User.count).to eq(1)
+      end.to change { Sidekiq::Worker.jobs.size }.by(1)
     end
   end
 
