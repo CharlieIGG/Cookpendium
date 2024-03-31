@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe AITools::RecipeParser, type: :service do # rubocop:disable Metrics/BlockLength
-  describe '#parse' do # rubocop:disable Metrics/BlockLength
+RSpec.describe AITools::RecipeParser, type: :service do
+  describe '#parse' do
     context 'when a proper text is entered' do
       it 'returns a valid JSON representing a recipe' do
         VCR.use_cassette('recipe_parser/valid_recipe') do
