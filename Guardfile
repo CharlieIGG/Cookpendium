@@ -62,4 +62,10 @@ guard :rspec, cmd: 'bundle exec rspec --fail-fast', failed_mode: :focus do
   # Capybara features specs
   watch(rails.view_dirs)     { |m| rspec.spec.call("features/#{m[1]}") }
   watch(rails.layouts)       { |m| rspec.spec.call("features/#{m[1]}") }
+
+  # Concerns
+  watch(%r{app/models/concerns/(.+)\.rb}) { |m| "spec/models/concerns/#{m[1]}_spec.rb" }
+
+  # Services
+  watch(%r{app/services/(.+)\.rb}) { |m| "spec/services/#{m[1]}_spec.rb" }
 end
