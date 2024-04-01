@@ -17,6 +17,8 @@
 #  fk_rails_...  (grocery_section_id => grocery_sections.id)
 #
 class Ingredient < ApplicationRecord
+  include AutoTranslateable
+
   translates :name
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
