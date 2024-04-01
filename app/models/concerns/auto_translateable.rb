@@ -6,6 +6,8 @@ module AutoTranslateable
   extend ActiveSupport::Concern
 
   included do
+    after_commit :auto_translate_later
+
     def auto_translate
       target_locales = target_translation_locales
       target_attributes = translateable_attributes
@@ -19,7 +21,7 @@ module AutoTranslateable
     end
 
     def auto_translate_later
-      AutoTranslateJob.perform_later(id, model_name)
+      AutoTranslateJob.perform_later(id, model_name.to_s)
     end
 
     def target_translation_locales
