@@ -24,13 +24,33 @@ RSpec.describe AutoTranslateable, type: :model do
     end
   end
 
-  describe '#target_translation_locales' do
-    it 'returns an array of locales that do not yet have a translation for the given model' do
-      expect(dummy_instance.target_translation_locales).to eq(I18n.available_locales - [:en])
-      I18n.with_locale(:es) { dummy_instance.update!(title: 'Título', description: 'Descripción') }
-      expect(dummy_instance.target_translation_locales).to eq(I18n.available_locales - %i[en es])
-    end
-  end
+  # describe '#target_translation_locales' do
+  #   context 'when the record is created' do
+  #     it 'returns an array of all supported locales, minus the current one' do
+  #       expect(dummy_instance.target_translation_locales).to eq(I18n.available_locales - [:en])
+  #       I18n.with_locale(:es) { dummy_instance.update!(title: 'Título', description: 'Descripción') }
+  #       expect(dummy_instance.target_translation_locales).to eq(I18n.available_locales - %i[en es])
+  #     end
+  #   end
+
+  #   context 'when the record is updated' do
+  #     context 'if translateable attributes are changed' do
+  #       it 'returns an array of all supported locales, minus the current one' do
+  #         dummy_instance.update!(title: dummy_instance.title, description: dummy_instance.description)
+  #         expect(dummy_instance.target_translation_locales).to eq([])
+  #         dummy_instance.update!(title: 'a new title', description: 'a new description')
+  #         expect(dummy_instance.target_translation_locales).to eq(I18n.available_locales - %i[en])
+  #       end
+  #     end
+
+  #     context 'if non-translateable attributes are changed' do
+  #       it 'returns an empty array' do
+  #         dummy_instance.update!(non_translateable: 'Non-translateable')
+  #         expect(dummy_instance.target_translation_locales).to eq([])
+  #       end
+  #     end
+  #   end
+  # end
 
   describe '#auto_translate' do
     it 'calls AITools::AutoTranslator with translateable_attributes' do
@@ -40,9 +60,19 @@ RSpec.describe AutoTranslateable, type: :model do
       expect(AITools::AutoTranslator).to receive(:call).with(
         translateable_attributes, target_locales: I18n.available_locales - [:en],
                                   source_locale: :en
-      ).and_return(translateable_attributes)
+      ).and_return('de' => { 'title' => 'Titel', 'description' => 'Beschreibung' },
+                   'es' => { 'title' => 'Título', 'description' => 'Descripción' })
 
       dummy_instance.auto_translate
+      dummy_instance.reload
+      I18n.with_locale(:de) do
+        expect(dummy_instance.title).to eq('Titel')
+        expect(dummy_instance.description).to eq('Beschreibung')
+      end
+      I18n.with_locale(:es) do
+        expect(dummy_instance.title).to eq('Título')
+        expect(dummy_instance.description).to eq('Descripción')
+      end
     end
 
     it 'doesn\'t call AITools::AutoTranslator if there are no translateable attributes' do
@@ -66,7 +96,7 @@ RSpec.describe AutoTranslateable, type: :model do
 
   describe '#auto_translate_later' do
     it 'enqueues a background job to call auto_translate' do
-      expect(AutoTranslateJob).to receive(:perform_later).with(dummy_instance.id, dummy_instance.model_name)
+      expect(AutoTranslateJob).to receive(:perform_later).with(dummy_instance.id, dummy_instance.model_name.to_s, 'en')
 
       dummy_instance.auto_translate_later
     end

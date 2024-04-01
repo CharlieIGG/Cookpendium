@@ -17,11 +17,15 @@ module AutoTranslateable
         target_attributes, target_locales:,
                            source_locale: I18n.locale
       )
-      update!(translated_attributes)
+      ActiveRecord::Base.transaction do
+        translated_attributes.each do |locale, attributes|
+          update!(**attributes, locale:)
+        end
+      end
     end
 
     def auto_translate_later
-      AutoTranslateJob.perform_later(id, model_name.to_s)
+      AutoTranslateJob.perform_later(id, model_name.to_s, I18n.locale.to_s)
     end
 
     def target_translation_locales

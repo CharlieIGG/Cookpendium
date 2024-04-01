@@ -4,8 +4,10 @@
 class AutoTranslateJob < ApplicationJob
   queue_as :default
 
-  def perform(model_id, class_name)
-    model = class_name.constantize.find(model_id)
-    model.auto_translate
+  def perform(model_id, class_name, locale)
+    I18n.with_locale(locale) do
+      model = class_name.constantize.find(model_id)
+      model.auto_translate
+    end
   end
 end
