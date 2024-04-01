@@ -20,7 +20,7 @@ module AITools
     private
 
     def translate
-      client.chat(
+      response = client.chat(
         parameters: {
           model: 'gpt-3.5-turbo-1106',
           response_format: { type: 'json_object' },
@@ -28,16 +28,19 @@ module AITools
           temperature: 0.5
         }
       )
+      JSON.parse(response.dig('choices', 0, 'message', 'content'))
     end
 
     def assistant_messages
       [
         { role: 'system',
           content: "Translate the following #{model_name} to the following ISO 639-1 languages: #{target_locales.join(',')}." },
+        { role: 'system', content: "The original language (ISO 639-1 code) is #{source_locale}." },
+        { role: 'system', content: 'Translate within the context of cooking recipes.' },
         { role: 'system',
           content: 'Return the translation as a JSON object, with the root containing the ISO 639-1 language code. '\
                    'Each key value should be an object with the translated attributes for the corresponding language' },
-        { role: 'system', content: attributes }
+        { role: 'system', content: attributes.to_json }
       ]
     end
   end
