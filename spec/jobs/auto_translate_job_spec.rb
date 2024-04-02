@@ -9,7 +9,7 @@ RSpec.describe AutoTranslateJob, type: :job do
       expect(AutoTranslateableDummyModel).to receive(:find).with(dummy_instance.id).and_return(dummy_instance)
       expect(dummy_instance).to receive(:auto_translate)
 
-      AutoTranslateJob.perform_now(dummy_instance.id, 'AutoTranslateableDummyModel')
+      AutoTranslateJob.perform_now(dummy_instance.id, 'AutoTranslateableDummyModel', source_locale: 'en')
     end
   end
 end

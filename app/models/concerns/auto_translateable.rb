@@ -5,8 +5,17 @@
 module AutoTranslateable
   extend ActiveSupport::Concern
 
-  included do
+  included do # rubocop:disable Metrics/BlockLength
+    after_commit :check_for_translateable_changes, on: %i[update]
     after_commit :auto_translate_later
+
+    attr_accessor :overwrite_translations
+
+    def check_for_translateable_changes
+      self.overwrite_translations = previous_changes.keys.any? do |attr|
+        self.class.translated_attribute_names.include?(attr.to_sym)
+      end
+    end
 
     def auto_translate
       target_locales = target_translation_locales
@@ -25,10 +34,13 @@ module AutoTranslateable
     end
 
     def auto_translate_later
-      AutoTranslateJob.perform_later(id, model_name.to_s, I18n.locale.to_s)
+      AutoTranslateJob.perform_later(id, model_name.to_s, source_locale: I18n.locale.to_s,
+                                                          overwrite: overwrite_translations)
     end
 
     def target_translation_locales
+      return I18n.available_locales - [I18n.locale] if overwrite_translations
+
       I18n.available_locales - translations.pluck(:locale).map(&:to_sym)
     end
 

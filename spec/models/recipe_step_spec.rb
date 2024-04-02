@@ -49,7 +49,7 @@ RSpec.describe RecipeStep, type: :model do
   it 'should automatically call the auto_translate_later method after creating or updating' do
     expect do
       create(:recipe_step)
-    end.to have_enqueued_job(AutoTranslateJob).with(kind_of(Integer), 'RecipeStep')
+    end.to have_enqueued_job(AutoTranslateJob).with(kind_of(Integer), 'RecipeStep', source_locale: 'en', overwrite: nil)
     expect(subject).to receive(:auto_translate_later)
     subject.update!(instruction: 'A different instruction', description: 'A varied description')
   end

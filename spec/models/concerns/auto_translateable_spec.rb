@@ -28,8 +28,34 @@ RSpec.describe AutoTranslateable, type: :model do
     context 'when the record is created' do
       it 'returns an array of all supported locales, minus the current one' do
         expect(dummy_instance.target_translation_locales).to eq(I18n.available_locales - [:en])
-        I18n.with_locale(:es) { dummy_instance.update!(title: 'Título', description: 'Descripción') }
-        expect(dummy_instance.target_translation_locales).to eq(I18n.available_locales - %i[en es])
+      end
+    end
+
+    context 'when the record is updated' do
+      before do
+        # assume that the record has already been translated upon creation
+        (I18n.available_locales - [:en]).each do |locale|
+          I18n.with_locale(locale) { dummy_instance.update!(title: 'Title', description: 'Description') }
+        end
+      end
+      context 'if translateable attributes are changed' do
+        it 'returns an array of all supported locales, minus the current one' do
+          dummy_instance.reload
+
+          I18n.with_locale(:en) do
+            dummy_instance.update!(title: dummy_instance.title, description: dummy_instance.description) # no real change
+            expect(dummy_instance.target_translation_locales).to eq([])
+            dummy_instance.update!(title: 'a new title', description: 'a new description')
+            expect(dummy_instance.target_translation_locales).to eq(I18n.available_locales - %i[en])
+          end
+        end
+      end
+
+      context 'if non-translateable attributes are changed' do
+        it 'returns an empty array' do
+          dummy_instance.update!(vegetarian: true)
+          expect(dummy_instance.target_translation_locales).to eq([])
+        end
       end
     end
   end
@@ -78,7 +104,9 @@ RSpec.describe AutoTranslateable, type: :model do
 
   describe '#auto_translate_later' do
     it 'enqueues a background job to call auto_translate' do
-      expect(AutoTranslateJob).to receive(:perform_later).with(dummy_instance.id, dummy_instance.model_name.to_s, 'en')
+      expect(AutoTranslateJob).to receive(:perform_later).with(dummy_instance.id,
+                                                               dummy_instance.model_name.to_s, source_locale: 'en',
+                                                                                               overwrite: nil)
 
       dummy_instance.auto_translate_later
     end

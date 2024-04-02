@@ -16,7 +16,8 @@ RSpec.describe MeasurementUnit, type: :model do
   it 'should automatically call the auto_translate_later method after creating or updating' do
     expect do
       create(:measurement_unit)
-    end.to have_enqueued_job(AutoTranslateJob).with(kind_of(Integer), 'MeasurementUnit')
+    end.to have_enqueued_job(AutoTranslateJob).with(kind_of(Integer), 'MeasurementUnit', source_locale: 'en',
+                                                                                         overwrite: nil)
     expect(subject).to receive(:auto_translate_later)
     subject.update!(name: 'A different name', abbreviation: 'A varied abbreviation')
   end

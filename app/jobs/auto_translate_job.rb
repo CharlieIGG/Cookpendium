@@ -4,9 +4,10 @@
 class AutoTranslateJob < ApplicationJob
   queue_as :default
 
-  def perform(model_id, class_name, locale)
-    I18n.with_locale(locale) do
+  def perform(model_id, class_name, source_locale:, overwrite: false)
+    I18n.with_locale(source_locale) do
       model = class_name.constantize.find(model_id)
+      model.overwrite_translations = overwrite
       model.auto_translate
     end
   end

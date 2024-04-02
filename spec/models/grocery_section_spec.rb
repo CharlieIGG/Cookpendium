@@ -26,7 +26,8 @@ RSpec.describe GrocerySection, type: :model do
   it 'should automatically call the auto_translate_later method after creating or updating' do
     expect do
       GrocerySection.create!(name: 'Produce', description: 'Fruits and vegetables')
-    end.to have_enqueued_job(AutoTranslateJob).with(kind_of(Integer), 'GrocerySection')
+    end.to have_enqueued_job(AutoTranslateJob).with(kind_of(Integer), 'GrocerySection', source_locale: 'en',
+                                                                                        overwrite: nil)
     expect(subject).to receive(:auto_translate_later)
     subject.update!(name: 'A different name', description: 'A varied description')
   end
