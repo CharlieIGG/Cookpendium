@@ -12,7 +12,7 @@ RSpec.describe 'Passwords', type: :system do
         click_button I18n.t('devise.passwords.send_email_cta_button')
 
         expect(page).to have_content(I18n.t('devise.passwords.send_instructions'))
-      end.to change { Sidekiq::Worker.jobs.size }.by(1)
+      end.to have_enqueued_job.on_queue('mailers')
     end
 
     it 'can reset their password' do

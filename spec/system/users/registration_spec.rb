@@ -12,7 +12,7 @@ RSpec.describe 'User Registration', type: :system do
         click_button I18n.t('devise.registrations.sign_up')
 
         expect(User.count).to eq(1)
-      end.to change { Sidekiq::Worker.jobs.size }.by(1)
+      end.to have_enqueued_job.on_queue('mailers')
     end
   end
 
