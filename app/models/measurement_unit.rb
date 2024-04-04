@@ -11,6 +11,8 @@
 #  updated_at   :datetime         not null
 #
 class MeasurementUnit < ApplicationRecord
+  after_commit :auto_abbreviate_later
+
   include AutoTranslateable
 
   translates :name, :abbreviation
@@ -20,4 +22,16 @@ class MeasurementUnit < ApplicationRecord
   validates :abbreviation, uniqueness: { case_sensitive: false }, allow_blank: true
 
   scope :by_name, -> { order(:name) }
+
+  def auto_abbreviate
+    return if abbreviation&.length&.positive?
+
+    AITools::MeasurementUnitAbbreviator.call(name, locale: I18n.locale)
+  end
+
+  def auto_abbreviate_later
+    return if abbreviation&.length&.positive?
+
+    AutoAbbreviateUnitJob.perform_later(id, locale: I18n.locale)
+  end
 end
