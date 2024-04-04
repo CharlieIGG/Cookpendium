@@ -11,6 +11,8 @@
 #  updated_at   :datetime         not null
 #
 class MeasurementUnit < ApplicationRecord
+  include AutoTranslateable
+
   translates :name, :abbreviation
 
   validates :name, presence: true

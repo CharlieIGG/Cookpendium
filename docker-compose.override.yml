@@ -120,7 +120,6 @@ services:
       FDOC: 1 #Factory Doctor
       FPROF: 1 #Factory Prof
       RD_PROF: 1 #RSpec Dissect
-      OPENAI_API_KEY: S0M3_F4K3_4P1_K3Y
       STORAGE_BUCKET_NAME: cookpendium-test
     depends_on:
       - postgres

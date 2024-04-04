@@ -17,6 +17,7 @@
 #  updated_at           :datetime         not null
 #
 class Recipe < ApplicationRecord
+  include AutoTranslateable
   resourcify
 
   translates :title, :description, :serving_unit

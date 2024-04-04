@@ -30,4 +30,13 @@ RSpec.describe Ingredient, type: :model do
     I18n.locale = :en
     expect(ingredient.name).to eq('Carrot')
   end
+
+  it 'should automatically call the auto_translate_later method after creating or updating' do
+    expect do
+      Ingredient.create!(name: 'Carrot')
+    end.to have_enqueued_job(AutoTranslateJob)
+
+    expect(subject).to receive(:auto_translate_later)
+    subject.update!(name: 'A different name')
+  end
 end

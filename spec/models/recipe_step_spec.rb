@@ -22,23 +22,35 @@
 require 'rails_helper'
 
 RSpec.describe RecipeStep, type: :model do
+  let(:recipe) { create(:recipe) }
+  let(:instruction) { 'Mix the {{ingredient_name}} into the bowl' }
+  let(:description) { 'Mix the {{ingredient_name}} into the bowl with all the other ingredients' }
+  subject { build(:recipe_step, recipe:, instruction:, description:) }
+
   it { should validate_presence_of(:instruction) }
   it { should validate_presence_of(:step_number) }
   it { should validate_numericality_of(:step_number).only_integer.is_greater_than(0) }
 
   it 'is translatable' do
-    recipe = FactoryBot.create(:recipe)
-    recipe_step = RecipeStep.create!(recipe:, instruction: 'Mix the {{ingredient_name}} into the bowl',
-                                     description: 'Mix the {{ingredient_name}} into the bowl', step_number: 1)
+    expect(subject.instruction).to eq(instruction)
     I18n.locale = :de
-    expect(recipe_step.instruction).to eq(nil)
-    recipe_step.update!(instruction: 'Mische {{ingredient_name}} in die Schüssel',
-                        description: 'Mische {{ingredient_name}} in die Schüssel')
+    expect(subject.instruction).to eq(nil)
+    subject.update!(instruction: 'Mische {{ingredient_name}} in die Schüssel',
+                    description: 'Mische {{ingredient_name}} in die Schüssel')
+    expect(subject.instruction).to eq('Mische {{ingredient_name}} in die Schüssel')
     I18n.locale = :en
-    expect(recipe_step.instruction).to eq('Mix the {{ingredient_name}} into the bowl')
+    expect(subject.instruction).to eq(instruction)
   end
 
   it 'has a valid factory' do
     expect(FactoryBot.build(:recipe_step)).to be_valid
+  end
+
+  it 'should automatically call the auto_translate_later method after creating or updating' do
+    expect do
+      create(:recipe_step)
+    end.to have_enqueued_job(AutoTranslateJob).with(kind_of(Integer), 'RecipeStep', source_locale: 'en', overwrite: nil)
+    expect(subject).to receive(:auto_translate_later)
+    subject.update!(instruction: 'A different instruction', description: 'A varied description')
   end
 end
