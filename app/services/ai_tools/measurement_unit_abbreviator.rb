@@ -3,6 +3,7 @@
 require 'openai'
 
 module AITools
+  # Takes a measurement unit in string form (e.g. "liters") and produces an adequate abbreviation using AI
   class MeasurementUnitAbbreviator < ApplicationService
     attr_reader :measurement_unit, :client, :locale
 

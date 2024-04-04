@@ -1,0 +1,85 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-3.5-turbo-1106","response_format":{"type":"json_object"},"messages":[{"role":"system","content":"Translate
+        the following Recipe to the following ISO 639-1 languages: de,es."},{"role":"system","content":"Return
+        the translation as a JSON object, with the root containing the ISO 639-1 language
+        code. Each key value should be an object with the translated attributes for
+        the corresponding language"},{"role":"system","content":"{\"title\":\"Title\",\"description\":\"Description\"}"}],"temperature":0.5}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <API_KEY>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Openai-Organization: "<SENSITIVE>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 01 Apr 2024 07:37:02 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-cache, must-revalidate
+      Openai-Model:
+      - gpt-3.5-turbo-1106
+      Openai-Organization:
+      - user-1c6qkvaymbx4kybcuag9ndqy
+      Openai-Processing-Ms:
+      - '1015'
+      Openai-Version:
+      - '2020-10-01'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      X-Ratelimit-Limit-Requests:
+      - '10000'
+      X-Ratelimit-Limit-Tokens:
+      - '60000'
+      X-Ratelimit-Remaining-Requests:
+      - '9999'
+      X-Ratelimit-Remaining-Tokens:
+      - '59903'
+      X-Ratelimit-Reset-Requests:
+      - 8.64s
+      X-Ratelimit-Reset-Tokens:
+      - 97ms
+      X-Request-Id:
+      - req_1a6ac4a8fd8124427d1d641585e3548f
+      Cf-Cache-Status:
+      - DYNAMIC
+      Set-Cookie:
+      - __cf_bm=YcCWPFjTCi.bP79pmCsYD8KPVznfUe.g4vgVDLvgOVs-1711957022-1.0.1.1-oiM0nKo7a1yAPzEUT_qC.6jdcSXyBMiXzia_XsJ__cJdjui.LFzMs_hRPzYCp4pfuZYUsZ.qKNIWrNIsLWSryA;
+        path=/; expires=Mon, 01-Apr-24 08:07:02 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=UFExIbwy1ArLAP_0872lGXasQsOmZ3rEIWWLgcwBXHU-1711957022048-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 86d6e952c98d34e0-WAW
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        ewogICJpZCI6ICJjaGF0Y21wbC05OTZWeGx0NWNvemVRbDRJbmRWUDZkWHVtbUlobiIsCiAgIm9iamVjdCI6ICJjaGF0LmNvbXBsZXRpb24iLAogICJjcmVhdGVkIjogMTcxMTk1NzAyMSwKICAibW9kZWwiOiAiZ3B0LTMuNS10dXJiby0xMTA2IiwKICAiY2hvaWNlcyI6IFsKICAgIHsKICAgICAgImluZGV4IjogMCwKICAgICAgIm1lc3NhZ2UiOiB7CiAgICAgICAgInJvbGUiOiAiYXNzaXN0YW50IiwKICAgICAgICAiY29udGVudCI6ICJ7XG4gIFwiZGVcIjoge1xuICAgIFwidGl0bGVcIjogXCJUaXRlbFwiLFxuICAgIFwiZGVzY3JpcHRpb25cIjogXCJCZXNjaHJlaWJ1bmdcIlxuICB9LFxuICBcImVzXCI6IHtcbiAgICBcInRpdGxlXCI6IFwiVMOtdHVsb1wiLFxuICAgIFwiZGVzY3JpcHRpb25cIjogXCJEZXNjcmlwY2nDs25cIlxuICB9XG59IgogICAgICB9LAogICAgICAibG9ncHJvYnMiOiBudWxsLAogICAgICAiZmluaXNoX3JlYXNvbiI6ICJzdG9wIgogICAgfQogIF0sCiAgInVzYWdlIjogewogICAgInByb21wdF90b2tlbnMiOiA3OCwKICAgICJjb21wbGV0aW9uX3Rva2VucyI6IDQ5LAogICAgInRvdGFsX3Rva2VucyI6IDEyNwogIH0sCiAgInN5c3RlbV9maW5nZXJwcmludCI6ICJmcF84OTQ0OGVlNWRjIgp9Cg==
+  recorded_at: Mon, 01 Apr 2024 07:37:02 GMT
+recorded_with: VCR 6.2.0

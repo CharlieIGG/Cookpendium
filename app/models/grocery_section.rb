@@ -9,6 +9,8 @@
 #  updated_at  :datetime         not null
 #
 class GrocerySection < ApplicationRecord
+  include AutoTranslateable
+
   translates :name, :description
 
   validates :name, presence: true

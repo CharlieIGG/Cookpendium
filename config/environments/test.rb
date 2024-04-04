@@ -16,7 +16,7 @@ Rails.application.configure do
                         association: :translations
   end
 
-  config.active_job.queue_adapter = :sidekiq
+  config.active_job.queue_adapter = :test
 
   config.logger = ActiveSupport::TaggedLogging.new(Logger.new(nil))
   config.log_level = :fatal
