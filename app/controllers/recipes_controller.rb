@@ -79,6 +79,7 @@ class RecipesController < ApplicationController
 
   def create_with_ai(raw_recipe)
     @recipe = AITools::RecipeCreator.call(raw_recipe, recipe_params[:title], recipe_params[:description])
+    current_user.increment_ai_usage
     after_save
   rescue StandardError => e
     handle_recipe_import_error(e)

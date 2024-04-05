@@ -9,10 +9,31 @@ RSpec.describe 'Creating Recipes', type: :system do
   end
 
   describe 'via Form Fields' do
-    let_it_be(:user) { create(:user) }
+    let_it_be(:user, reload: true) { create(:user) }
 
     before(:each) do
       login_as user
+    end
+
+    describe 'limiting the usage of AI Tools' do
+      context 'when the user has not reached the limit' do
+        it 'allows the user to use AI Tools' do
+          visit new_recipe_path
+
+          expect(page).to have_content(Recipe.human_attribute_name(:ingredients_and_instructions))
+        end
+      end
+
+      context 'when the user has reached the limit' do
+        it 'does not allow the user to use AI Tools' do
+          user.update(ai_usage_this_week: MAX_AI_USAGE_PER_USER_PER_WEEK)
+          visit new_recipe_path
+
+          expect(page).not_to have_content(Recipe.human_attribute_name(:ingredients_and_instructions))
+          expect(page).to have_css('.recipe__ingredients__panel', visible: true)
+          expect(page).to have_content(I18n.t('helpers.ai_tools.limit_reached'))
+        end
+      end
     end
 
     describe 'using a raw text recipe (AI Tools)' do
@@ -91,6 +112,24 @@ RSpec.describe 'Creating Recipes', type: :system do
           expect(page).to have_content(I18n.t('helpers.created.one', model: Recipe.model_name.human))
         end.to change(Recipe, :count).by(1)
         expect(Recipe.last.authors.last).to eq(user)
+      end
+
+      it 'increases the user\'s AI usage count' do
+        ingredients_and_instructions = File.read(Rails.root.join('spec', 'fixtures', 'valid_raw_recipe.txt')).gsub(
+          "\n", "\r\n"
+        )
+        recipe_hash = YAML.load_file(Rails.root.join('spec', 'fixtures', 'recipe_hash.yaml'))
+        allow(AITools::RecipeParser).to receive(:call).with(ingredients_and_instructions).and_return(recipe_hash)
+
+        visit new_recipe_path
+
+        fill_in Recipe.human_attribute_name(:ingredients_and_instructions), with: ingredients_and_instructions
+
+        expect do
+          click_button I18n.t('helpers.submit.create', model: Recipe.model_name.human)
+          expect(page).to have_content(I18n.t('helpers.created.one', model: Recipe.model_name.human))
+          user.reload
+        end.to change(user, :ai_usage_this_week).by(1)
       end
     end
 

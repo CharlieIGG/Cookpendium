@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  ai_usage_this_week     :integer          default(0)
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime
@@ -52,6 +53,10 @@ class User < ApplicationRecord
 
   def author?(resource)
     has_role?(:author, resource)
+  end
+
+  def increment_ai_usage
+    increment!(:ai_usage_this_week)
   end
 
   private
