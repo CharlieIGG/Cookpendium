@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'User Registration', type: :system do
@@ -5,12 +7,10 @@ RSpec.describe 'User Registration', type: :system do
     it 'creates a user record and sends a confirmation email' do
       expect do
         visit new_user_registration_path
-
         fill_in I18n.t('activerecord.attributes.user.email'), with: 'test@example.com'
         fill_in I18n.t('activerecord.attributes.user.password'), with: 'password'
         fill_in I18n.t('activerecord.attributes.user.password_confirmation'), with: 'password'
         click_button I18n.t('devise.registrations.sign_up')
-
         expect(User.count).to eq(1)
       end.to have_enqueued_job.on_queue('mailers')
     end

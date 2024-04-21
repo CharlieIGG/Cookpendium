@@ -39,12 +39,18 @@ class User < ApplicationRecord
 
   after_create :assign_default_role
 
-  def self.from_omniauth(access_token)
-    data = access_token.info
-    user = User.where(email: data['email']).first
-    return user if user
+  class << self
+    def reset_ai_limits!
+      update_all(ai_usage_this_week: 0)
+    end
 
-    User.create(email: data['email'], password: Devise.friendly_token[0, 20]).tap(&:confirm)
+    def from_omniauth(access_token)
+      data = access_token.info
+      user = User.where(email: data['email']).first
+      return user if user
+
+      User.create(email: data['email'], password: Devise.friendly_token[0, 20]).tap(&:confirm)
+    end
   end
 
   def admin?
