@@ -27,6 +27,7 @@ en:
       ai:
         content_policy_violation: The provided text violates either our content policy, or the content policy of our AI provider. Please try again with a different input.
     ai_tools:
+      limit_reached: "You have reached the limit of AI Tools usage this week. Please try again later."
       use_ai: "Use Artificial Intelligence Tools"
       parser_explanation:
         With AI Tools, you can write any text in any format, with any length, and the system will

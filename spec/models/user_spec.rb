@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  ai_usage_this_week     :integer          default(0)
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime
@@ -27,5 +28,19 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   it { should validate_uniqueness_of(:username) }
-  it { should validate_uniqueness_of(:email) }
+  it { should validate_uniqueness_of(:email).case_insensitive }
+
+  describe 'class methods' do
+    describe '.reset_ai_limits!' do
+      it 'resets ai_usage_this_week to 0 for all users' do
+        user1 = create(:user, ai_usage_this_week: 1)
+        user2 = create(:user, ai_usage_this_week: 2)
+
+        User.reset_ai_limits!
+
+        expect(user1.reload.ai_usage_this_week).to eq(0)
+        expect(user2.reload.ai_usage_this_week).to eq(0)
+      end
+    end
+  end
 end

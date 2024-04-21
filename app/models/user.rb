@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  ai_usage_this_week     :integer          default(0)
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime
@@ -38,12 +39,18 @@ class User < ApplicationRecord
 
   after_create :assign_default_role
 
-  def self.from_omniauth(access_token)
-    data = access_token.info
-    user = User.where(email: data['email']).first
-    return user if user
+  class << self
+    def reset_ai_limits!
+      update_all(ai_usage_this_week: 0)
+    end
 
-    User.create(email: data['email'], password: Devise.friendly_token[0, 20]).tap(&:confirm)
+    def from_omniauth(access_token)
+      data = access_token.info
+      user = User.where(email: data['email']).first
+      return user if user
+
+      User.create(email: data['email'], password: Devise.friendly_token[0, 20]).tap(&:confirm)
+    end
   end
 
   def admin?
@@ -52,6 +59,10 @@ class User < ApplicationRecord
 
   def author?(resource)
     has_role?(:author, resource)
+  end
+
+  def increment_ai_usage
+    increment!(:ai_usage_this_week)
   end
 
   private

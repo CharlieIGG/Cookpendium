@@ -22,11 +22,15 @@
       <div class="col-lg-6 col-md-12">
         <div class="form-check form-switch">
           <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" 
-           checked data-smart-recipe-form-target="AIToolsToggle">
+           checked data-smart-recipe-form-target="AIToolsToggle" <%= 'disabled' unless policy(current_user).use_ai? %> >
           <label class="form-check-label" for="flexSwitchCheckDefault"><%= t('helpers.ai_tools.use_ai') %></label>
         </div>
         <small class="form-text text-muted">
-          <%= t('helpers.ai_tools.parser_explanation') %>
+          <% if policy(current_user).use_ai? %>
+            <%= t('helpers.ai_tools.parser_explanation') %>
+          <% else %>
+            <%= t('helpers.ai_tools.limit_reached') %>
+          <% end %>
         </small>
       </div>
     <% end %>
@@ -46,14 +50,14 @@
       <%= render 'recipes/form/recipe_image', form: form %>
     </div>
   </div>
-  <% if action_name == "new" %>
+  <% if action_name == "new" && policy(current_user).use_ai? %>
     <div class="form-group mb-4" data-smart-recipe-form-target="AIInputGroup">
       <%= form.label :ingredients_and_instructions, class: "form-label" %>
       <%= form.text_area :ingredients_and_instructions, class: "form-control", placeholder: t('activerecord.placeholders.recipes.ingredients_and_instructions'), 
                        rows: 10, data: { "smart-recipe-form-target" => "AIToolsInput" } %>
     </div>
   <% end %>
-  <div data-smart-recipe-form-target="nonAIFormInputs" class="<%= action_name == "edit" ? '' : 'd-none' %>">
+  <div data-smart-recipe-form-target="nonAIFormInputs" class="<%= action_name == "edit" || !(policy(current_user).use_ai?)  ? '' : 'd-none' %>">
     <%= render 'recipes/form/recipe_extra_details', form: form %>
     <%= render 'recipes/form/recipe_ingredients', form: form, available_ingredients:, measurement_units: %>
     <%= render 'recipes/form/recipe_steps', form: form, available_ingredients:, measurement_units: %>

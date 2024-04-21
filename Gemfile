@@ -116,3 +116,5 @@ group :development do
 end
 
 gem "sidekiq", "~> 7.2"
+
+gem "whenever", "~> 1.0"

@@ -170,6 +170,12 @@ RUN mkdir -p /usr/src/tmp/cache && \
 # Step 30: Set the container user to 'nobody':
 USER nobody
 
+# Create empty crontab file
+RUN crontab -l | { cat; echo ""; } | crontab -
+
+# Update crontab file using whenever command
+RUN bundle exec whenever --update-crontab
+
 # Step 31: Set the default command:
 CMD [ "puma" ]
 
