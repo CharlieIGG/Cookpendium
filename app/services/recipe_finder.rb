@@ -8,10 +8,10 @@ class RecipeFinder < ApplicationService
   attr_reader :search_ingredient_ids, :search_text
   attr_accessor :query
 
-  def initialize(search_ingredient_ids, search_text)
+  def initialize(search_ingredient_ids, search_text, user: nil)
     @search_ingredient_ids = search_ingredient_ids
     @search_text = search_text
-    @query = Recipe
+    @query = user ? Recipe.with_role(:author, user) : Recipe
   end
 
   def call
