@@ -5,7 +5,8 @@ class RecipesController < ApplicationController
 
   # GET /recipes or /recipes.json
   def index
-    @recipes, @search_active = RecipeFinder.call(params[:search_ingredient_ids], params[:search_text])
+    @recipes, @search_active = RecipeFinder.call(params[:search_ingredient_ids], params[:search_text],
+                                                 user: User.find_by(id: params[:user_id]))
     @pagy, @recipes = pagy(@recipes, items: 12)
     @recipes = @recipes.map { |recipe| RecipeDecorator.new(recipe) }
     respond_to do |format|

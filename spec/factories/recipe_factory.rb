@@ -19,6 +19,14 @@ FactoryBot.define do # rubocop:disable Metrics/BlockLength
     sequence(:title) { |n| "#{Faker::Lorem.unique.word} #{n}" }
     description { Faker::Lorem.paragraph }
 
+    transient do
+      author { nil }
+    end
+
+    after(:create) do |recipe, evaluator|
+      evaluator.author.add_role(:author, recipe) if evaluator.author.present?
+    end
+
     trait :with_steps do
       transient do
         steps_count { 3 }

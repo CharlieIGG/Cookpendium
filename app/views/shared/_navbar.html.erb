@@ -9,8 +9,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <%= link_to "#{ t('numerators.all').capitalize } #{ Recipe.model_name.human(count: 2) }", recipes_path, class: "nav-link active",
-                          "aria-current": params[:controller] = 'recipes' %>
+          <%= link_to "#{ t('numerators.all').capitalize } #{ Recipe.model_name.human(count: 2) }", recipes_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to I18n.t('recipes.my_recipes'), recipes_path(user_id: current_user&.id), class: "nav-link" %>
         </li>
       </ul>
       <div class="d-flex flex-column flex-lg-row">
