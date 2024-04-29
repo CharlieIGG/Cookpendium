@@ -46,4 +46,8 @@ class Recipe < ApplicationRecord
       .where.not(recipe_steps: { id: nil })
       .where.not(recipe_ingredients: { id: nil })
   }
+
+  def draft?
+    recipe_steps.count.zero? || recipe_ingredients.count.zero?
+  end
 end

@@ -4,6 +4,7 @@ en:
     add_image_cta: "Add an image"
     add_steps_cta: "Add steps to this recipe"
     approve_image_cta: "Keep this image"
+    draft: "Draft"
     my_recipes: "My Recipes"
     no_steps: "It looks like there are no steps for this recipe yet"
     select_image_cta: "Select an image"

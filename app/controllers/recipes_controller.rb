@@ -3,10 +3,8 @@ class RecipesController < ApplicationController
   before_action :set_recipe, only: %i[show edit update destroy]
   before_action -> { authorize @recipe }, only: %i[edit update destroy]
 
-  # GET /recipes or /recipes.json
   def index
-    @recipes, @search_active = RecipeFinder.call(params[:search_ingredient_ids], params[:search_text],
-                                                 user: User.find_by(id: params[:user_id]))
+    @recipes, @search_active = RecipeFinder.call(**helpers.recipe_search_params.except(:page, :format))
     @pagy, @recipes = pagy(@recipes, items: 12)
     @recipes = @recipes.map { |recipe| RecipeDecorator.new(recipe) }
     respond_to do |format|
@@ -15,10 +13,8 @@ class RecipesController < ApplicationController
     end
   end
 
-  # GET /recipes/1 or /recipes/1.json
   def show; end
 
-  # GET /recipes/new
   def new
     @recipe = Recipe.new
     @recipe.recipe_ingredients.build
@@ -26,12 +22,10 @@ class RecipesController < ApplicationController
     set_units_and_ingredients
   end
 
-  # GET /recipes/1/edit
   def edit
     set_units_and_ingredients
   end
 
-  # POST /recipes or /recipes.json
   def create
     raw_recipe = params.dig(:recipe, :ingredients_and_instructions)
     return create_with_ai(raw_recipe) if raw_recipe.present? && raw_recipe.length.positive?
@@ -42,14 +36,12 @@ class RecipesController < ApplicationController
     handle_recipe_save_failure
   end
 
-  # PATCH/PUT /recipes/1 or /recipes/1.json
   def update
     return after_save if @recipe.update(recipe_params)
 
     handle_recipe_save_failure
   end
 
-  # DELETE /recipes/1 or /recipes/1.json
   def destroy
     @recipe.destroy!
 
@@ -59,7 +51,6 @@ class RecipesController < ApplicationController
 
   private
 
-  # Only allow a list of trusted parameters through.
   def recipe_params
     params
       .require(:recipe)
@@ -68,7 +59,6 @@ class RecipesController < ApplicationController
                                    recipe_steps_attributes: %i[id instruction description step_number _destroy])
   end
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_recipe
     @recipe = RecipeDecorator.new(Recipe.includes(
       :translations, recipe_ingredients: [measurement_unit: [:translations], ingredient: [:translations]],

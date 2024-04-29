@@ -45,7 +45,7 @@ services:
     # app service containers:
     depends_on:
       - postgres
-      # - redis
+      - redis
 
     # The command we want to execute by default when running the container
     command: rails db:migrate
@@ -72,7 +72,7 @@ services:
       STORAGE_SECRET_ACCESS_KEY: ${STORAGE_SECRET_ACCESS_KEY}
       STORAGE_REGION: eu-central-1
       STORAGE_BUCKET_NAME: ${STORAGE_BUCKET_NAME:-cookpendium-development}
-      # REDIS_URL: redis://redis:6379/1
+      REDIS_URL: redis://redis:6379/1
 
   web:
     <<: *app

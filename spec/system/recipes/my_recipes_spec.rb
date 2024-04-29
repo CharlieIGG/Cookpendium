@@ -36,5 +36,16 @@ RSpec.describe 'My Recipes', type: :system do
       expect(page).not_to have_content(author_recipe.title)
       expect(page).not_to have_content(other_recipe.title)
     end
+
+    context 'for recipes without steps or ingredients' do
+      context 'for the user\'s own recipes' do
+        let!(:draft_recipe) { create(:recipe, author: user) }
+        it 'shows the recipes with a "draft" badge' do
+          click_link I18n.t('recipes.my_recipes')
+          expect(page).to have_content(draft_recipe.title)
+          expect(page).to have_css('.badge', text: I18n.t('recipes.draft'))
+        end
+      end
+    end
   end
 end

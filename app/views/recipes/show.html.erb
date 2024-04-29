@@ -1,8 +1,8 @@
 <div class="d-flex flex-row recipe__main p-4 p-lg-5">
   <div class="recipe_details flex-grow-1">
     <div class="row mb-3">
-      <div class="col-12 col-lg">
-        <h1 class="mt-3 mb-4 my-lg-2 text-dark"><%= @recipe.title %></h1>
+      <div class="col-12 col-lg-auto">
+        <h1 class="mt-3 mb-4 my-lg-2 text-dark"><%= @recipe.title_html %></h1>
       </div>
       <% if current_user && (current_user.author?(@recipe) || current_user.admin?) %>
         <div class="col d-grid d-lg-flex gap-2 align-items-center justify-content-lg-end">
