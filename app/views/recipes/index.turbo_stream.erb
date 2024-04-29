@@ -12,8 +12,6 @@
 <% end %>
 <%= turbo_stream.replace "recipes_pagination" do %>
   <% if @pagy.next.present? %>
-    <%= turbo_frame_tag "recipes_pagination", 
-                        src: recipes_url(page: @pagy.next, search_text: params[:search_text], search_ingredient_ids: params[:search_ingredient_ids],
-                        user_id: params[:user_id], format: "turbo_stream"), loading: "lazy" %>
+    <%= turbo_frame_tag "recipes_pagination", src: recipes_url(recipe_search_params(next_page: true)), loading: "lazy" %>
   <% end %>
 <% end %>

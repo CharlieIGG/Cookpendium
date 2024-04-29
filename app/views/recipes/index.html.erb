@@ -6,9 +6,8 @@
       <%= render 'search' %>
     </div>
   </div>
-  <%= turbo_frame_tag "recipes_list", class: "row", src: recipes_url(format: :turbo_stream, page: params[:page], search_text: params[:search_text],
-                                                                     search_ingredient_ids: params[:search_ingredient_ids], user_id: params[:user_id]),
-                                                                     loading: "lazy", data: {controller: 'infinite-scrolling'} do %>
+  <%= turbo_frame_tag "recipes_list", class: "row", src: recipes_url(recipe_search_params), loading: "lazy", 
+                                      data: {controller: 'infinite-scrolling'} do %>
     <div class="row" id="recipes_placeholder" data-infinite-scrolling-target="container">
       <% 12.times do %>
         <%= render "recipe_placeholder" %>

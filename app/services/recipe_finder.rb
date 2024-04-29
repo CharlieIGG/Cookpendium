@@ -5,13 +5,15 @@
 # filtering out recipes that aren't "complete"
 # returns [ActiveRecord::Relation, Boolean] where the boolean indicates if a search (filter) is active
 class RecipeFinder < ApplicationService
-  attr_reader :search_ingredient_ids, :search_text
+  attr_reader :search_ingredient_ids, :search_text, :show_drafts
   attr_accessor :query
 
-  def initialize(search_ingredient_ids, search_text, user: nil)
+  def initialize(search_ingredient_ids:, search_text:, user_id: nil, show_drafts: false)
+    user = user_id.present? ? User.find_by(id: user_id) : nil
     @search_ingredient_ids = search_ingredient_ids
     @search_text = search_text
     @query = user ? Recipe.with_role(:author, user) : Recipe
+    @show_drafts = show_drafts
   end
 
   def call
@@ -26,7 +28,8 @@ class RecipeFinder < ApplicationService
 
   def find_recipes
     apply_search_clauses if search_active?
-    [query.with_steps_and_ingredients.includes(:translations, :image_attachment), search_active?]
+    self.query = query.with_steps_and_ingredients unless show_drafts
+    [query.includes(:translations, :image_attachment), search_active?]
   end
 
   def apply_search_clauses

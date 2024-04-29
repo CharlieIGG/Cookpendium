@@ -6,6 +6,13 @@ class RecipeDecorator < BaseDecorator
     'Recipe' # Used to ensure that Rolify's has_role? works with decorate Recipes
   end
 
+  def title_html
+    return title unless draft?
+
+    (title + content_tag(:span, I18n.t('recipes.draft'),
+                         class: 'badge rounded-pill text-bg-warning text-light ms-2')).html_safe
+  end
+
   def vegan_vegetarian_marker
     return unless vegan || vegetarian
     return vegan_marker if vegan
